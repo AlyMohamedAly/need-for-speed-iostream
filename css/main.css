@@ -1,0 +1,21 @@
+@CHARSET "UTF-8";
+
+* {
+    font-family: Arial;
+    font-size:24px;
+    font-style: italic;
+}
+
+body {
+	color:White;
+}
+
+#container {
+	position:absolute;
+}
+
+#webglcanvas {
+	border:none;
+	background-color:#000000;
+}
+

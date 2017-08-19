@@ -1,0 +1,66 @@
+@CHARSET "UTF-8";
+
+.frontside {
+	-webkit-transform: rotateY(210deg);
+	   -moz-transform: rotateY(210deg);
+	     -o-transform: rotateY(210deg);
+	        transform: rotateY(210deg);
+	        line-height:160px;
+	        font-size:40px;
+	        color:White;
+	        background-color:DarkCyan;
+	        border-color:Black;
+	        box-shadow:2px 2px 2px Black;
+}
+
+.backside {
+	-webkit-transform: rotateY(30deg);
+	   -moz-transform: rotateY(30deg);
+	     -o-transform: rotateY(30deg);
+	        transform: rotateY(30deg);
+	        line-height:160px;
+	        font-size:40px;
+	        color:White;
+	        background-color:DarkRed;
+	        border-color:Black;
+	        box-shadow:2px 2px 2px Black;
+	        opacity:0.8;
+}
+
+.backface {
+	-webkit-backface-visibility: visible;
+	   -moz-backface-visibility: visible;
+	     -o-backface-visibility: visible;
+	        backface-visibility: visible;
+}
+
+.nobackface {
+	-webkit-backface-visibility: hidden;
+	   -moz-backface-visibility: hidden;
+	     -o-backface-visibility: hidden;
+	        backface-visibility: hidden;
+}
+
+#backface1 {
+   	position:absolute;
+   	left:40px;
+   	top:60px;
+}
+
+#backface2 {
+   	position:absolute;
+   	left:330px;
+   	top:60px;
+}
+
+#backface3 {
+   	position:absolute;
+   	left:40px;
+   	top: 360px;
+}
+
+#backface4 {
+   	position:absolute;
+   	left:330px;
+   	top: 360px;
+}
