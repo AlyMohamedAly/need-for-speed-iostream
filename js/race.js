@@ -14,7 +14,8 @@ var tank;
 var laps = 0;
 var satellite;
 var finish;
-//var checkPoint;
+var tankPower;
+var PowerUps = [];
 
 var isWPressed = false;
 var isDPressed = false;
@@ -33,6 +34,7 @@ function startGame() {
 
     var ground = createGround();
     finish = createFinishLine();
+    PowerUps = createPowerups();
     //checkPoint = createCheckpoint();
     tank = createHero();
     //loadSpace7arakat();
@@ -156,17 +158,114 @@ function createFinishLine() {
 
 
 
-    var xd = BABYLON.Mesh.CreateBox("sss", 2, scene);
-    xd.scaling.x = 130;
-    xd.scaling.y = 1;
-    xd.scaling.z = 5;
-    xd.position.x = 587;
-    xd.position.y = 1;
-    xd.position.z = 387;
-    xd.rotation.y = -0.5;
-    xd.material = mat;
+    var realFinishLine = BABYLON.Mesh.CreateBox("sss", 2, scene);
+    realFinishLine.scaling.x = 130;
+    realFinishLine.scaling.y = 1;
+    realFinishLine.scaling.z = 5;
+    realFinishLine.position.x = 587;
+    realFinishLine.position.y = 1;
+    realFinishLine.position.z = 387;
+    realFinishLine.rotation.y = -0.5;
+    realFinishLine.material = mat;
     
-    return xd;
+    return realFinishLine;
+}
+
+function createPowerups() {
+    var Ups = [];
+    var UpsMaterial = [];
+    UpsMaterial[0] = new BABYLON.StandardMaterial("U1", scene);
+    UpsMaterial[0].emissiveColor = new BABYLON.Color3(1, 1, 1);
+    UpsMaterial[0].alpha = 0.8;
+
+    UpsMaterial[1] = new BABYLON.StandardMaterial("U2", scene);
+    UpsMaterial[1].emissiveColor = new BABYLON.Color3(1, 1, 1);
+    UpsMaterial[1].alpha = 0.8;
+
+    UpsMaterial[2] = new BABYLON.StandardMaterial("U3", scene);
+    UpsMaterial[2].emissiveColor = new BABYLON.Color3(1, 1, 1);
+    UpsMaterial[2].alpha = 0.8;
+
+    UpsMaterial[3] = new BABYLON.StandardMaterial("U4", scene);
+    UpsMaterial[3].emissiveColor = new BABYLON.Color3(1, 1, 1);
+    UpsMaterial[3].alpha = 0.8;
+
+    UpsMaterial[4] = new BABYLON.StandardMaterial("U5", scene);
+    UpsMaterial[4].emissiveColor = new BABYLON.Color3(1, 1, 1);
+    UpsMaterial[4].alpha = 0.8;
+
+    UpsMaterial[5] = new BABYLON.StandardMaterial("U6", scene);
+    UpsMaterial[5].emissiveColor = new BABYLON.Color3(1, 1, 1);
+    UpsMaterial[5].alpha = 0.8;
+
+    UpsMaterial[6] = new BABYLON.StandardMaterial("U7", scene);
+    UpsMaterial[6].emissiveColor = new BABYLON.Color3(1, 1, 1);
+    UpsMaterial[6].alpha = 0.8;
+
+    UpsMaterial[7] = new BABYLON.StandardMaterial("U8", scene);
+    UpsMaterial[7].emissiveColor = new BABYLON.Color3(1, 1, 1);
+    UpsMaterial[7].alpha = 0.8;
+
+
+    Ups[0] = new BABYLON.Mesh.CreateBox("powerup_1", 8, scene);
+    Ups[1] = new BABYLON.Mesh.CreateBox("powerup_2", 8, scene);
+    Ups[2] = new BABYLON.Mesh.CreateBox("powerup_3", 8, scene);
+    Ups[3] = new BABYLON.Mesh.CreateBox("powerup_4", 8, scene);
+    Ups[4] = new BABYLON.Mesh.CreateBox("powerup_5", 8, scene);
+    Ups[5] = new BABYLON.Mesh.CreateBox("powerup_6", 8, scene);
+    Ups[6] = new BABYLON.Mesh.CreateBox("powerup_7", 8, scene);
+    Ups[7] = new BABYLON.Mesh.CreateBox("powerup_8", 8, scene);
+
+    Ups[0].broken = false;
+    Ups[1].broken = false;
+    Ups[2].broken = false;
+    Ups[3].broken = false;
+    Ups[4].broken = false;
+    Ups[5].broken = false;
+    Ups[6].broken = false;
+    Ups[7].broken = false;
+
+    Ups[0].position.x = 563;
+    Ups[0].position.y = 5;
+    Ups[0].position.z = -445;
+
+    Ups[1].position.x = 518;
+    Ups[1].position.y = 5;
+    Ups[1].position.z = -365;
+
+    Ups[2].position.x = 473;
+    Ups[2].position.y = 5;
+    Ups[2].position.z = -307;
+
+    Ups[3].position.x = 428;
+    Ups[3].position.y = 5;
+    Ups[3].position.z = -262;
+
+    Ups[4].position.x = -609;
+    Ups[4].position.y = 5;
+    Ups[4].position.z = -22;
+
+    Ups[5].position.x = -663;
+    Ups[5].position.y = 5;
+    Ups[5].position.z = -8;
+
+    Ups[6].position.x = -718;
+    Ups[6].position.y = 5;
+    Ups[6].position.z = 5;
+
+    Ups[7].position.x = -802;
+    Ups[7].position.y = 5;
+    Ups[7].position.z = 28;
+
+    Ups[0].material = UpsMaterial[0];
+    Ups[1].material = UpsMaterial[1];
+    Ups[2].material = UpsMaterial[2];
+    Ups[3].material = UpsMaterial[3];
+    Ups[4].material = UpsMaterial[4];
+    Ups[5].material = UpsMaterial[5];
+    Ups[6].material = UpsMaterial[6];
+    Ups[7].material = UpsMaterial[7];
+    return Ups;
 }
 
 function createCheckpoint() {
@@ -376,6 +475,35 @@ function applyTankMovement() {
     //if (tank.position.x < -43)
     //    tank.position.x = -43;
 
+
+    //optimize here
+    if (!PowerUps[0].broken && tank.intersectsMesh(PowerUps[0], false)) {
+        PowerUps[0].material.alpha = 0;
+    }
+    if (!PowerUps[1].broken && tank.intersectsMesh(PowerUps[1], false)) {
+        PowerUps[1].material.alpha = 0;
+    }
+    if (!PowerUps[2].broken && tank.intersectsMesh(PowerUps[2], false)) {
+        PowerUps[2].material.alpha = 0;
+    }
+    if (!PowerUps[3].broken && tank.intersectsMesh(PowerUps[3], false)) {
+        PowerUps[3].material.alpha = 0;
+    }
+    if (!PowerUps[4].broken && tank.intersectsMesh(PowerUps[4], false)) {
+        PowerUps[4].material.alpha = 0;
+    }
+    if (!PowerUps[5].broken && tank.intersectsMesh(PowerUps[5], false)) {
+        PowerUps[5].material.alpha = 0;
+    }
+    if (!PowerUps[6].broken && tank.intersectsMesh(PowerUps[6], false)) {
+        PowerUps[6].material.alpha = 0;
+    }
+    if (!PowerUps[7].broken && tank.intersectsMesh(PowerUps[7], false)) {
+        PowerUps[7].material.alpha = 0;
+    }
+
+
+    //optimize here
     if (passedCheckpoint && tank.intersectsMesh(finish, true)) {
         laps++;
         passedCheckpoint = false;
