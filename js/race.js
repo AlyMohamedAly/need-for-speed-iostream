@@ -35,6 +35,7 @@ function startGame() {
     var ground = createGround();
     finish = createFinishLine();
     PowerUps = createPowerups();
+    animatePowerUps(PowerUps);
     //checkPoint = createCheckpoint();
     tank = createHero();
     //loadSpace7arakat();
@@ -100,7 +101,7 @@ function createGround() {
     var groundMaterial = new BABYLON.StandardMaterial("M1", scene);
     //groundMaterial.diffuseColor = new BABYLON.Color3.White;
     //groundMaterial.ambientColor = new BABYLON.Color3.White;
-    groundMaterial.diffuseTexture = new BABYLON.Texture("images/concrete.jpg", scene);
+    groundMaterial.diffuseTexture = new BABYLON.Texture("images/Earth.jpg", scene);
     ground.material = groundMaterial;
     //ground.position = new BABYLON.Vector3(0, 0, 0);
     ground.checkCollisions = true;
@@ -268,6 +269,75 @@ function createPowerups() {
     return Ups;
 }
 
+function animatePowerUps(ups) {
+
+    var animationBox = [];
+    animationBox[0]  = new BABYLON.Animation("tutoAnimation", "rotation.y", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT,
+        BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
+
+    animationBox[1] = new BABYLON.Animation("tutoAnimation", "rotation.y", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT,
+        BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
+
+    animationBox[2] = new BABYLON.Animation("tutoAnimation", "rotation.y", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT,
+        BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
+
+    animationBox[3] = new BABYLON.Animation("tutoAnimation", "rotation.y", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT,
+        BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
+
+    animationBox[4] = new BABYLON.Animation("tutoAnimation", "rotation.y", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT,
+        BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
+
+    animationBox[5] = new BABYLON.Animation("tutoAnimation", "rotation.y", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT,
+        BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
+
+    animationBox[6] = new BABYLON.Animation("tutoAnimation", "rotation.y", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT,
+        BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
+
+    animationBox[7] = new BABYLON.Animation("tutoAnimation", "rotation.y", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT,
+        BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
+
+    // Animation keys
+    var keys = [];
+    keys.push({
+        frame: 0,
+        value: 0
+    });
+
+    keys.push({
+        frame: 60,
+        value: 2*Math.PI
+    });
+
+
+    animationBox[0].setKeys(keys);
+    animationBox[1].setKeys(keys);
+    animationBox[2].setKeys(keys);
+    animationBox[3].setKeys(keys);
+    animationBox[4].setKeys(keys);
+    animationBox[5].setKeys(keys);
+    animationBox[6].setKeys(keys);
+    animationBox[7].setKeys(keys);
+
+    ups[0].animations.push(animationBox[0]);
+    ups[1].animations.push(animationBox[1]);
+    ups[2].animations.push(animationBox[2]);
+    ups[3].animations.push(animationBox[3]);
+    ups[4].animations.push(animationBox[4]);
+    ups[5].animations.push(animationBox[5]);
+    ups[6].animations.push(animationBox[6]);
+    ups[7].animations.push(animationBox[7]);
+
+    scene.beginAnimation(ups[0], 0, 60, true);
+    scene.beginAnimation(ups[1], 0, 60, true);
+    scene.beginAnimation(ups[2], 0, 60, true);
+    scene.beginAnimation(ups[3], 0, 60, true);
+    scene.beginAnimation(ups[4], 0, 60, true);
+    scene.beginAnimation(ups[5], 0, 60, true);
+    scene.beginAnimation(ups[6], 0, 60, true);
+    scene.beginAnimation(ups[7], 0, 60, true);
+
+}
+
 function createCheckpoint() {
     var checkpoint = BABYLON.Mesh.CreateBox("checkpoint", 2, scene);
     var checkMaterial = new BABYLON.StandardMaterial("M2", scene);
@@ -345,14 +415,16 @@ function createFollowCamera() {
 }
 
 function createHero() {
-    materialWood = new BABYLON.StandardMaterial("wood", scene);
-    materialWood.diffuseColor = new BABYLON.Color3.Green;
-    //materialWood.emissiveColor = new BABYLON.Color3.Yellow;
+    //materialWood = new BABYLON.StandardMaterial("wood", scene);
+    //materialWood.diffuseColor = new BABYLON.Color3.Green;
+    ////materialWood.emissiveColor = new BABYLON.Color3.Yellow;
 
     var tank = new BABYLON.Mesh.CreateBox("tank", 2, scene);
 
     var tankMaterial = new BABYLON.StandardMaterial("tankMat", scene);
-    tankMaterial.diffuseColor = new BABYLON.Vector3(0.90, 0.67, 0.93);
+    // pink : tankMaterial.diffuseColor = new BABYLON.Vector3(0.90, 0.67, 0.93);
+    // brown: tankMaterial.diffuseColor = new BABYLON.Vector3(0.27, 0.19, 0.19);
+    tankMaterial.diffuseColor = new BABYLON.Color3.Yellow;
     tank.material = tankMaterial;
     tank.ellipsoid = new BABYLON.Vector3(2, 1.0, 2);
     tank.ellipsoidOffset = new BABYLON.Vector3(0, 1.0, 0);
