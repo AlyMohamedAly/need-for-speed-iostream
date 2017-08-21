@@ -15,6 +15,8 @@ var laps = 0;
 var satellite;
 var finish;
 var tankPower;
+var particleSystem
+var origin;
 var PowerUps = [];
 
 var isWPressed = false;
@@ -35,7 +37,24 @@ function startGame() {
     var ground = createGround();
     finish = createFinishLine();
     PowerUps = createPowerups();
-    animatePowerUps(PowerUps);
+    origin = new BABYLON.Vector3(0, 0, 0);
+
+    particleSystem = new BABYLON.ParticleSystem("particles", 2000, scene);
+    particleSystem.particleTexture = new BABYLON.Texture("textures/flare.png", scene);
+    particleSystem.color1 = new BABYLON.Color3(0.3, 0.56, 1);
+    particleSystem.color2 = new BABYLON.Color3(0.9, 0.9, 1);
+    
+    //particleSystem.colorDead = new BABYLON.Color4(0, 0, 0.2, 0.0);
+    particleSystem.minSize = 0.2;
+    particleSystem.maxSize = 0.9;
+    particleSystem.minEmitBox = new BABYLON.Vector3(-2, -2, -2); // Starting all From
+    particleSystem.maxEmitBox = new BABYLON.Vector3(2, 2, 2);
+    particleSystem.minLifeTime = 0.3;
+    particleSystem.maxLifeTime = 1.5;
+    particleSystem.emitRate = 2000;
+   // particleSystem.manualEmitCount = 300;
+    particleSystem.gravity = new BABYLON.Vector3(0, -9.81, 0);
+    
     //checkPoint = createCheckpoint();
     tank = createHero();
     //loadSpace7arakat();
@@ -44,7 +63,7 @@ function startGame() {
     var freeCamera = createFreeCamera();
     var followCamera = createFollowCamera();
     scene.activeCamera = followCamera;
-    
+    particleSystem.emitter = tank;
 
     var light_1 = new BABYLON.HemisphericLight("L1", new BABYLON.Vector3(0, 5, 0), scene);
 
@@ -175,6 +194,8 @@ function createFinishLine() {
 function createPowerups() {
     var Ups = [];
     var UpsMaterial = [];
+    
+
     UpsMaterial[0] = new BABYLON.StandardMaterial("U1", scene);
     UpsMaterial[0].emissiveColor = new BABYLON.Color3(1, 1, 1);
     UpsMaterial[0].alpha = 0.8;
@@ -207,7 +228,6 @@ function createPowerups() {
     UpsMaterial[7].emissiveColor = new BABYLON.Color3(1, 1, 1);
     UpsMaterial[7].alpha = 0.8;
 
-
     Ups[0] = new BABYLON.Mesh.CreateBox("powerup_1", 8, scene);
     Ups[1] = new BABYLON.Mesh.CreateBox("powerup_2", 8, scene);
     Ups[2] = new BABYLON.Mesh.CreateBox("powerup_3", 8, scene);
@@ -216,15 +236,6 @@ function createPowerups() {
     Ups[5] = new BABYLON.Mesh.CreateBox("powerup_6", 8, scene);
     Ups[6] = new BABYLON.Mesh.CreateBox("powerup_7", 8, scene);
     Ups[7] = new BABYLON.Mesh.CreateBox("powerup_8", 8, scene);
-
-    Ups[0].broken = false;
-    Ups[1].broken = false;
-    Ups[2].broken = false;
-    Ups[3].broken = false;
-    Ups[4].broken = false;
-    Ups[5].broken = false;
-    Ups[6].broken = false;
-    Ups[7].broken = false;
 
     Ups[0].position.x = 563;
     Ups[0].position.y = 5;
@@ -266,13 +277,18 @@ function createPowerups() {
     Ups[5].material = UpsMaterial[5];
     Ups[6].material = UpsMaterial[6];
     Ups[7].material = UpsMaterial[7];
-    return Ups;
-}
 
-function animatePowerUps(ups) {
+    Ups[0].broken = false;
+    Ups[1].broken = false;
+    Ups[2].broken = false;
+    Ups[3].broken = false;
+    Ups[4].broken = false;
+    Ups[5].broken = false;
+    Ups[6].broken = false;
+    Ups[7].broken = false;
 
     var animationBox = [];
-    animationBox[0]  = new BABYLON.Animation("tutoAnimation", "rotation.y", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT,
+    animationBox[0] = new BABYLON.Animation("tutoAnimation", "rotation.y", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT,
         BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
 
     animationBox[1] = new BABYLON.Animation("tutoAnimation", "rotation.y", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT,
@@ -305,7 +321,7 @@ function animatePowerUps(ups) {
 
     keys.push({
         frame: 60,
-        value: 2*Math.PI
+        value: 2 * Math.PI
     });
 
 
@@ -318,25 +334,31 @@ function animatePowerUps(ups) {
     animationBox[6].setKeys(keys);
     animationBox[7].setKeys(keys);
 
-    ups[0].animations.push(animationBox[0]);
-    ups[1].animations.push(animationBox[1]);
-    ups[2].animations.push(animationBox[2]);
-    ups[3].animations.push(animationBox[3]);
-    ups[4].animations.push(animationBox[4]);
-    ups[5].animations.push(animationBox[5]);
-    ups[6].animations.push(animationBox[6]);
-    ups[7].animations.push(animationBox[7]);
+    Ups[0].animations.push(animationBox[0]);
+    Ups[1].animations.push(animationBox[1]);
+    Ups[2].animations.push(animationBox[2]);
+    Ups[3].animations.push(animationBox[3]);
+    Ups[4].animations.push(animationBox[4]);
+    Ups[5].animations.push(animationBox[5]);
+    Ups[6].animations.push(animationBox[6]);
+    Ups[7].animations.push(animationBox[7]);
 
-    scene.beginAnimation(ups[0], 0, 60, true);
-    scene.beginAnimation(ups[1], 0, 60, true);
-    scene.beginAnimation(ups[2], 0, 60, true);
-    scene.beginAnimation(ups[3], 0, 60, true);
-    scene.beginAnimation(ups[4], 0, 60, true);
-    scene.beginAnimation(ups[5], 0, 60, true);
-    scene.beginAnimation(ups[6], 0, 60, true);
-    scene.beginAnimation(ups[7], 0, 60, true);
+    scene.beginAnimation(Ups[0], 0, 60, true);
+    scene.beginAnimation(Ups[1], 0, 60, true);
+    scene.beginAnimation(Ups[2], 0, 60, true);
+    scene.beginAnimation(Ups[3], 0, 60, true);
+    scene.beginAnimation(Ups[4], 0, 60, true);
+    scene.beginAnimation(Ups[5], 0, 60, true);
+    scene.beginAnimation(Ups[6], 0, 60, true);
+    scene.beginAnimation(Ups[7], 0, 60, true);
 
+    
+
+
+    return Ups;
 }
+
+
 
 function createCheckpoint() {
     var checkpoint = BABYLON.Mesh.CreateBox("checkpoint", 2, scene);
@@ -550,28 +572,100 @@ function applyTankMovement() {
 
     //optimize here
     if (!PowerUps[0].broken && tank.intersectsMesh(PowerUps[0], false)) {
-        PowerUps[0].material.alpha = 0;
+        var temp0 = PowerUps[0].position;
+        PowerUps[0].position = origin
+        //particleSystem.emitter = PowerUps[0];
+        particleSystem.start();
+        setTimeout(function () {
+            particleSystem.stop();
+        }, 75);
+        setTimeout(function () {
+            PowerUps[0].position = temp0;
+        }, 2000);
     }
     if (!PowerUps[1].broken && tank.intersectsMesh(PowerUps[1], false)) {
-        PowerUps[1].material.alpha = 0;
+        var temp1 = PowerUps[1].position;
+        PowerUps[1].position = origin
+        //particleSystem.emitter = PowerUps[0];
+        particleSystem.start();
+        setTimeout(function () {
+            particleSystem.stop();
+        }, 75);
+        setTimeout(function () {
+            PowerUps[1].position = temp1;
+        }, 2000);
     }
     if (!PowerUps[2].broken && tank.intersectsMesh(PowerUps[2], false)) {
-        PowerUps[2].material.alpha = 0;
+        var temp2 = PowerUps[2].position;
+        PowerUps[2].position = origin
+        //particleSystem.emitter = PowerUps[0];
+        particleSystem.start();
+        setTimeout(function () {
+            particleSystem.stop();
+        }, 75);
+        setTimeout(function () {
+            PowerUps[2].position = temp2;
+        }, 2000);
     }
     if (!PowerUps[3].broken && tank.intersectsMesh(PowerUps[3], false)) {
-        PowerUps[3].material.alpha = 0;
+        var temp3 = PowerUps[3].position;
+        PowerUps[3].position = origin
+        //particleSystem.emitter = PowerUps[0];
+        particleSystem.start();
+        setTimeout(function () {
+            particleSystem.stop();
+        }, 75);
+        setTimeout(function () {
+            PowerUps[3].position = temp3;
+        }, 2000);
     }
     if (!PowerUps[4].broken && tank.intersectsMesh(PowerUps[4], false)) {
-        PowerUps[4].material.alpha = 0;
+        var temp4 = PowerUps[4].position;
+        PowerUps[4].position = origin
+        //particleSystem.emitter = PowerUps[0];
+        particleSystem.start();
+        setTimeout(function () {
+            particleSystem.stop();
+        }, 75);
+        setTimeout(function () {
+            PowerUps[4].position = temp4;
+        }, 2000);
     }
     if (!PowerUps[5].broken && tank.intersectsMesh(PowerUps[5], false)) {
-        PowerUps[5].material.alpha = 0;
+        var temp5 = PowerUps[5].position;
+        PowerUps[5].position = origin
+        //particleSystem.emitter = PowerUps[0];
+        particleSystem.start();
+        setTimeout(function () {
+            particleSystem.stop();
+        }, 75);
+        setTimeout(function () {
+            PowerUps[5].position = temp5;
+        }, 2000);
     }
     if (!PowerUps[6].broken && tank.intersectsMesh(PowerUps[6], false)) {
-        PowerUps[6].material.alpha = 0;
+        var temp6 = PowerUps[6].position;
+        PowerUps[6].position = origin
+        //particleSystem.emitter = PowerUps[0];
+        particleSystem.start();
+        setTimeout(function () {
+            particleSystem.stop();
+        }, 75);
+        setTimeout(function () {
+            PowerUps[6].position = temp6;
+        }, 2000);
     }
     if (!PowerUps[7].broken && tank.intersectsMesh(PowerUps[7], false)) {
-        PowerUps[7].material.alpha = 0;
+        var temp7 = PowerUps[7].position;
+        PowerUps[7].position = origin
+        //particleSystem.emitter = PowerUps[0];
+        particleSystem.start();
+        setTimeout(function () {
+            particleSystem.stop();
+        }, 75);
+        setTimeout(function () {
+            PowerUps[7].position = tem7;
+        }, 2000);
     }
 
 
