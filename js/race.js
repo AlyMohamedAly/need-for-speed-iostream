@@ -613,11 +613,11 @@ function applyTankMovement() {
         cannonMat.diffuseColor = new BABYLON.Color3.Black;
         cannonball.material = cannonMat;
         cannonball.checkCollisions = true;
-        cannonball.position = tank.position.add(BABYLON.Vector3.Zero().add(tank.frontVector.normalize().multiplyByFloats(15, 0, 15)));
-        cannonball.position.y += 1
-        var cannonsound = new BABYLON.Sound("cannonballSound", "sound/cannonball.wav", scene);
+        cannonball.position = tank.position.add(BABYLON.Vector3.Zero().add(tank.frontVector.normalize().multiplyByFloats(5, 0, 5)));
+        cannonball.position.y += 1;
+        var cannonsound = new BABYLON.Sound("can", "sounds/Cannon.wav", scene, null, { loop: false, autoplay: true });
         cannonsound.play();
-        window.setTimeout(function () {
+        setTimeout(function () {
             cannonsound.stop();
         },1000);
         cannonball.physicsImpostor = new BABYLON.PhysicsImpostor(cannonball, BABYLON.PhysicsImpostor.SphereImpostor, { mass: 5, friction: 10, restitution: .2 }, scene);
@@ -655,6 +655,8 @@ function applyTankMovement() {
     if (!PowerUps[0].broken && tank.intersectsMesh(PowerUps[0], false)) {
         var temp0 = PowerUps[0].position;
         PowerUps[0].position = origin
+        var glass = new BABYLON.Sound("broken", "sounds/Item Box Sound2.mp3", scene, null, { loop: false, autoplay: true });
+        glass.play();
         //particleSystem.emitter = PowerUps[0];
         particleSystem.start();
         tank.power = RandomPower();
@@ -668,6 +670,8 @@ function applyTankMovement() {
     if (!PowerUps[1].broken && tank.intersectsMesh(PowerUps[1], false)) {
         var temp1 = PowerUps[1].position;
         PowerUps[1].position = origin
+        var glass = new BABYLON.Sound("broken", "sounds/Item Box Sound2.mp3", scene, null, { loop: false, autoplay: true });
+        glass.play();
         //particleSystem.emitter = PowerUps[0];
         particleSystem.start();
         tank.power = RandomPower();
@@ -681,6 +685,8 @@ function applyTankMovement() {
     if (!PowerUps[2].broken && tank.intersectsMesh(PowerUps[2], false)) {
         var temp2 = PowerUps[2].position;
         PowerUps[2].position = origin
+        var glass = new BABYLON.Sound("broken", "sounds/Item Box Sound2.mp3", scene, null, { loop: false, autoplay: true });
+        glass.play();
         //particleSystem.emitter = PowerUps[0];
         particleSystem.start();
         tank.power = RandomPower();
@@ -694,6 +700,8 @@ function applyTankMovement() {
     if (!PowerUps[3].broken && tank.intersectsMesh(PowerUps[3], false)) {
         var temp3 = PowerUps[3].position;
         PowerUps[3].position = origin
+        var glass = new BABYLON.Sound("broken", "sounds/Item Box Sound2.mp3", scene, null, { loop: false, autoplay: true });
+        glass.play();
         //particleSystem.emitter = PowerUps[0];
         particleSystem.start();
         tank.power = RandomPower();
@@ -707,6 +715,8 @@ function applyTankMovement() {
     if (!PowerUps[4].broken && tank.intersectsMesh(PowerUps[4], false)) {
         var temp4 = PowerUps[4].position;
         PowerUps[4].position = origin
+        var glass = new BABYLON.Sound("broken", "sounds/Item Box Sound2.mp3", scene, null, { loop: false, autoplay: true });
+        glass.play();
         //particleSystem.emitter = PowerUps[0];
         particleSystem.start();
         tank.power = RandomPower();
@@ -720,6 +730,8 @@ function applyTankMovement() {
     if (!PowerUps[5].broken && tank.intersectsMesh(PowerUps[5], false)) {
         var temp5 = PowerUps[5].position;
         PowerUps[5].position = origin
+        var glass = new BABYLON.Sound("broken", "sounds/Item Box Sound2.mp3", scene, null, { loop: false, autoplay: true });
+        glass.play();
         //particleSystem.emitter = PowerUps[0];
         particleSystem.start();
         tank.power = RandomPower();
@@ -733,6 +745,8 @@ function applyTankMovement() {
     if (!PowerUps[6].broken && tank.intersectsMesh(PowerUps[6], false)) {
         var temp6 = PowerUps[6].position;
         PowerUps[6].position = origin
+        var glass = new BABYLON.Sound("broken", "sounds/Item Box Sound2.mp3", scene, null, { loop: false, autoplay: true });
+        glass.play();
         //particleSystem.emitter = PowerUps[0];
         particleSystem.start();
         tank.power = RandomPower();
@@ -746,6 +760,8 @@ function applyTankMovement() {
     if (!PowerUps[7].broken && tank.intersectsMesh(PowerUps[7], false)) {
         var temp7 = PowerUps[7].position;
         PowerUps[7].position = origin
+        var glass = new BABYLON.Sound("broken", "sounds/Item Box Sound2.mp3", scene, null, { loop: false, autoplay: true });
+        glass.play();
         //particleSystem.emitter = PowerUps[0];
         particleSystem.start();
         tank.power = RandomPower();
