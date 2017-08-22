@@ -37,6 +37,7 @@ function startGame() {
     var ground = createGround();
     finish = createFinishLine();
     PowerUps = createPowerups();
+    createSkybox();
     origin = new BABYLON.Vector3(0, 0, 0);
 
     particleSystem = new BABYLON.ParticleSystem("particles", 2000, scene);
@@ -125,6 +126,17 @@ function createGround() {
     //ground.position = new BABYLON.Vector3(0, 0, 0);
     ground.checkCollisions = true;
     return ground;
+}
+function createSkybox() {
+    var skybox = BABYLON.Mesh.CreateBox("skyBox", 10000.0, scene);
+    var skyboxMaterial = new BABYLON.StandardMaterial("skyBox", scene);
+    skyboxMaterial.backFaceCulling = false;
+    skyboxMaterial.disableLighting = true;
+    skybox.material = skyboxMaterial;
+    skybox.infiniteDistance = true;
+    skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("textures/sky/sky", scene);
+    skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
+
 }
 function createFinishLine() {
 
