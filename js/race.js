@@ -66,7 +66,7 @@ function startGame() {
     particleSystem.emitter = tank;
 
     var light_1 = new BABYLON.HemisphericLight("L1", new BABYLON.Vector3(0, 5, 0), scene);
-
+    createSkyBox();
     
     engine.runRenderLoop(function () {
         scene.render();
@@ -682,4 +682,14 @@ function applyTankMovement() {
     if (tank.position.y > 1)
         tank.position.y = 1;
 
+}
+function createSkyBox() {
+    var skybox = BABYLON.Mesh.CreateBox("skyBox", 10000.0, scene);
+    var skyboxMaterial = new BABYLON.StandardMaterial("skyBox", scene);
+    skyboxMaterial.backFaceCulling = false;
+    skyboxMaterial.disableLighting = true;
+    skybox.material = skyboxMaterial;
+    skybox.infiniteDistance = true;
+    skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("textures/skybox", scene);
+    skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
 }
