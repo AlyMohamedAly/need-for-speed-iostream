@@ -1,11 +1,7 @@
-﻿// <reference path="libs/jquery-1.9.1/jquery-1.9.1.j" />
-// <reference path="libs/three.js.r58/three.js" />
-// <reference path="libs/three.js.r58/controls/OrbitControls.js" />
-// <reference path="libs/three.js.r59/loaders/ColladaLoader.js" />
-// <reference path="libs/requestAnimationFrame/RequestAnimationFrame.js" />
-// <reference path="js/babylon.max.js" />
-// <reference path="js/cannon.max.js" />
-// <reference path="js/babylon.d.ts" />
+/// <reference path="babylon.max.js" />
+/// <reference path="cannon.max.js" />
+///<reference path = "babylon.d.ts"/>
+
 
 var canvas;
 var engine;
@@ -67,7 +63,7 @@ function startGame() {
     particleSystem.emitter = tank;
 
     var light_1 = new BABYLON.HemisphericLight("L1", new BABYLON.Vector3(0, 5, 0), scene);
-
+    createSkyBox();
     
     engine.runRenderLoop(function () {
         scene.render();
@@ -694,4 +690,14 @@ function applyTankMovement() {
     if (tank.position.y > 1)
         tank.position.y = 1;
 
+}
+function createSkyBox() {
+    var skybox = BABYLON.Mesh.CreateBox("skyBox", 10000.0, scene);
+    var skyboxMaterial = new BABYLON.StandardMaterial("skyBox", scene);
+    skyboxMaterial.backFaceCulling = false;
+    skyboxMaterial.disableLighting = true;
+    skybox.material = skyboxMaterial;
+    skybox.infiniteDistance = true;
+    skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("textures/skybox", scene);
+    skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
 }
