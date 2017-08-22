@@ -31,6 +31,7 @@ var isDPressed = false;
 var isSPressed = false;
 var isAPressed = false;
 var isGPressed = false;
+var isBPressed = false;
 var passedCheckpoint = false;
 
 document.addEventListener("DOMContentLoaded", startGame, false);
@@ -101,6 +102,9 @@ function startGame() {
         if (event.key === 'g' || event.key === 'G') {
             isGPressed = true;
         }
+        if (event.key === 'b' || event.key === 'B') {
+            isBPressed = true;
+        }
     });
 
     document.addEventListener("keyup", function (event) {
@@ -119,6 +123,9 @@ function startGame() {
         }
         if (event.key === 'g' || event.key === 'G') {
             isGPressed = false;
+        }
+        if (event.key === 'b' || event.key === 'B') {
+            isBPressed = false;
         }
     });
 
@@ -597,6 +604,29 @@ function applyTankMovement() {
         tank.rotation.y -= 0.1 * tank.rotationSensitivity;
         tank.frontVector.x = Math.sin(tank.rotation.y) * -1;
         tank.frontVector.z = Math.cos(tank.rotation.y) * -1;
+    }
+    if (isBPressed) {
+        var cannonball = BABYLON.Mesh.CreateSphere("cannonball", 3,2, scene, false);
+        var cannonMat = new BABYLON.StandardMaterial("cannonMat", scene);
+        // pink : tankMaterial.diffuseColor = new BABYLON.Vector3(0.90, 0.67, 0.93);
+        // brown: tankMaterial.diffuseColor = new BABYLON.Vector3(0.27, 0.19, 0.19);
+        cannonMat.diffuseColor = new BABYLON.Color3.Black;
+        cannonball.material = cannonMat;
+        cannonball.checkCollisions = true;
+        cannonball.position = tank.position.add(BABYLON.Vector3.Zero().add(tank.frontVector.normalize().multiplyByFloats(15, 0, 15)));
+        cannonball.position.y += 1
+        var cannonsound = new BABYLON.Sound("cannonballSound", "sound/cannonball.wav", scene);
+        cannonsound.play();
+        window.setTimeout(function () {
+            cannonsound.stop();
+        },1000);
+        cannonball.physicsImpostor = new BABYLON.PhysicsImpostor(cannonball, BABYLON.PhysicsImpostor.SphereImpostor, { mass: 5, friction: 10, restitution: .2 }, scene);
+        cannonball.physicsImpostor.setLinearVelocity(BABYLON.Vector3.Zero().add(tank.frontVector.normalize().multiplyByFloats(350, -9.8, 350)));
+        console.log("edraaaab");
+        setTimeout(function () {
+            cannonball.dispose();
+        }, 2000);
+        isBPressed = false;
     }
 
     //if (passedCheckpoint && tank.position.x >= 476 && tank.position.x <= 698 && tank.position.z >= 326 && tank.position.z <= 442) {
