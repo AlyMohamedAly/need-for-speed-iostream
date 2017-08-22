@@ -1,11 +1,7 @@
-﻿// <reference path="libs/jquery-1.9.1/jquery-1.9.1.j" />
-// <reference path="libs/three.js.r58/three.js" />
-// <reference path="libs/three.js.r58/controls/OrbitControls.js" />
-// <reference path="libs/three.js.r59/loaders/ColladaLoader.js" />
-// <reference path="libs/requestAnimationFrame/RequestAnimationFrame.js" />
-// <reference path="js/babylon.max.js" />
-// <reference path="js/cannon.max.js" />
-// <reference path="js/babylon.d.ts" />
+/// <reference path="babylon.max.js" />
+/// <reference path="cannon.max.js" />
+///<reference path = "babylon.d.ts"/>
+
 
 var canvas;
 var engine;
