@@ -11,11 +11,11 @@ var canvas;
 var engine;
 var scene;
 var tank;
+var ground;
 var laps = 0;
-var satellite;
 var finish;
-var tankPower;
-var particleSystem
+var particleSystem;
+var projectile;
 var origin;
 var PowerUps = [];
 const Powers = {
@@ -23,7 +23,7 @@ const Powers = {
     Oil: 'OilStain',
     SpeedIncrease: 'SpeedBuff',
     SpeedDecrease: 'SpeedNerf',
-    none : "none"
+    none: "none"
 }
 
 var isWPressed = false;
@@ -31,7 +31,6 @@ var isDPressed = false;
 var isSPressed = false;
 var isAPressed = false;
 var isGPressed = false;
-var isBPressed = false;
 var passedCheckpoint = false;
 
 document.addEventListener("DOMContentLoaded", startGame, false);
@@ -42,19 +41,20 @@ function startGame() {
     //engine.isPointerLock = true;
     scene = new BABYLON.Scene(engine);
 
-    var ground = createGround();
+    ground = createGround();
     finish = createFinishLine();
     PowerUps = createPowerups();
     createSkybox();
     origin = new BABYLON.Vector3(0, 0, 0);
 
+    scene.enablePhysics(new BABYLON.Vector3(0, -10, 0), new BABYLON.CannonJSPlugin());
+    scene.gravity = new BABYLON.Vector3(0, -10, 0);
+
     particleSystem = new BABYLON.ParticleSystem("particles", 2000, scene);
     particleSystem.particleTexture = new BABYLON.Texture("textures/flare.png", scene);
     particleSystem.color1 = new BABYLON.Color3(0.3, 0.56, 1);
     particleSystem.color2 = new BABYLON.Color3(0.9, 0.9, 1);
-    var gravityVector = new BABYLON.Vector3(0, -9.81, 0);
-    var physicsPlugin = new BABYLON.CannonJSPlugin();
-    scene.enablePhysics(gravityVector, physicsPlugin);
+
     //particleSystem.colorDead = new BABYLON.Color4(0, 0, 0.2, 0.0);
     particleSystem.minSize = 0.2;
     particleSystem.maxSize = 0.9;
@@ -63,9 +63,9 @@ function startGame() {
     particleSystem.minLifeTime = 0.3;
     particleSystem.maxLifeTime = 1.5;
     particleSystem.emitRate = 2000;
-   // particleSystem.manualEmitCount = 300;
+    // particleSystem.manualEmitCount = 300;
     particleSystem.gravity = new BABYLON.Vector3(0, -9.81, 0);
-    
+
     //checkPoint = createCheckpoint();
     tank = createHero();
     //loadSpace7arakat();
@@ -78,7 +78,7 @@ function startGame() {
 
     var light_1 = new BABYLON.HemisphericLight("L1", new BABYLON.Vector3(0, 5, 0), scene);
 
-    
+
     engine.runRenderLoop(function () {
         scene.render();
         applyTankMovement();
@@ -101,9 +101,6 @@ function startGame() {
         if (event.key === 'g' || event.key === 'G') {
             isGPressed = true;
         }
-        if (event.key === 'b' || event.key === 'B') {
-            isBPressed = true;
-        }
     });
 
     document.addEventListener("keyup", function (event) {
@@ -122,9 +119,6 @@ function startGame() {
         }
         if (event.key === 'g' || event.key === 'G') {
             isGPressed = false;
-        }
-        if (event.key === 'b' || event.key === 'B') {
-            isBPressed = false;
         }
     });
 
@@ -187,7 +181,7 @@ function createFinishLine() {
     var finishSign2 = BABYLON.Mesh.CreateCylinder("cylinder2", 50, 3, 3, 12, 1, scene);
     finishSign2.position.x = 699;
     finishSign2.position.y = 25;
-    finishSign2.position.z = 450; 
+    finishSign2.position.z = 450;
     finishSign2.material = signMaterial;
     finishLine.sign2 = finishSign2;
 
@@ -215,14 +209,14 @@ function createFinishLine() {
     realFinishLine.position.z = 387;
     realFinishLine.rotation.y = -0.5;
     realFinishLine.material = mat;
-    
+
     return realFinishLine;
 }
 
 function createPowerups() {
     var Ups = [];
     var UpsMaterial = [];
-    
+
 
     UpsMaterial[0] = new BABYLON.StandardMaterial("U1", scene);
     UpsMaterial[0].emissiveColor = new BABYLON.Color3(1, 1, 1);
@@ -380,7 +374,7 @@ function createPowerups() {
     scene.beginAnimation(Ups[6], 0, 60, true);
     scene.beginAnimation(Ups[7], 0, 60, true);
 
-    
+
 
 
     return Ups;
@@ -412,7 +406,7 @@ function createCheckpoint() {
     checkpoint.position.y = 0;
     checkpoint.position.z = -123;
     //finishLine.rotation.y = Math.PI;
-    
+
     checkMaterial.diffuseTexture = new BABYLON.Texture("images/stripes3.jpg", scene);
     checkMaterial.emissiveColor = new BABYLON.Color3(0, 1, 0);
     checkpoint.material = checkMaterial;
@@ -431,7 +425,7 @@ function createCheckpoint() {
 //}
 
 //function on7arakatLoaded(newMeshes, particleSystems, skeletons) {
-   
+
 //    //scene.beginAnimation(skeletons[0], 0, 120, 1.0, true);
 //}
 //function applyDudeMovement() {
@@ -561,12 +555,28 @@ function applyTankMovement() {
         //tank.moveWithCollisions(tank.frontVector.multiply(tank.speed));
         //.multiplyByFloats(tank.speed));
     }
-  
+
     if (isGPressed) {
         console.log(tank.position);
         console.log(laps);
         console.log(passedCheckpoint);
         console.log(tank.power);
+        if (tank.power !== "none") {
+            var cannonball = BABYLON.Mesh.CreateSphere("cannonball", 3, 1, scene, false);
+            var cannonMat = new BABYLON.StandardMaterial("cannonMat", scene);
+            // pink : tankMaterial.diffuseColor = new BABYLON.Vector3(0.90, 0.67, 0.93);
+            // brown: tankMaterial.diffuseColor = new BABYLON.Vector3(0.27, 0.19, 0.19);
+            cannonMat.diffuseColor = new BABYLON.Color3.Black;
+            cannonball.material = cannonMat;
+
+            cannonball.position = tank.position.add(BABYLON.Vector3.Zero().add(tank.frontVector.normalize().multiplyByFloats(15, 0, 15)));
+            cannonball.physicsImpostor = new BABYLON.PhysicsImpostor(cannonball, BABYLON.PhysicsImpostor.SphereImpostor, { mass: 5, friction: 10, restitution: .2 }, scene);
+            cannonball.physicsImpostor.setLinearVelocity(BABYLON.Vector3.Zero().add(tank.frontVector.normalize().multiplyByFloats(100, 9.8, 100)));
+            setTimeout(function () {
+                cannonball.dispose();
+            }, 2000);
+            tank.power = "none";
+        }
     }
 
     if (isSPressed) {
@@ -587,23 +597,6 @@ function applyTankMovement() {
         tank.rotation.y -= 0.1 * tank.rotationSensitivity;
         tank.frontVector.x = Math.sin(tank.rotation.y) * -1;
         tank.frontVector.z = Math.cos(tank.rotation.y) * -1;
-    }
-    if (isBPressed) {
-        var cannonball = BABYLON.Mesh.CreateSphere("cannonball", 3, 1, scene, false);
-        var cannonMat = new BABYLON.StandardMaterial("cannonMat", scene);
-        // pink : tankMaterial.diffuseColor = new BABYLON.Vector3(0.90, 0.67, 0.93);
-        // brown: tankMaterial.diffuseColor = new BABYLON.Vector3(0.27, 0.19, 0.19);
-        cannonMat.diffuseColor = new BABYLON.Color3.Black;
-        cannonball.material = cannonMat;
-
-        cannonball.position = tank.position.add(BABYLON.Vector3.Zero().add(tank.frontVector.normalize().multiplyByFloats(15, 0, 15)));
-        cannonball.physicsImpostor = new BABYLON.PhysicsImpostor(cannonball, BABYLON.PhysicsImpostor.SphereImpostor, { mass: 5, friction: 10, restitution: .2 }, scene);
-        cannonball.physicsImpostor.setLinearVelocity(BABYLON.Vector3.Zero().add(tank.frontVector.normalize().multiplyByFloats(100, 9.8, 100)));
-        console.log("edraaaab");
-        setTimeout(function () {
-            cannonball.dispose();
-        }, 2000);
-        isBPressed = false;
     }
 
     //if (passedCheckpoint && tank.position.x >= 476 && tank.position.x <= 698 && tank.position.z >= 326 && tank.position.z <= 442) {
