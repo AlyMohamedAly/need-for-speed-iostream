@@ -18,6 +18,13 @@ var tankPower;
 var particleSystem
 var origin;
 var PowerUps = [];
+const Powers = {
+    Cannon: 'CannonBall',
+    Oil: 'OilStain',
+    SpeedIncrease: 'SpeedBuff',
+    SpeedDecrease: 'SpeedNerf',
+    none : "none"
+}
 
 var isWPressed = false;
 var isDPressed = false;
@@ -370,7 +377,19 @@ function createPowerups() {
     return Ups;
 }
 
-
+function RandomPower() {
+    if (tank.power !== "none")
+        return tank.power;
+    var r = Math.floor(Math.random() * 4);
+    if (r === 0)
+        return "SpeedBuff";
+    if (r === 1)
+        return "SpeedNerf";
+    if (r === 2)
+        return "CannonBall";
+    if (r === 3)
+        return "OilStain";
+}
 
 function createCheckpoint() {
     var checkpoint = BABYLON.Mesh.CreateBox("checkpoint", 2, scene);
@@ -470,7 +489,7 @@ function createHero() {
 
     tank.speed = 4;
     tank.frontVector = new BABYLON.Vector3(0, 0, -1);
-
+    tank.power = "none";
     //console.log(tank.position);
     //var tankMadfa3 = BABYLON.Mesh.CreateBox("madfa3", 1, scene, true);
     //tankMadfa3.scaling.x *= .6;
@@ -538,6 +557,7 @@ function applyTankMovement() {
         console.log(tank.position);
         console.log(laps);
         console.log(passedCheckpoint);
+        console.log(tank.power);
     }
 
     if (isSPressed) {
@@ -588,6 +608,7 @@ function applyTankMovement() {
         PowerUps[0].position = origin
         //particleSystem.emitter = PowerUps[0];
         particleSystem.start();
+        tank.power = RandomPower();
         setTimeout(function () {
             particleSystem.stop();
         }, 75);
@@ -600,6 +621,7 @@ function applyTankMovement() {
         PowerUps[1].position = origin
         //particleSystem.emitter = PowerUps[0];
         particleSystem.start();
+        tank.power = RandomPower();
         setTimeout(function () {
             particleSystem.stop();
         }, 75);
@@ -612,6 +634,7 @@ function applyTankMovement() {
         PowerUps[2].position = origin
         //particleSystem.emitter = PowerUps[0];
         particleSystem.start();
+        tank.power = RandomPower();
         setTimeout(function () {
             particleSystem.stop();
         }, 75);
@@ -624,6 +647,7 @@ function applyTankMovement() {
         PowerUps[3].position = origin
         //particleSystem.emitter = PowerUps[0];
         particleSystem.start();
+        tank.power = RandomPower();
         setTimeout(function () {
             particleSystem.stop();
         }, 75);
@@ -636,6 +660,7 @@ function applyTankMovement() {
         PowerUps[4].position = origin
         //particleSystem.emitter = PowerUps[0];
         particleSystem.start();
+        tank.power = RandomPower();
         setTimeout(function () {
             particleSystem.stop();
         }, 75);
@@ -648,6 +673,7 @@ function applyTankMovement() {
         PowerUps[5].position = origin
         //particleSystem.emitter = PowerUps[0];
         particleSystem.start();
+        tank.power = RandomPower();
         setTimeout(function () {
             particleSystem.stop();
         }, 75);
@@ -660,6 +686,7 @@ function applyTankMovement() {
         PowerUps[6].position = origin
         //particleSystem.emitter = PowerUps[0];
         particleSystem.start();
+        tank.power = RandomPower();
         setTimeout(function () {
             particleSystem.stop();
         }, 75);
@@ -672,6 +699,7 @@ function applyTankMovement() {
         PowerUps[7].position = origin
         //particleSystem.emitter = PowerUps[0];
         particleSystem.start();
+        tank.power = RandomPower();
         setTimeout(function () {
             particleSystem.stop();
         }, 75);
