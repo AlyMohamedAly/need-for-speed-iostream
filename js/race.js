@@ -483,7 +483,7 @@ function createHero() {
     ////materialWood.emissiveColor = new BABYLON.Color3.Yellow;
 
     var tank = new BABYLON.Mesh.CreateBox("tank", 2, scene);
-    var animationBox = new BABYLON.Animation("myAnimation", "material.diffuseColor", 60, BABYLON.Animation.ANIMATIONTYPE_COLOR3, BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
+    var animationBox = new BABYLON.Animation("myAnimation", "material.diffuseColor", 180, BABYLON.Animation.ANIMATIONTYPE_COLOR3, BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
     var keys = [];
 
     keys.push({
@@ -492,12 +492,12 @@ function createHero() {
     });
 
     keys.push({
-        frame: 20,
+        frame: 60,
         value: new BABYLON.Color3(0, 1, 0)
     });
 
     keys.push({
-        frame: 40,
+        frame: 120,
         value: new BABYLON.Color3(0, 0, 1)
     });
 
@@ -520,6 +520,71 @@ function createHero() {
     tank.speed = 4;
     tank.frontVector = new BABYLON.Vector3(0, 0, -1);
     tank.power = "none";
+    //tank.position.y += 1;
+    tank.rotation.x -= 0.1;
+
+    
+    var tiremat = new BABYLON.StandardMaterial("tirmat", scene);
+    tiremat.diffuseColor = new BABYLON.Color3.Red;
+
+    var tire1 = new BABYLON.Mesh.CreateCylinder("cylinder", 1, 10, 10, 12, 3, scene);
+    tire1.material = tiremat;
+
+    tire1.scaling.z *= 0.1;
+    tire1.scaling.y *= 0.1;
+    tire1.scaling.x *= 0.3;
+
+    tire1.position.y += 0.1;
+    tire1.position.x += 1;
+    tire1.position.z += 0.9;
+    tire1.rotation.z = Math.PI / 2;
+
+    tire1.parent = tank;
+
+
+    var tire2 = new BABYLON.Mesh.CreateCylinder("cylinder", 1, 10, 10, 12, 3, scene);
+    tire2.material = tiremat;
+
+    tire2.scaling.z *= 0.1;
+    tire2.scaling.y *= 0.1;
+    tire2.scaling.x *= 0.3;
+
+    tire2.position.y += 0.1;
+    tire2.position.x -= 1;
+    tire2.position.z += 0.9;
+    tire2.rotation.z = Math.PI / 2;
+
+    tire2.parent = tank;
+
+    var tire3 = new BABYLON.Mesh.CreateCylinder("cylinder", 1, 7, 7, 12, 3, scene);
+    tire3.material = tiremat;
+
+    tire3.scaling.z *= 0.1;
+    tire3.scaling.y *= 0.1;
+    tire3.scaling.x *= 0.3;
+
+    tire3.position.y -= 0.2;
+    tire3.position.x -= 1;
+    tire3.position.z -= 0.9;
+    tire3.rotation.z = Math.PI / 2;
+
+    tire3.parent = tank;
+
+    var tire4 = new BABYLON.Mesh.CreateCylinder("cylinder", 1, 7, 7, 12, 3, scene);
+    tire4.material = tiremat;
+
+    tire4.scaling.z *= 0.1;
+    tire4.scaling.y *= 0.1;
+    tire4.scaling.x *= 0.3;
+
+    tire4.position.y -= 0.1;
+    tire4.position.x += 1;
+    tire4.position.z -= 0.9;
+    tire4.rotation.z = Math.PI / 2;
+
+    tire4.parent = tank;
+    
+    //tire1.rotation.x = Math.PI;
     //console.log(tank.position);
     //var tankMadfa3 = BABYLON.Mesh.CreateBox("madfa3", 1, scene, true);
     //tankMadfa3.scaling.x *= .6;
@@ -823,7 +888,7 @@ function applyTankMovement() {
             particleSystem.stop();
         }, 75);
         setTimeout(function () {
-            PowerUps[7].position = tem7;
+            PowerUps[7].position = temp7;
         }, 2000);
     }
 
@@ -840,5 +905,4 @@ function applyTankMovement() {
 
     if (tank.position.y > 1)
         tank.position.y = 1;
-
 }
