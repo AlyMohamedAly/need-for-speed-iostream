@@ -16,11 +16,12 @@ var laps = 0;
 var finish;
 var particleSystem;
 var projectile;
+var Goo = [];
 var origin;
 var PowerUps = [];
 const Powers = {
     Cannon: 'CannonBall',
-    Oil: 'OilStain',
+    Goo: 'GooStain',
     SpeedIncrease: 'SpeedBuff',
     SpeedDecrease: 'SpeedNerf',
     none: "none"
@@ -398,7 +399,7 @@ function RandomPower() {
     if (r === 2)
         return "CannonBall";
     if (r === 3)
-        return "OilStain";
+        return "GooStain";
 }
 
 function createCheckpoint() {
@@ -653,6 +654,7 @@ function applyTankMovement() {
         console.log(laps);
         console.log(passedCheckpoint);
         console.log(tank.power);
+        console.log(Goo.length);
         if (tank.power === "CannonBall") {
             var cannonball = BABYLON.Mesh.CreateSphere("cannonball", 3, 1, scene, false);
             var cannonMat = new BABYLON.StandardMaterial("cannonMat", scene);
@@ -698,9 +700,18 @@ function applyTankMovement() {
                 speedsound.stop();
             }, 3000);
         }
-        else if (tank.power === "OilStain") {
+        else if (tank.power === "GooStain") {
             var splaat = new BABYLON.Sound("can", "sounds/Splat.mp3", scene, null, { loop: false, autoplay: true });
-             splaat.play();
+            splaat.play();
+            var goo = new BABYLON.Mesh.CreateBox("boxsss", 20, scene);
+            goo.position = tank.position.add(BABYLON.Vector3.Zero().add(tank.frontVector.normalize().multiplyByFloats(-50, 0, -50)));
+            //goo.position.x = tank.position.x;
+            //goo.position.z = tank.position.z;
+            goo.position.y = -9;
+            goo.material = new BABYLON.StandardMaterial("target", scene);
+            goo.material.diffuseTexture = new BABYLON.Texture("images/goo.png", scene);
+            goo.material.diffuseTexture.hasAlpha = true;
+            Goo.push(goo);
              tank.power = "none";
         }
     }
@@ -892,7 +903,21 @@ function applyTankMovement() {
         }, 2000);
     }
 
-
+    if (Goo.length > 0) {
+        var sz = Goo.length;
+        for (var i = 0; i < sz; i++)
+            if (tank.intersectsMesh(Goo[i], false)) {
+                var splaat = new BABYLON.Sound("can", "sounds/Splat.mp3", scene, null, { loop: false, autoplay: true });
+                splaat.play();
+                tank.rotationSensitivity *= 5;
+                Goo[i].dispose();
+                Goo.splice(i);
+                setTimeout(function () {
+                    tank.rotationSensitivity /= 5;
+                }, 4000);
+                break;
+            }
+    }
     //optimize here
     if (passedCheckpoint && tank.intersectsMesh(finish, true)) {
         laps++;
