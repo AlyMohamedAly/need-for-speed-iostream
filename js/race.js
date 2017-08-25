@@ -57,20 +57,15 @@ function startGame() {
     particleSystem.color1 = new BABYLON.Color3(0.3, 0.56, 1);
     particleSystem.color2 = new BABYLON.Color3(0.9, 0.9, 1);
 
-    //particleSystem.colorDead = new BABYLON.Color4(0, 0, 0.2, 0.0);
     particleSystem.minSize = 0.2;
     particleSystem.maxSize = 0.9;
-    particleSystem.minEmitBox = new BABYLON.Vector3(-2, -2, -2); // Starting all From
+    particleSystem.minEmitBox = new BABYLON.Vector3(-2, -2, -2);
     particleSystem.maxEmitBox = new BABYLON.Vector3(2, 2, 2);
     particleSystem.minLifeTime = 0.3;
     particleSystem.maxLifeTime = 1.5;
     particleSystem.emitRate = 2000;
-    // particleSystem.manualEmitCount = 300;
     particleSystem.gravity = new BABYLON.Vector3(0, -9.81, 0);
-
-    //checkPoint = createCheckpoint();
     tank = createHero();
-    //loadSpace7arakat();
     tank.position.x = 612;
     tank.position.z = 419;
     var freeCamera = createFreeCamera();
@@ -137,11 +132,8 @@ function createGround() {
     var ground = new BABYLON.Mesh.CreateGroundFromHeightMap("G1", "images/Untitled2.png", 2000, 2000, 20, 0, 100, scene, false);
     //var ground = BABYLON.Mesh.CreateGround("ground", 200, 200, 2, scene);
     var groundMaterial = new BABYLON.StandardMaterial("M1", scene);
-    //groundMaterial.diffuseColor = new BABYLON.Color3.White;
-    //groundMaterial.ambientColor = new BABYLON.Color3.White;
     groundMaterial.diffuseTexture = new BABYLON.Texture("images/Earth.jpg", scene);
     ground.material = groundMaterial;
-    //ground.position = new BABYLON.Vector3(0, 0, 0);
     ground.checkCollisions = true;
     return ground;
 }
@@ -342,7 +334,6 @@ function createPowerups() {
     animationBox[7] = new BABYLON.Animation("tutoAnimation", "rotation.y", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT,
         BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
 
-    // Animation keys
     var keys = [];
     keys.push({
         frame: 0,
@@ -382,9 +373,6 @@ function createPowerups() {
     scene.beginAnimation(Ups[6], 0, 60, true);
     scene.beginAnimation(Ups[7], 0, 60, true);
 
-
-
-
     return Ups;
 }
 
@@ -421,31 +409,6 @@ function createCheckpoint() {
     return checkpoint;
 }
 
-//function loadSpace7arakat() {
-//    BABYLON.SceneLoader.ImportMesh("final_robot_w_moves.", "scenes/", "final-robot-w-moves.babylon", scene, function (newMeshes) {
-//        newMeshes[0].position.x = 627;
-//        newMeshes[0].position.y = 1;
-//        newMeshes[0].position.z = 247;
-//        newMeshes[0].scaling.y *= 1;
-//        newMeshes[0].scaling.x *= 1;
-//        newMeshes[0].scaling.z *= 1;
-//    });
-//}
-
-//function on7arakatLoaded(newMeshes, particleSystems, skeletons) {
-
-//    //scene.beginAnimation(skeletons[0], 0, 120, 1.0, true);
-//}
-//function applyDudeMovement() {
-//    if (dude) {
-//        dude.MovementVector = new BABYLON.Vector3(tank.position.x * 0.01 - dude.position.x * 0.01, 0, tank.position.z * 0.01 - dude.position.z * 0.01);
-//        dude.position.addInPlace(dude.MovementVector);
-//        var dot = BABYLON.Vector3.Dot(dude.MovementVector.normalize(), new BABYLON.Vector3(0, 0, -1));
-//        var angle = Math.acos(dot);
-//        dude.rotation.y = angle;
-//    }
-//}
-
 function createFreeCamera() {
     var camera = new BABYLON.FreeCamera("C1", new BABYLON.Vector3(0, 5, 0), scene);
     camera.attachControl(canvas);
@@ -479,10 +442,6 @@ function createFollowCamera() {
 }
 
 function createHero() {
-    //materialWood = new BABYLON.StandardMaterial("wood", scene);
-    //materialWood.diffuseColor = new BABYLON.Color3.Green;
-    ////materialWood.emissiveColor = new BABYLON.Color3.Yellow;
-
     var tank = new BABYLON.Mesh.CreateBox("tank", 2, scene);
     var animationBox = new BABYLON.Animation("myAnimation", "material.diffuseColor", 180, BABYLON.Animation.ANIMATIONTYPE_COLOR3, BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
     var keys = [];
@@ -585,68 +544,12 @@ function createHero() {
 
     tire4.parent = tank;
     
-    //tire1.rotation.x = Math.PI;
-    //console.log(tank.position);
-    //var tankMadfa3 = BABYLON.Mesh.CreateBox("madfa3", 1, scene, true);
-    //tankMadfa3.scaling.x *= .6;
-    //tankMadfa3.scaling.y*= .6;
-    //tankMadfa3.scaling.z *= 1.2;
-    //tankMadfa3.position.z -= .5;
-    //tankMadfa3.position.y += 1.4;
-    //materialWood = new BABYLON.StandardMaterial("wood", scene);
-    //materialWood.diffuseColor = new BABYLON.Color3.Green;
-    ////materialWood.emissiveColor = new BABYLON.Color3.Yellow;
-    //tankMadfa3.material = materialWood;
-
-    //tankMadfa3.parent = tank;
-
-    //var leftleg = BABYLON.Mesh.CreateCylinder("regll", 5, 1, 1, 6, 1, scene);
-    //leftleg.scaling.x *= 0.5;
-    //leftleg.scaling.y*= 2.5;
-    //leftleg.scaling.z *= 0.5;
-    //leftleg.position.y += 6;
-    //leftleg.position.x += 0.7;
-    ////tankleg.position.z += 1;
-    //leftleg.material = materialWood;
-    //leftleg.parent = tank;
-
-    //var rightleg = BABYLON.Mesh.CreateCylinder("reglr", 5, 1, 1, 6, 1, scene);
-    //rightleg.scaling.x *= 0.5;
-    //rightleg.scaling.y *= 2.5;
-    //rightleg.scaling.z *= 0.5;
-    //rightleg.position.y += 6;
-    //rightleg.position.x -= 0.7;
-    ////tankleg.position.z += 1;
-    //rightleg.material = materialWood;
-    //rightleg.parent = tank;
-
-
-    //var waist = BABYLON.Mesh.CreateBox("west", 2, scene);
-    //tank.scaling.y = 0.5;
-    //tank.scaling.x = 1.5;
-    //tank.scaling.z = 2;
-    //waist.position.y += 12;
-    ////rightleg.position.x -= 0.7;
-    ////tankleg.position.z += 1;
-    //rightleg.material = materialWood;
-    //waist.parent = tank;
-
     return tank;
 }
 
 function applyTankMovement() {
-    //console.log(tank.position);
     if (isWPressed) {
-
-        //tank.position.addInPlace(tank.frontVector).multiplyByFloats(tank.speed);
-        //console.log(tank.frontVector);
-        //console.log(tank.frontVector.multiplyByFloats(tank.speed, tank.speed, tank.speed));
-        //console.log(tank.frontVector.multiply(tank.speed));
-        //console.log("vec: " + tank.frontVector);
-        //console.log("pos: " + tank.position);
         tank.moveWithCollisions(tank.frontVector.multiplyByFloats(tank.speed, 0, tank.speed));
-        //tank.moveWithCollisions(tank.frontVector.multiply(tank.speed));
-        //.multiplyByFloats(tank.speed));
     }
 
     if (isGPressed) {
@@ -705,8 +608,6 @@ function applyTankMovement() {
             splaat.play();
             var goo = new BABYLON.Mesh.CreateBox("boxsss", 20, scene);
             goo.position = tank.position.add(BABYLON.Vector3.Zero().add(tank.frontVector.normalize().multiplyByFloats(-50, 0, -50)));
-            //goo.position.x = tank.position.x;
-            //goo.position.z = tank.position.z;
             goo.position.y = -9;
             goo.material = new BABYLON.StandardMaterial("target", scene);
             goo.material.diffuseTexture = new BABYLON.Texture("images/goo.png", scene);
@@ -717,11 +618,7 @@ function applyTankMovement() {
     }
 
     if (isSPressed) {
-        //var reverseVector = tank.frontVector.multiplyByFloats(-1, -1, -1);
-        //tank.position.addInPlace(reverseVector).multiply(tank.speed);
         tank.moveWithCollisions(tank.frontVector.multiplyByFloats(-tank.speed, 0, -tank.speed));
-        //console.log("vec: " + tank.frontVector);
-        //console.log("pos: " + tank.position);
     }
 
     if (isDPressed) {
@@ -759,27 +656,9 @@ function applyTankMovement() {
         isBPressed = false;
     }
 
-    //if (passedCheckpoint && tank.position.x >= 476 && tank.position.x <= 698 && tank.position.z >= 326 && tank.position.z <= 442) {
-    //    laps++;
-    //    passedCheckpoint = false;
-    //}
-
     if (tank.position.x >= -876 && tank.position.x <= -575 && tank.position.z >= -126 && tank.position.z <= -122) {
         passedCheckpoint = true;
     }
-
-    //if (tank.position.z < -28)
-    //    tank.position.z = -28;
-
-    //if (tank.position.z > 43)
-    //    tank.position.z = 43;
-
-    //if (tank.position.x > 43)
-    //    tank.position.x = 43;
-
-    //if (tank.position.x < -43)
-    //    tank.position.x = -43;
-
 
     //optimize here
     if (!PowerUps[0].broken && tank.intersectsMesh(PowerUps[0], false)) {
@@ -787,7 +666,6 @@ function applyTankMovement() {
         PowerUps[0].position = origin
         var glass = new BABYLON.Sound("broken", "sounds/Glass Vase-trimmed.mp3", scene, null, { loop: false, autoplay: true });
         glass.play();
-        //particleSystem.emitter = PowerUps[0];
         particleSystem.start();
         tank.power = RandomPower();
         setTimeout(function () {
@@ -802,7 +680,6 @@ function applyTankMovement() {
         PowerUps[1].position = origin
         var glass = new BABYLON.Sound("broken", "sounds/Glass Vase-trimmed.mp3", scene, null, { loop: false, autoplay: true });
         glass.play();
-        //particleSystem.emitter = PowerUps[0];
         particleSystem.start();
         tank.power = RandomPower();
         setTimeout(function () {
@@ -817,7 +694,6 @@ function applyTankMovement() {
         PowerUps[2].position = origin
         var glass = new BABYLON.Sound("broken", "sounds/Glass Vase-trimmed.mp3", scene, null, { loop: false, autoplay: true });
         glass.play();
-        //particleSystem.emitter = PowerUps[0];
         particleSystem.start();
         tank.power = RandomPower();
         setTimeout(function () {
@@ -923,10 +799,6 @@ function applyTankMovement() {
         laps++;
         passedCheckpoint = false;
     }
-
-    //if (tank.intersectsMesh(checkPoint, true)) {
-    //    passedCheckpoint = true;
-    //}
 
     if (tank.position.y > 1)
         tank.position.y = 1;

@@ -9,10 +9,9 @@
 
 var canvas;
 var engine;
-var scene;
-var tank;
-var clones = [];
-var dude;
+var Game = {};
+Game.scenes = [];
+Game.activeScene = 0;
 
 var isWPressed = false;
 var isDPressed = false;
@@ -21,28 +20,87 @@ var isAPressed = false;
 
 document.addEventListener("DOMContentLoaded", startGame, false);
 
+Game.createFirstScene = function () {
+    var scene = new BABYLON.Scene(engine);
+    var ground = createGround(scene);
+    var light1 = new BABYLON.HemisphericLight("l1", new BABYLON.Vector3(0, 5, 0), scene);
+    var tank = createHero(scene);
+    var followCamera = createFollowCamera(tank, scene);
+    var portal = new BABYLON.Mesh.CreateCylinder("portal", 10, 10, 10, 50, 50, scene);
+    portal.position = new BABYLON.Vector3(20, 5, 10);
+    portal.material = new BABYLON.StandardMaterial("portalMaterial", scene);
+    portal.material.diffuseTexture = new BABYLON.Texture("images/lightning.jpg", scene);
+    portal.material.diffuseTexture.uScale = 3;
+
+    Game.scenes.push(scene);
+
+    Game.scenes[0].applyTankMovement = function (tank) {
+
+        if (isWPressed) {
+            tank.moveWithCollisions(tank.frontVector.multiplyByFloats(tank.speed, tank.speed, tank.speed));
+        }
+        if (isSPressed) {
+            var reverseVector = tank.frontVector.multiplyByFloats(-1, 1, -1).multiplyByFloats(tank.speed, tank.speed, tank.speed);
+            tank.moveWithCollisions(reverseVector);
+
+        }
+        if (isDPressed) {
+            tank.rotation.y += .1 * tank.rotationSensitivity;
+        }
+        if (isAPressed)
+            tank.rotation.y -= .1 * tank.rotationSensitivity;
+        tank.frontVector.x = Math.sin(tank.rotation.y) * -1;
+        tank.frontVector.z = Math.cos(tank.rotation.y) * -1;
+    }
+
+
+    Game.scenes[0].checkMoveToNextLevel = function (tank, portal) {
+        if (
+            tank.position.x > portal.position.x - 3 &&
+            tank.position.x < portal.position.x + 3 &&
+            tank.position.z > portal.position.z - 3 &&
+            tank.position.z < portal.position.z + 3
+        )
+            Game.activeScene = 1;
+
+    }
+    Game.scenes[0].renderLoop = function () {
+        this.applyTankMovement(tank);
+        this.checkMoveToNextLevel(tank, portal);
+        this.render();
+    }
+
+    return scene;
+
+}
+
+Game.createSecondScene = function () {
+    var scene = new BABYLON.Scene(engine);
+    var ground = createGround(scene);
+    var light1 = new BABYLON.HemisphericLight("l1", new BABYLON.Vector3(0, 5, 0), scene);
+    var tank = createHero(scene);
+    var followCamera = createFollowCamera(tank, scene);
+    Game.scenes.push(scene);
+
+    Game.scenes[1].renderLoop = function () {
+        this.render();
+    }
+}
+
 function startGame() {
     canvas = document.getElementById("renderCanvas");
     engine = new BABYLON.Engine(canvas, true);
-    //engine.isPointerLock = true;
-    scene = new BABYLON.Scene(engine);
+    engine.isPointerLock = true;
+    //engine.displayLoadingUI();
+    Game.createFirstScene();
+    Game.createSecondScene();
 
-    var ground = createGround();
-    //ground.position = new BABYLON.Vector3(0, 0, 0);
-    tank = createHero();
-    loadDude();
-    var freeCamera = createFreeCamera();
-    var followCamera = createFollowCamera();
-    scene.activeCamera = followCamera;
-
-    var light_1 = new BABYLON.HemisphericLight("L1", new BABYLON.Vector3(0, 5, 0), scene);
 
     engine.runRenderLoop(function () {
-        scene.render();
-        applyTankMovement();
-        applyDudeMovement();
-
+        Game.scenes[Game.activeScene].renderLoop();
     });
+
+}
     //window.addEventListener("mousemove", function () {   // We try to pick an object   var pickResult = scene.pick(scene.pointerX, scene.pointerY);});
     document.addEventListener("keydown", function (event) {
 
@@ -76,10 +134,7 @@ function startGame() {
         }
     });
 
-
-}
-
-function createGround() {
+function createGround(scene) {
     var ground = new BABYLON.Mesh.CreateGroundFromHeightMap("G1", "images/height1.png", 300, 100, 20, 0, 100, scene, false);
     //var ground = BABYLON.Mesh.CreateGround("ground", 200, 200, 2, scene);
     var groundMaterial = new BABYLON.StandardMaterial("M1", scene);
@@ -92,7 +147,7 @@ function createGround() {
     return ground;
 }
 
-function createFreeCamera() {
+function createFreeCamera(scene) {
     var camera = new BABYLON.FreeCamera("C1", new BABYLON.Vector3(0, 5, 0), scene);
     camera.attachControl(canvas);
     camera.keysUp.push('w'.charCodeAt(0));
@@ -112,9 +167,9 @@ function createFreeCamera() {
     return camera;
 }
 
-function createFollowCamera() {
-    var camera = new BABYLON.FollowCamera("follow", new BABYLON.Vector3(0, 2, -20), scene, tank);
-    camera.lockedTarget = tank;
+function createFollowCamera(tar, scene) {
+    var camera = new BABYLON.FollowCamera("follow", new BABYLON.Vector3(0, 2, -20), scene);
+    camera.lockedTarget = tar;
     camera.radius = 10;
     camera.heightOffset = 2;
     camera.rotationOffset = 0;
@@ -124,7 +179,7 @@ function createFollowCamera() {
     return camera;
 }
 
-function createHero() {
+function createHero(scene) {
     var tank = new BABYLON.Mesh.CreateBox("tank", 2, scene);
     var tankMaterial = new BABYLON.StandardMaterial("tankMat", scene);
     tankMaterial.diffuseColor = new BABYLON.Vector3(0.90, 0.67, 0.93);
@@ -154,7 +209,7 @@ function createHero() {
     return tank;
 }
 
-function applyTankMovement() {
+function applyTankMovement(tank, scene) {
     //console.log(tank.position);
     if (isWPressed) {
 
@@ -205,59 +260,3 @@ function applyTankMovement() {
         tank.position.y = 1;
 
 }
-
-function loadDude() {
-    //BABYLON.SceneLoader.ImportMesh("Audi_Optimised02", "scenes/", "audioptimised02.babylon", scene, onDudeLoaded);
-    BABYLON.SceneLoader.ImportMesh("Gluttony", "scenes/", "gluttony.babylon", scene, onDudeLoaded);
-    //BABYLON.SceneLoader.ImportMesh("him", "scenes/", "Dude.babylon", scene, onDudeLoaded);
-}
-
-function onDudeLoaded(newMeshes, particleSystems, skeletons) {
-    dude = newMeshes[0];
-    dude.position.y = 0;
-    newMeshes[0].scaling.y *= 1;
-    newMeshes[0].scaling.x *= 1;
-    newMeshes[0].scaling.z *= 1;
-    //scene.beginAnimation(skeletons[0], 0, 120, 1.0, true);
-}
-
-function applyDudeMovement() {
-    if (dude) {
-        dude.MovementVector = new BABYLON.Vector3(tank.position.x * 0.01 - dude.position.x * 0.01, 0, tank.position.z * 0.01 - dude.position.z * 0.01);
-        dude.position.addInPlace(dude.MovementVector);
-        var dot = BABYLON.Vector3.Dot(dude.MovementVector.normalize(), new BABYLON.Vector3(0, 0, -1));
-        var angle = Math.acos(dot);
-        //dude.rotation.y = angle;
-    }
-}
-
-//function clone(dude, angle, radius)
-//{
-//    var id = clones.length;
-//    clones[id] = dude.clone("clone_" + id);
-//    clones[id].skeletons = [];
-
-//    for (var i = 0; i < dude.skeletons.length; i += 1) {
-//        clones[id].skeletons[i] = dude.skeletons[i].clone("skeleton clone #" + i);
-//        scene.beginAnimation(clones[id].skeletons[i], 0, 120, 1.0, true);
-//    }
-
-//    if (dude._children) {
-//        //dude is a parent mesh with multiple _children.
-
-//        for (var i = 0; i < dude._children.length; i += 1) {
-//            if (clones[id].skeletons.length > 1) //Mostlikely a seperate skeleton for each child mesh..
-//                clones[id]._children[i].skeleton = clones[id].skeletons[i];
-//            else //Mostlikely a single skeleton for all child meshes.
-//                clones[id]._children[i].skeleton = clones[id].skeletons[0];
-//        }
-
-//    }
-
-//    else {
-//        //dude is a single mesh with no _children
-//        clones[id].skeleton = clones[id].skeletons[0];
-//    }
-
-//    clones[id].position = new BABYLON.Vector3(Math.cos(angle)*radius , 2 , -1 * Math.sin(angle))
-//}
