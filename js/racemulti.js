@@ -25,9 +25,20 @@ var isKPressed = false;
 var isJPressed = false;
 var isOPressed = false;
 
-var isLPressed = false;
+var isSpacePressed = false;
 document.addEventListener("DOMContentLoaded", startGame, false);
+function startGame() {
+    canvas = document.getElementById("renderCanvas");
+    engine = new BABYLON.Engine(canvas, true);
+    Game.ChooseScene();
+    Game.createFirstScene();
+    Game.createSecondScene();
+    Game.createThirdScene();
+    engine.runRenderLoop(function () {
+        Game.scenes[Game.activeScene].renderLoop();
+    });
 
+}
 Game.ChooseScene = function () {
     var scene = new BABYLON.Scene(engine);
     var ground = new BABYLON.Mesh.CreateGroundFromHeightMap("G0", "images/height1.png", 500, 500, 50, 0, 100, scene, false);
@@ -94,7 +105,13 @@ Game.ChooseScene = function () {
             tank.position.z > map2.position.z - 5 &&
             tank.position.z < map2.position.z + 5
             && isEPressed) 
-        Game.activeScene = 2;
+            Game.activeScene = 2;
+        if (tank.position.x > map3.position.x - 5 &&
+            tank.position.x < map3.position.x + 5 &&
+            tank.position.z > map3.position.z - 5 &&
+            tank.position.z < map3.position.z + 5
+            && isEPressed)
+            Game.activeScene = 3;
 
         if (isWPressed) {
             tank.moveWithCollisions(tank.frontVector.multiplyByFloats(tank.speed, 0, tank.speed));
@@ -189,7 +206,7 @@ Game.createFirstScene = function () {
     //startMusic.play();
     
     PowerUps = createPowerups(scene,0);
-    var skybox = createSkybox(scene);
+    var skybox = createSkybox("textures/sky/sky",scene);
     tank[0].position = new BABYLON.Vector3(627, 1, 430);
     tank[1].position = new BABYLON.Vector3(632, 1, 430);
     var followCamera2 = createFollowCamera(tank[0], scene);
@@ -514,9 +531,7 @@ Game.createFirstScene = function () {
             }
         }
 
-        if (isLPressed) {
-            //console.log(freeCamera.position);
-        }
+        
     }
     Game.scenes[1].applyPlayer2Movement = function (tank, PowerUps, finish) {
         if (tank.position.y > 1)
@@ -796,9 +811,7 @@ Game.createFirstScene = function () {
             }
         }
 
-        if (isLPressed) {
-            //console.log(freeCamera.position);
-        }
+        
     }
     Game.scenes[1].renderLoop = function () {
         this.applyPlayer1Movement(tank[0], PowerUps, finish);
@@ -825,9 +838,12 @@ Game.createSecondScene = function () {
     var Goo = [];
     var madafe3 = [];
     var finish = createFinishLine(scene,1);
+    scene.fogMode = BABYLON.Scene.FOGMODE_EXP;
 
+    scene.fogColor = new BABYLON.Color3(0.9, 0.9, 0.85);
+    scene.fogDensity = 0.003;
     PowerUps = createPowerups(scene,1);
-    var skybox = createSkybox(scene);
+    var skybox = createSkybox("textures/sky/sky",scene);
     tank[0].position = new BABYLON.Vector3(831, 1, 41);
     tank[1].position = new BABYLON.Vector3(835, 1, 41);
     //var freeCamera = createFreeCamera(scene);
@@ -1152,9 +1168,7 @@ Game.createSecondScene = function () {
             }
         }
 
-        if (isLPressed) {
-            //console.log(freeCamera.position);
-        }
+        
     }
     Game.scenes[2].applyPlayer2Movement = function (tank, PowerUps, finish) {
         if (tank.position.y > 1)
@@ -1434,9 +1448,7 @@ Game.createSecondScene = function () {
             }
         }
 
-        if (isLPressed) {
-            //console.log(freeCamera.position);
-        }
+       
     }
     Game.scenes[2].renderLoop = function () {
         this.applyPlayer1Movement(tank[0], PowerUps, finish);
@@ -1449,17 +1461,641 @@ Game.createSecondScene = function () {
     }
     return scene;
 }
+Game.createThirdScene = function () {
+    {
+        var scene = new BABYLON.Scene(engine);
+        scene.enablePhysics(new BABYLON.Vector3(0, 0, 0), new BABYLON.CannonJSPlugin());
+        var ground = createGround("images/Track2.png", "images/earth3.jpg", scene);
+        var light1 = new BABYLON.HemisphericLight("l1", new BABYLON.Vector3(0, 5, 0), scene);
+        var tank = [];
+        tank[0] = createHero(new BABYLON.Color3.White, scene);
+        tank[1] = createHero(new BABYLON.Color3.Black, scene);
+        var PowerUps = [];
+        var Goo = [];
+        var madafe3 = [];
+        var finish = createFinishLine(scene, 1);
 
-function startGame() {
-    canvas = document.getElementById("renderCanvas");
-    engine = new BABYLON.Engine(canvas, true);
-    Game.ChooseScene();
-    Game.createFirstScene();
-    Game.createSecondScene();
-    engine.runRenderLoop(function () {
-        Game.scenes[Game.activeScene].renderLoop();
-    });
+        PowerUps = createPowerups(scene, 1);
+        var skybox = createSkybox("textures/sky/sky",scene);
+        tank[0].position = new BABYLON.Vector3(141, 1,806);
+        tank[1].position = new BABYLON.Vector3(145, 1, 806);
+        var freeCamera = createFreeCamera(scene);
+        var followCamera2 = createFollowCamera(tank[0], scene);
+        //var followCamera = createFollowCamera(tank[1], scene);
+        //scene.activeCameras.push(followCamera);
+        scene.activeCameras.push(freeCamera);
+        scene.activeCameras.push(followCamera2);
+        //followCamera.attachControl(canvas);
+        //followCamera.viewport = new BABYLON.Viewport(0, 0, 1, 0.5);
+        freeCamera.viewport = new BABYLON.Viewport(0, 0, 1, 0.5);
+        followCamera2.viewport = new BABYLON.Viewport(0, 0.5, 1, 0.5);
 
+        Game.scenes.push(scene);
+
+        Game.scenes[3].touchGoo = function (tank) {
+            var sz = Goo.length;
+            for (var i = 0; i < sz; i++) {
+                if (tank.intersectsMesh(Goo[i], false)) {
+                    var splaat = new BABYLON.Sound("can", "sounds/Cartoon Slip.mp3", scene, null, { loop: false, autoplay: true });
+                    splaat.play();
+                    tank.rotationSensitivity *= 5;
+                    Goo[i].dispose();
+                    Goo.splice(i);
+                    setTimeout(function () {
+                        tank.rotationSensitivity /= 5;
+                    }, 4000);
+                    break;
+                }
+            }
+
+        }
+
+        Game.scenes[3].touchCannon = function (tank) {
+            var sz = madafe3.length;
+            for (var i = 0; i < sz; i++) {
+                if (tank.intersectsMesh(madafe3[i], false)) {
+                    var boom = new BABYLON.Sound("can", "sounds/Punch.mp3", scene, null, { loop: false, autoplay: true });
+                    boom.play();
+                    tank.speed /= 5;
+                    madafe3[i].dispose();
+                    madafe3.splice(i);
+                    setTimeout(function () {
+                        tank.speed *= 5;
+                    }, 4000);
+                    break;
+                }
+            }
+
+        }
+
+        Game.scenes[3].applyPlayer1Movement = function (tank, PowerUps, finish) {
+            if (tank.position.y > 1)
+                tank.position.y = 1;
+
+            if (tank.position.x >= -876 && tank.position.x <= -575 && tank.position.z >= -126 && tank.position.z <= -122) {
+                tank.passedCheckpoint = true;
+            }
+
+            if (tank.passedCheckpoint && tank.intersectsMesh(finish, true)) {
+                tank.laps++;
+                tank.passedCheckpoint = false;
+            }
+
+            if (tank.position.x > PowerUps[0].position.x - 5.5 &&
+                tank.position.x < PowerUps[0].position.x + 5.5 &&
+                tank.position.z > PowerUps[0].position.z - 5.5 &&
+                tank.position.z < PowerUps[0].position.z + 5.5) {
+                tank.particleSystem.start();
+                var temp0 = PowerUps[0].position;
+                PowerUps[0].position = BABYLON.Vector3.Zero();
+
+                var glass = new BABYLON.Sound("broken", "sounds/Glass Vase-trimmed.mp3", scene, null, { loop: false, autoplay: true });
+                glass.play();
+
+                tank.power = RandomPower(tank);
+
+                setTimeout(function () {
+                    tank.particleSystem.stop();
+                }, 75);
+
+                setTimeout(function () {
+                    PowerUps[0].position = temp0;
+                }, 2000);
+            }
+
+            if (tank.position.x > PowerUps[1].position.x - 5.5 &&
+                tank.position.x < PowerUps[1].position.x + 5.5 &&
+                tank.position.z > PowerUps[1].position.z - 5.5 &&
+                tank.position.z < PowerUps[1].position.z + 5.5) {
+                tank.particleSystem.start();
+                var temp0 = PowerUps[1].position;
+                PowerUps[1].position = BABYLON.Vector3.Zero();
+
+                var glass = new BABYLON.Sound("broken", "sounds/Glass Vase-trimmed.mp3", scene, null, { loop: false, autoplay: true });
+                glass.play();
+
+                tank.power = RandomPower(tank);
+
+                setTimeout(function () {
+                    tank.particleSystem.stop();
+                }, 75);
+
+                setTimeout(function () {
+                    PowerUps[1].position = temp0;
+                }, 2000);
+            }
+
+            if (tank.position.x > PowerUps[2].position.x - 5.5 &&
+                tank.position.x < PowerUps[2].position.x + 5.5 &&
+                tank.position.z > PowerUps[2].position.z - 5.5 &&
+                tank.position.z < PowerUps[2].position.z + 5.5) {
+                tank.particleSystem.start();
+                var temp0 = PowerUps[2].position;
+                PowerUps[2].position = BABYLON.Vector3.Zero();
+
+                var glass = new BABYLON.Sound("broken", "sounds/Glass Vase-trimmed.mp3", scene, null, { loop: false, autoplay: true });
+                glass.play();
+
+                tank.power = RandomPower(tank);
+
+                setTimeout(function () {
+                    tank.particleSystem.stop();
+                }, 75);
+
+                setTimeout(function () {
+                    PowerUps[2].position = temp0;
+                }, 2000);
+            }
+
+            if (tank.position.x > PowerUps[3].position.x - 5.5 &&
+                tank.position.x < PowerUps[3].position.x + 5.5 &&
+                tank.position.z > PowerUps[3].position.z - 5.5 &&
+                tank.position.z < PowerUps[3].position.z + 5.5) {
+                tank.particleSystem.start();
+                var temp0 = PowerUps[3].position;
+                PowerUps[3].position = BABYLON.Vector3.Zero();
+
+                var glass = new BABYLON.Sound("broken", "sounds/Glass Vase-trimmed.mp3", scene, null, { loop: false, autoplay: true });
+                glass.play();
+
+                tank.power = RandomPower(tank);
+
+                setTimeout(function () {
+                    tank.particleSystem.stop();
+                }, 75);
+
+                setTimeout(function () {
+                    PowerUps[3].position = temp0;
+                }, 2000);
+            }
+
+            if (tank.position.x > PowerUps[4].position.x - 5.5 &&
+                tank.position.x < PowerUps[4].position.x + 5.5 &&
+                tank.position.z > PowerUps[4].position.z - 5.5 &&
+                tank.position.z < PowerUps[4].position.z + 5.5) {
+                tank.particleSystem.start();
+                var temp0 = PowerUps[4].position;
+                PowerUps[4].position = BABYLON.Vector3.Zero();
+
+                var glass = new BABYLON.Sound("broken", "sounds/Glass Vase-trimmed.mp3", scene, null, { loop: false, autoplay: true });
+                glass.play();
+
+                tank.power = RandomPower(tank);
+
+                setTimeout(function () {
+                    tank.particleSystem.stop();
+                }, 75);
+
+                setTimeout(function () {
+                    PowerUps[4].position = temp0;
+                }, 2000);
+            }
+
+            if (tank.position.x > PowerUps[5].position.x - 5.5 &&
+                tank.position.x < PowerUps[5].position.x + 5.5 &&
+                tank.position.z > PowerUps[5].position.z - 5.5 &&
+                tank.position.z < PowerUps[5].position.z + 5.5) {
+                tank.particleSystem.start();
+                var temp0 = PowerUps[5].position;
+                PowerUps[5].position = BABYLON.Vector3.Zero();
+
+                var glass = new BABYLON.Sound("broken", "sounds/Glass Vase-trimmed.mp3", scene, null, { loop: false, autoplay: true });
+                glass.play();
+
+                tank.power = RandomPower(tank);
+
+                setTimeout(function () {
+                    tank.particleSystem.stop();
+                }, 75);
+
+                setTimeout(function () {
+                    PowerUps[5].position = temp0;
+                }, 2000);
+            }
+
+            if (tank.position.x > PowerUps[6].position.x - 5.5 &&
+                tank.position.x < PowerUps[6].position.x + 5.5 &&new 
+                tank.position.z > PowerUps[6].position.z - 5.5 &&
+                tank.position.z < PowerUps[6].position.z + 5.5) {
+                tank.particleSystem.start();
+                var temp0 = PowerUps[6].position;
+                PowerUps[6].position = BABYLON.Vector3.Zero();
+
+                var glass = new BABYLON.Sound("broken", "sounds/Glass Vase-trimmed.mp3", scene, null, { loop: false, autoplay: true });
+                glass.play();
+
+                tank.power = RandomPower(tank);
+
+                setTimeout(function () {
+                    tank.particleSystem.stop();
+                }, 75);
+
+                setTimeout(function () {
+                    PowerUps[6].position = temp0;
+                }, 2000);
+            }
+
+            if (tank.position.x > PowerUps[7].position.x - 5.5 &&
+                tank.position.x < PowerUps[7].position.x + 5.5 &&
+                tank.position.z > PowerUps[7].position.z - 5.5 &&
+                tank.position.z < PowerUps[7].position.z + 5.5) {
+                tank.particleSystem.start();
+                var temp0 = PowerUps[7].position;
+                PowerUps[7].position = BABYLON.Vector3.Zero();
+
+                var glass = new BABYLON.Sound("broken", "sounds/Glass Vase-trimmed.mp3", scene, null, { loop: false, autoplay: true });
+                glass.play();
+
+                tank.power = RandomPower(tank);
+
+                setTimeout(function () {
+                    tank.particleSystem.stop();
+                }, 75);
+
+                setTimeout(function () {
+                    PowerUps[7].position = temp0;
+                }, 2000);
+            }
+
+            if (isWPressed) {
+                tank.moveWithCollisions(tank.frontVector.multiplyByFloats(tank.speed, 0, tank.speed));
+            }
+
+            if (isSPressed) {
+                tank.moveWithCollisions(tank.frontVector.multiplyByFloats(-tank.speed, 0, -tank.speed));
+            }
+
+            if (isDPressed) {
+                tank.rotation.y += 0.1 * tank.rotationSensitivity;
+                tank.frontVector.x = Math.sin(tank.rotation.y) * -1;
+                tank.frontVector.z = Math.cos(tank.rotation.y) * -1;
+            }
+
+            if (isAPressed) {
+                tank.rotation.y -= 0.1 * tank.rotationSensitivity;
+                tank.frontVector.x = Math.sin(tank.rotation.y) * -1;
+                tank.frontVector.z = Math.cos(tank.rotation.y) * -1;
+            }
+
+            if (isEPressed) {
+                console.log(tank.position);
+                console.log(tank.laps);
+                console.log(tank.passedCheckpoint);
+                console.log(tank.power);
+                console.log(Goo.length);
+                console.log(madafe3.length);
+                if (tank.power === "CannonBall") {
+                    var cannonball = BABYLON.Mesh.CreateSphere("cannonball", 3, 20, scene, false);
+                    var cannonMat = new BABYLON.StandardMaterial("cannonMat", scene);
+                    cannonMat.diffuseColor = new BABYLON.Color3.Black;
+                    cannonball.material = cannonMat;
+
+                    var cannonsound = new BABYLON.Sound("can", "sounds/Cannon.wav", scene, null, { loop: false, autoplay: true });
+                    cannonsound.play();
+
+                    cannonball.position = tank.position.add(BABYLON.Vector3.Zero().add(tank.frontVector.normalize().multiplyByFloats(20, 0, 20)));
+                    cannonball.position.y += 5;
+
+                    cannonball.physicsImpostor = new BABYLON.PhysicsImpostor(cannonball, BABYLON.PhysicsImpostor.SphereImpostor, { mass: 5, friction: 10, restitution: .2 }, scene);
+                    cannonball.physicsImpostor.setLinearVelocity(BABYLON.Vector3.Zero().add(tank.frontVector.normalize().multiplyByFloats(200, 0, 200)));
+                    madafe3.push(cannonball);
+                    setTimeout(function () {
+                        madafe3.splice(cannonball);
+                        cannonball.dispose();
+                    }, 2000);
+                    tank.power = "none";
+                }
+                else if (tank.power === "SpeedBuff") {
+                    var speedsound = new BABYLON.Sound("can", "sounds/Item Box Sound3.mp3", scene, null, { loop: false, autoplay: true });
+                    speedsound.play();
+                    tank.speed *= 1.5;
+                    tank.power = "none";
+                    var color = tank.material.diffuseColor;
+                    var ani = scene.beginAnimation(tank, 0, 180, true);
+                    setTimeout(function () {
+                        tank.speed /= 1.5;
+                        speedsound.stop();
+                        ani.stop();
+                        tank.material.diffuseColor = color;
+                    }, 3000);
+                }
+                else if (tank.power === "SpeedNerf") {
+                    tank.speed /= 1.5;
+                    tank.power = "none";
+                    var slowsound = new BABYLON.Sound("can", "sounds/Sitcom Laughter Applause2.mp3", scene, null, { loop: false, autoplay: true });
+                    slowsound.play();
+                    setTimeout(function () {
+                        tank.speed *= 1.5;
+                        slowsound.stop();
+                    }, 3000);
+                }
+                else if (tank.power === "GooStain") {
+                    var splaat = new BABYLON.Sound("can", "sounds/Splat.mp3", scene, null, { loop: false, autoplay: true });
+                    splaat.play();
+                    var goo = new BABYLON.Mesh.CreateBox("boxsss", 20, scene);
+                    goo.position = tank.position.add(BABYLON.Vector3.Zero().add(tank.frontVector.normalize().multiplyByFloats(-50, 0, -50)));
+                    goo.position.y = -9;
+                    goo.material = new BABYLON.StandardMaterial("target", scene);
+                    goo.material.diffuseTexture = new BABYLON.Texture("images/goo.png", scene);
+                    goo.material.diffuseTexture.hasAlpha = true;
+                    Goo.push(goo);
+                    tank.power = "none";
+                }
+            }
+
+            
+        }
+        Game.scenes[3].applyPlayer2Movement = function (tank, PowerUps, finish) {
+            if (tank.position.y > 1)
+                tank.position.y = 1;
+
+            if (tank.position.x >= -876 && tank.position.x <= -575 && tank.position.z >= -126 && tank.position.z <= -122) {
+                tank.passedCheckpoint = true;
+            }
+
+            if (tank.passedCheckpoint && tank.intersectsMesh(finish, true)) {
+                tank.laps++;
+                tank.passedCheckpoint = false;
+            }
+
+            if (tank.position.x > PowerUps[0].position.x - 5.5 &&
+                tank.position.x < PowerUps[0].position.x + 5.5 &&
+                tank.position.z > PowerUps[0].position.z - 5.5 &&
+                tank.position.z < PowerUps[0].position.z + 5.5) {
+                tank.particleSystem.start();
+                var temp0 = PowerUps[0].position;
+                PowerUps[0].position = BABYLON.Vector3.Zero();
+
+                var glass = new BABYLON.Sound("broken", "sounds/Glass Vase-trimmed.mp3", scene, null, { loop: false, autoplay: true });
+                glass.play();
+
+                tank.power = RandomPower(tank);
+
+                setTimeout(function () {
+                    tank.particleSystem.stop();
+                }, 75);
+
+                setTimeout(function () {
+                    PowerUps[0].position = temp0;
+                }, 2000);
+            }
+
+            if (tank.position.x > PowerUps[1].position.x - 5.5 &&
+                tank.position.x < PowerUps[1].position.x + 5.5 &&
+                tank.position.z > PowerUps[1].position.z - 5.5 &&
+                tank.position.z < PowerUps[1].position.z + 5.5) {
+                tank.particleSystem.start();
+                var temp0 = PowerUps[1].position;
+                PowerUps[1].position = BABYLON.Vector3.Zero();
+
+                var glass = new BABYLON.Sound("broken", "sounds/Glass Vase-trimmed.mp3", scene, null, { loop: false, autoplay: true });
+                glass.play();
+
+                tank.power = RandomPower(tank);
+
+                setTimeout(function () {
+                    tank.particleSystem.stop();
+                }, 75);
+
+                setTimeout(function () {
+                    PowerUps[1].position = temp0;
+                }, 2000);
+            }
+
+            if (tank.position.x > PowerUps[2].position.x - 5.5 &&
+                tank.position.x < PowerUps[2].position.x + 5.5 &&
+                tank.position.z > PowerUps[2].position.z - 5.5 &&
+                tank.position.z < PowerUps[2].position.z + 5.5) {
+                tank.particleSystem.start();
+                var temp0 = PowerUps[2].position;
+                PowerUps[2].position = BABYLON.Vector3.Zero();
+
+                var glass = new BABYLON.Sound("broken", "sounds/Glass Vase-trimmed.mp3", scene, null, { loop: false, autoplay: true });
+                glass.play();
+
+                tank.power = RandomPower(tank);
+
+                setTimeout(function () {
+                    tank.particleSystem.stop();
+                }, 75);
+
+                setTimeout(function () {
+                    PowerUps[2].position = temp0;
+                }, 2000);
+            }
+
+            if (tank.position.x > PowerUps[3].position.x - 5.5 &&
+                tank.position.x < PowerUps[3].position.x + 5.5 &&
+                tank.position.z > PowerUps[3].position.z - 5.5 &&
+                tank.position.z < PowerUps[3].position.z + 5.5) {
+                tank.particleSystem.start();
+                var temp0 = PowerUps[3].position;
+                PowerUps[3].position = BABYLON.Vector3.Zero();
+
+                var glass = new BABYLON.Sound("broken", "sounds/Glass Vase-trimmed.mp3", scene, null, { loop: false, autoplay: true });
+                glass.play();
+
+                tank.power = RandomPower(tank);
+
+                setTimeout(function () {
+                    tank.particleSystem.stop();
+                }, 75);
+
+                setTimeout(function () {
+                    PowerUps[3].position = temp0;
+                }, 2000);
+            }
+
+            if (tank.position.x > PowerUps[4].position.x - 5.5 &&
+                tank.position.x < PowerUps[4].position.x + 5.5 &&
+                tank.position.z > PowerUps[4].position.z - 5.5 &&
+                tank.position.z < PowerUps[4].position.z + 5.5) {
+                tank.particleSystem.start();
+                var temp0 = PowerUps[4].position;
+                PowerUps[4].position = BABYLON.Vector3.Zero();
+
+                var glass = new BABYLON.Sound("broken", "sounds/Glass Vase-trimmed.mp3", scene, null, { loop: false, autoplay: true });
+                glass.play();
+
+                tank.power = RandomPower(tank);
+
+                setTimeout(function () {
+                    tank.particleSystem.stop();
+                }, 75);
+
+                setTimeout(function () {
+                    PowerUps[4].position = temp0;
+                }, 2000);
+            }
+
+            if (tank.position.x > PowerUps[5].position.x - 5.5 &&
+                tank.position.x < PowerUps[5].position.x + 5.5 &&
+                tank.position.z > PowerUps[5].position.z - 5.5 &&
+                tank.position.z < PowerUps[5].position.z + 5.5) {
+                tank.particleSystem.start();
+                var temp0 = PowerUps[5].position;
+                PowerUps[5].position = BABYLON.Vector3.Zero();
+
+                var glass = new BABYLON.Sound("broken", "sounds/Glass Vase-trimmed.mp3", scene, null, { loop: false, autoplay: true });
+                glass.play();
+
+                tank.power = RandomPower(tank);
+
+                setTimeout(function () {
+                    tank.particleSystem.stop();
+                }, 75);
+
+                setTimeout(function () {
+                    PowerUps[5].position = temp0;
+                }, 2000);
+            }
+
+            if (tank.position.x > PowerUps[6].position.x - 5.5 &&
+                tank.position.x < PowerUps[6].position.x + 5.5 &&
+                tank.position.z > PowerUps[6].position.z - 5.5 &&
+                tank.position.z < PowerUps[6].position.z + 5.5) {
+                tank.particleSystem.start();
+                var temp0 = PowerUps[6].position;
+                PowerUps[6].position = BABYLON.Vector3.Zero();
+
+                var glass = new BABYLON.Sound("broken", "sounds/Glass Vase-trimmed.mp3", scene, null, { loop: false, autoplay: true });
+                glass.play();
+
+                tank.power = RandomPower(tank);
+
+                setTimeout(function () {
+                    tank.particleSystem.stop();
+                }, 75);
+
+                setTimeout(function () {
+                    PowerUps[6].position = temp0;
+                }, 2000);
+            }
+
+            if (tank.position.x > PowerUps[7].position.x - 5.5 &&
+                tank.position.x < PowerUps[7].position.x + 5.5 &&
+                tank.position.z > PowerUps[7].position.z - 5.5 &&
+                tank.position.z < PowerUps[7].position.z + 5.5) {
+                tank.particleSystem.start();
+                var temp0 = PowerUps[7].position;
+                PowerUps[7].position = BABYLON.Vector3.Zero();
+
+                var glass = new BABYLON.Sound("broken", "sounds/Glass Vase-trimmed.mp3", scene, null, { loop: false, autoplay: true });
+                glass.play();
+
+                tank.power = RandomPower(tank);
+
+                setTimeout(function () {
+                    tank.particleSystem.stop();
+                }, 75);
+
+                setTimeout(function () {
+                    PowerUps[7].position = temp0;
+                }, 2000);
+            }
+
+            if (isIPressed) {
+                tank.moveWithCollisions(tank.frontVector.multiplyByFloats(tank.speed, 0, tank.speed));
+            }
+
+            if (isKPressed) {
+                tank.moveWithCollisions(tank.frontVector.multiplyByFloats(-tank.speed, 0, -tank.speed));
+            }
+
+            if (isLPressed) {
+                tank.rotation.y += 0.1 * tank.rotationSensitivity;
+                tank.frontVector.x = Math.sin(tank.rotation.y) * -1;
+                tank.frontVector.z = Math.cos(tank.rotation.y) * -1;
+            }
+
+            if (isJPressed) {
+                tank.rotation.y -= 0.1 * tank.rotationSensitivity;
+                tank.frontVector.x = Math.sin(tank.rotation.y) * -1;
+                tank.frontVector.z = Math.cos(tank.rotation.y) * -1;
+            }
+
+            if (isOPressed) {
+                console.log(tank.position);
+                console.log(tank.laps);
+                console.log(tank.passedCheckpoint);
+                console.log(tank.power);
+                console.log(Goo.length);
+                console.log(madafe3.length);
+                if (tank.power === "CannonBall") {
+                    var cannonball = BABYLON.Mesh.CreateSphere("cannonball", 3, 20, scene, false);
+                    var cannonMat = new BABYLON.StandardMaterial("cannonMat", scene);
+                    cannonMat.diffuseColor = new BABYLON.Color3.Black;
+                    cannonball.material = cannonMat;
+
+                    var cannonsound = new BABYLON.Sound("can", "sounds/Cannon.wav", scene, null, { loop: false, autoplay: true });
+                    cannonsound.play();
+                    setTimeout(function () {
+                        cannonsound.stop();
+                    }, 1000);
+
+                    cannonball.position = tank.position.add(BABYLON.Vector3.Zero().add(tank.frontVector.normalize().multiplyByFloats(20, 0, 20)));
+                    cannonball.position.y += 5;
+
+                    cannonball.physicsImpostor = new BABYLON.PhysicsImpostor(cannonball, BABYLON.PhysicsImpostor.SphereImpostor, { mass: 5, friction: 10, restitution: .2 }, scene);
+                    cannonball.physicsImpostor.setLinearVelocity(BABYLON.Vector3.Zero().add(tank.frontVector.normalize().multiplyByFloats(200, 0, 200)));
+                    madafe3.push(cannonball);
+                    setTimeout(function () {
+                        madafe3.splice(cannonball);
+                        cannonball.dispose();
+                    }, 2000);
+                    tank.power = "none";
+                }
+                else if (tank.power === "SpeedBuff") {
+                    var speedsound = new BABYLON.Sound("can", "sounds/Item Box Sound3.mp3", scene, null, { loop: false, autoplay: true });
+                    speedsound.play();
+                    tank.speed *= 1.5;
+                    tank.power = "none";
+                    var color = tank.material.diffuseColor;
+                    var ani = scene.beginAnimation(tank, 0, 180, true);
+                    setTimeout(function () {
+                        tank.speed /= 1.5;
+                        speedsound.stop();
+                        ani.stop();
+                        tank.material.diffuseColor = color;
+                    }, 3000);
+                }
+                else if (tank.power === "SpeedNerf") {
+                    tank.speed /= 1.5;
+                    tank.power = "none";
+                    var slowsound = new BABYLON.Sound("can", "sounds/Sitcom Laughter Applause2.mp3", scene, null, { loop: false, autoplay: true });
+                    slowsound.play();
+                    setTimeout(function () {
+                        tank.speed *= 1.5;
+                        slowsound.stop();
+                    }, 3000);
+                }
+                else if (tank.power === "GooStain") {
+                    var splaat = new BABYLON.Sound("can", "sounds/Splat.mp3", scene, null, { loop: false, autoplay: true });
+                    splaat.play();
+                    var goo = new BABYLON.Mesh.CreateBox("boxsss", 20, scene);
+                    goo.position = tank.position.add(BABYLON.Vector3.Zero().add(tank.frontVector.normalize().multiplyByFloats(-50, 0, -50)));
+                    goo.position.y = -9;
+                    goo.material = new BABYLON.StandardMaterial("target", scene);
+                    goo.material.diffuseTexture = new BABYLON.Texture("images/goo.png", scene);
+                    goo.material.diffuseTexture.hasAlpha = true;
+                    Goo.push(goo);
+                    tank.power = "none";
+                }
+            }
+
+            
+        }
+        Game.scenes[3].renderLoop = function () {
+            this.applyPlayer1Movement(tank[0], PowerUps, finish);
+            this.applyPlayer2Movement(tank[1], PowerUps, finish);
+            this.touchGoo(tank[0]);
+            this.touchGoo(tank[1]);
+            this.touchCannon(tank[0]);
+            this.touchCannon(tank[1]);
+            this.render();
+        }
+        return scene;
+    }
 }
 
 document.addEventListener("keydown", function (event) {
@@ -1995,14 +2631,14 @@ function createPowerups(scene,sceneIndex) {
     return Ups;
 }
 
-function createSkybox(scene) {
+function createSkybox(url,scene) {
     var skybox = BABYLON.Mesh.CreateBox("skyBox", 10000.0, scene);
     var skyboxMaterial = new BABYLON.StandardMaterial("skyBox", scene);
     skyboxMaterial.backFaceCulling = false;
     skyboxMaterial.disableLighting = true;
     skybox.material = skyboxMaterial;
     skybox.infiniteDistance = true;
-    skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("textures/sky/sky", scene);
+    skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture(url, scene);
     skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
 
 }
@@ -2021,3 +2657,4 @@ function RandomPower(tank) {
     if (r === 3)
         return "GooStain";
 }
+
