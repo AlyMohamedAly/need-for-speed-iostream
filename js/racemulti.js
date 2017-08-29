@@ -1,8 +1,3 @@
-﻿// <reference path="libs/jquery-1.9.1/jquery-1.9.1.j" />
-// <reference path="libs/three.js.r58/three.js" />
-// <reference path="libs/three.js.r58/controls/OrbitControls.js" />
-// <reference path="libs/three.js.r59/loaders/ColladaLoader.js" />
-// <reference path="libs/requestAnimationFrame/RequestAnimationFrame.js" />
 // <reference path="js/babylon.max.js" />
 // <reference path="js/cannon.max.js" />
 // <reference path="js/babylon.d.ts" />
@@ -1476,7 +1471,7 @@ Game.createThirdScene = function () {
         var finish = createFinishLine(scene, 1);
 
         PowerUps = createPowerups(scene, 1);
-        var skybox = createSkybox("textures/sky/sky",scene);
+        var skybox = createSkybox("textures/sky36/sky36",scene);
         tank[0].position = new BABYLON.Vector3(141, 1,806);
         tank[1].position = new BABYLON.Vector3(145, 1, 806);
         var freeCamera = createFreeCamera(scene);
@@ -1674,7 +1669,7 @@ Game.createThirdScene = function () {
             }
 
             if (tank.position.x > PowerUps[6].position.x - 5.5 &&
-                tank.position.x < PowerUps[6].position.x + 5.5 &&new 
+                tank.position.x < PowerUps[6].position.x + 5.5 &&
                 tank.position.z > PowerUps[6].position.z - 5.5 &&
                 tank.position.z < PowerUps[6].position.z + 5.5) {
                 tank.particleSystem.start();
@@ -2173,7 +2168,7 @@ document.addEventListener("keyup", function (event) {
 });
 
 function createGround(ur1, ur2, scene) {
-    var ground = new BABYLON.Mesh.CreateGroundFromHeightMap("G"+Game.activeScene, ur1, 2000, 2000,50,0,100,scene,false);
+    var ground = new BABYLON.Mesh.CreateGroundFromHeightMap("G"+Game.activeScene, ur1, 2000, 2000,50,0,75   ,scene,false);
     var groundMaterial = new BABYLON.StandardMaterial("M"+Game.activeScene, scene);
     groundMaterial.diffuseTexture = new BABYLON.Texture(ur2, scene);
     ground.material = groundMaterial;
