@@ -1474,15 +1474,15 @@ Game.createThirdScene = function () {
         var skybox = createSkybox("textures/sky36/sky36",scene);
         tank[0].position = new BABYLON.Vector3(141, 1,806);
         tank[1].position = new BABYLON.Vector3(145, 1, 806);
-        var freeCamera = createFreeCamera(scene);
+        //var freeCamera = createFreeCamera(scene);
         var followCamera2 = createFollowCamera(tank[0], scene);
-        //var followCamera = createFollowCamera(tank[1], scene);
-        //scene.activeCameras.push(followCamera);
+        var followCamera = createFollowCamera(tank[1], scene);
+        scene.activeCameras.push(followCamera);
         scene.activeCameras.push(freeCamera);
         scene.activeCameras.push(followCamera2);
-        //followCamera.attachControl(canvas);
-        //followCamera.viewport = new BABYLON.Viewport(0, 0, 1, 0.5);
-        freeCamera.viewport = new BABYLON.Viewport(0, 0, 1, 0.5);
+        followCamera.attachControl(canvas);
+        followCamera.viewport = new BABYLON.Viewport(0, 0, 1, 0.5);
+        //freeCamera.viewport = new BABYLON.Viewport(0, 0, 1, 0.5);
         followCamera2.viewport = new BABYLON.Viewport(0, 0.5, 1, 0.5);
 
         Game.scenes.push(scene);
