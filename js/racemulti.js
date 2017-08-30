@@ -1,3 +1,8 @@
+// <reference path="libs/jquery-1.9.1/jquery-1.9.1.j" />
+// <reference path="libs/three.js.r58/three.js" />
+// <reference path="libs/three.js.r58/controls/OrbitControls.js" />
+// <reference path="libs/three.js.r59/loaders/ColladaLoader.js" />
+// <reference path="libs/requestAnimationFrame/RequestAnimationFrame.js" />
 // <reference path="js/babylon.max.js" />
 // <reference path="js/cannon.max.js" />
 // <reference path="js/babylon.d.ts" />
@@ -21,7 +26,9 @@ var isJPressed = false;
 var isOPressed = false;
 
 var isSpacePressed = false;
+
 document.addEventListener("DOMContentLoaded", startGame, false);
+
 function startGame() {
     canvas = document.getElementById("renderCanvas");
     engine = new BABYLON.Engine(canvas, true);
@@ -34,6 +41,7 @@ function startGame() {
     });
 
 }
+
 Game.ChooseScene = function () {
     var scene = new BABYLON.Scene(engine);
     var ground = new BABYLON.Mesh.CreateGroundFromHeightMap("G0", "images/height1.png", 500, 500, 50, 0, 100, scene, false);
@@ -149,6 +157,13 @@ Game.ChooseScene = function () {
             tank.position.z < map2.position.z + 5
             && isEPressed)
             Game.activeScene = 2;
+
+        if (tank.position.x > map3.position.x - 5 &&
+            tank.position.x < map3.position.x + 5 &&
+            tank.position.z > map3.position.z - 5 &&
+            tank.position.z < map3.position.z + 5
+            && isEPressed)
+            Game.activeScene = 3;
 
         if (isIPressed) {
             tank.moveWithCollisions(tank.frontVector.multiplyByFloats(tank.speed, 0, tank.speed));
@@ -1456,6 +1471,7 @@ Game.createSecondScene = function () {
     }
     return scene;
 }
+
 Game.createThirdScene = function () {
     {
         var scene = new BABYLON.Scene(engine);
@@ -1468,21 +1484,18 @@ Game.createThirdScene = function () {
         var PowerUps = [];
         var Goo = [];
         var madafe3 = [];
-        var finish = createFinishLine(scene, 1);
-
-        PowerUps = createPowerups(scene, 1);
-        var skybox = createSkybox("textures/sky36/sky36",scene);
-        tank[0].position = new BABYLON.Vector3(141, 1,806);
+        var finish = createFinishLine(scene, 2);
+        tank[0].position = new BABYLON.Vector3(141, 1, 806);
         tank[1].position = new BABYLON.Vector3(145, 1, 806);
-        //var freeCamera = createFreeCamera(scene);
+
+        PowerUps = createPowerups(scene, 2);
+        var skybox = createSkybox("textures/sky36/sky36",scene);
         var followCamera2 = createFollowCamera(tank[0], scene);
         var followCamera = createFollowCamera(tank[1], scene);
         scene.activeCameras.push(followCamera);
-        scene.activeCameras.push(freeCamera);
         scene.activeCameras.push(followCamera2);
         followCamera.attachControl(canvas);
         followCamera.viewport = new BABYLON.Viewport(0, 0, 1, 0.5);
-        //freeCamera.viewport = new BABYLON.Viewport(0, 0, 1, 0.5);
         followCamera2.viewport = new BABYLON.Viewport(0, 0.5, 1, 0.5);
 
         Game.scenes.push(scene);
@@ -1527,7 +1540,7 @@ Game.createThirdScene = function () {
             if (tank.position.y > 1)
                 tank.position.y = 1;
 
-            if (tank.position.x >= -876 && tank.position.x <= -575 && tank.position.z >= -126 && tank.position.z <= -122) {
+            if (tank.position.x >= 224 && tank.position.x <= 243 && tank.position.z >= -837 && tank.position.z <= -642) {
                 tank.passedCheckpoint = true;
             }
 
@@ -2347,7 +2360,7 @@ function createFinishLine(scene, sceneIndex) {
     mat.diffuseColor = BABYLON.Color3.White();
     mat.alpha = 0;
     if (sceneIndex === 0) {
-        
+
         finishLine.scaling.x = 180;
         finishLine.scaling.y = 0.1;
         finishLine.scaling.z = 5;
@@ -2357,21 +2370,21 @@ function createFinishLine(scene, sceneIndex) {
         finishLine.rotation.y = -0.5;
         finishLine.material = lineMaterial;
 
-        
+
         finishSign.position.x = 424;
         finishSign.position.y = 25;
         finishSign.position.z = 298;
         finishSign.material = signMaterial;
         finishLine.sign1 = finishSign;
 
-        
+
         finishSign2.position.x = 731;
         finishSign2.position.y = 25;
         finishSign2.position.z = 466;
         finishSign2.material = signMaterial;
         finishLine.sign2 = finishSign2;
 
-        
+
         finishFlag.scaling.x = 180;
         finishFlag.scaling.y = 0.1;
         finishFlag.scaling.z = 5;
@@ -2383,7 +2396,7 @@ function createFinishLine(scene, sceneIndex) {
         finishFlag.material = lineMaterial;
         finishLine.flag = finishFlag;
 
-        
+
         realFinishLine.scaling.x = 180;
         realFinishLine.scaling.y = 1;
         realFinishLine.scaling.z = 5;
@@ -2435,6 +2448,54 @@ function createFinishLine(scene, sceneIndex) {
         realFinishLine.position.x = 819.5;
         realFinishLine.position.y = 1;
         realFinishLine.position.z = 12.5;
+        realFinishLine.material = mat;
+    }
+
+    else if (sceneIndex === 2) {
+        finishLine.scaling.x = 80;
+        finishLine.scaling.y = 0.1;
+        finishLine.scaling.z = 5;
+
+        finishLine.position.x = 141;
+        finishLine.position.y = 0;
+        finishLine.position.z = 799.95;
+        finishLine.rotation.y = Math.PI / 2;
+        finishLine.material = lineMaterial;
+
+
+        finishSign.position.x = 141;
+        finishSign.position.y = 25;
+        finishSign.position.z = 722.4;
+        finishSign.material = signMaterial;
+        finishLine.sign1 = finishSign;
+
+
+        finishSign2.position.x = 141;
+        finishSign2.position.y = 25;
+        finishSign2.position.z = 877.5;
+        finishSign2.material = signMaterial;
+        finishLine.sign2 = finishSign2;
+
+
+        finishFlag.scaling.x = 80;
+        finishFlag.scaling.y = 0.1;
+        finishFlag.scaling.z = 5;
+        finishFlag.position.x = 141;
+        finishFlag.position.y = 50;
+        finishFlag.position.z = 799.95;
+        finishFlag.rotation.x = Math.PI / 2;
+        finishFlag.rotation.y = Math.PI / 2;
+        finishFlag.material = lineMaterial;
+        finishLine.flag = finishFlag;
+
+
+        realFinishLine.scaling.x = 80;
+        realFinishLine.scaling.y = 1;
+        realFinishLine.scaling.z = 5;
+        realFinishLine.position.x = 141;
+        realFinishLine.position.y = 1;
+        realFinishLine.position.z = 799.95;
+        realFinishLine.rotation.y = Math.PI / 2;
         realFinishLine.material = mat;
     }
     return realFinishLine;
@@ -2550,6 +2611,39 @@ function createPowerups(scene,sceneIndex) {
         Ups[7].position.y = 5;
         Ups[7].position.z = 531;
     }
+    else if (sceneIndex === 2) {
+        Ups[0].position.x = -715;
+        Ups[0].position.y = 5;
+        Ups[0].position.z = 605;
+
+        Ups[1].position.x = -665;
+        Ups[1].position.y = 5;
+        Ups[1].position.z = 639;
+
+        Ups[2].position.x = -907;
+        Ups[2].position.y = 5;
+        Ups[2].position.z = -426;
+
+        Ups[3].position.x = -872;
+        Ups[3].position.y = 5;
+        Ups[3].position.z = 429;
+
+        Ups[4].position.x = -847;
+        Ups[4].position.y = 5;
+        Ups[4].position.z = -442;
+
+        Ups[5].position.x = -74;
+        Ups[5].position.y = 5;
+        Ups[5].position.z = 107;
+
+        Ups[6].position.x = -320;
+        Ups[6].position.y = 5;
+        Ups[6].position.z = -502;
+
+        Ups[7].position.x = 798;
+        Ups[7].position.y = 5;
+        Ups[7].position.z = -559;
+    }
 
         Ups[0].material = UpsMaterial[0];
         Ups[1].material = UpsMaterial[1];
@@ -2652,4 +2746,3 @@ function RandomPower(tank) {
     if (r === 3)
         return "GooStain";
 }
-
