@@ -24,18 +24,28 @@ var isLPressed = false;
 var isKPressed = false;
 var isJPressed = false;
 var isOPressed = false;
-
+var isGameOver = false;
 var isSpacePressed = false;
+
+var glassSound;
+var isGlassSoundReady = false;
+
 
 document.addEventListener("DOMContentLoaded", startGame, false);
 
 function startGame() {
     canvas = document.getElementById("renderCanvas");
     engine = new BABYLON.Engine(canvas, true);
+
+
+
+
     Game.ChooseScene();
     Game.createFirstScene();
     Game.createSecondScene();
     Game.createThirdScene();
+
+
     engine.runRenderLoop(function () {
         Game.scenes[Game.activeScene].renderLoop();
     });
@@ -107,7 +117,7 @@ Game.ChooseScene = function () {
             tank.position.x < map2.position.x + 5 &&
             tank.position.z > map2.position.z - 5 &&
             tank.position.z < map2.position.z + 5
-            && isEPressed) 
+            && isEPressed)
             Game.activeScene = 2;
         if (tank.position.x > map3.position.x - 5 &&
             tank.position.x < map3.position.x + 5 &&
@@ -205,7 +215,7 @@ Game.createFirstScene = function () {
     var tank = [];
     tank[0] = createHero(new BABYLON.Color3.White, scene);
     tank[1] = createHero(new BABYLON.Color3.Black, scene);
-    var finish = createFinishLine(scene,0);
+    var finish = createFinishLine(scene, 0);
     var PowerUps = [];
     var Goo = [];
     var madafe3 = [];
@@ -214,9 +224,9 @@ Game.createFirstScene = function () {
     //var raceMusic = new BABYLON.Sound("racemusic", "sounds/Luigi Circuit & Mario Circuit.mp3", scene, null, { loop: false, autoplay: true });
     //raceMusic.play();
     //startMusic.play();
-    
-    PowerUps = createPowerups(scene,0);
-    var skybox = createSkybox("textures/sky/sky",scene);
+
+    PowerUps = createPowerups(scene, 0);
+    var skybox = createSkybox("textures/sky/sky", scene);
     tank[0].position = new BABYLON.Vector3(627, 1, 430);
     tank[1].position = new BABYLON.Vector3(632, 1, 430);
     var followCamera2 = createFollowCamera(tank[0], scene);
@@ -282,14 +292,12 @@ Game.createFirstScene = function () {
         if (tank.position.x > PowerUps[0].position.x - 5.5 &&
             tank.position.x < PowerUps[0].position.x + 5.5 &&
             tank.position.z > PowerUps[0].position.z - 5.5 &&
-            tank.position.z < PowerUps[0].position.z + 5.5)
-        {
+            tank.position.z < PowerUps[0].position.z + 5.5) {
             tank.particleSystem.start();
             var temp0 = PowerUps[0].position;
             PowerUps[0].position = BABYLON.Vector3.Zero();
 
-            var glass = new BABYLON.Sound("broken", "sounds/Glass Vase-trimmed.mp3", scene, null, { loop: false, autoplay: true });
-            glass.play();
+
 
             tank.power = RandomPower(tank);
 
@@ -345,7 +353,7 @@ Game.createFirstScene = function () {
                 PowerUps[2].position = temp0;
             }, 2000);
         }
-        
+
         if (tank.position.x > PowerUps[3].position.x - 5.5 &&
             tank.position.x < PowerUps[3].position.x + 5.5 &&
             tank.position.z > PowerUps[3].position.z - 5.5 &&
@@ -433,7 +441,8 @@ Game.createFirstScene = function () {
                 PowerUps[6].position = temp0;
             }, 2000);
         }
-
+        if (tank.laps > 2)
+            isGameOver = true;
         if (tank.position.x > PowerUps[7].position.x - 5.5 &&
             tank.position.x < PowerUps[7].position.x + 5.5 &&
             tank.position.z > PowerUps[7].position.z - 5.5 &&
@@ -456,26 +465,28 @@ Game.createFirstScene = function () {
             }, 2000);
         }
 
-        if (isWPressed) {
-            tank.moveWithCollisions(tank.frontVector.multiplyByFloats(tank.speed, 0, tank.speed));
-        }
+        if (!isGameOver)
+        {
+            if (isWPressed) {
+                tank.moveWithCollisions(tank.frontVector.multiplyByFloats(tank.speed, 0, tank.speed));
+            }
 
-        if (isSPressed) {
-            tank.moveWithCollisions(tank.frontVector.multiplyByFloats(-tank.speed, 0, -tank.speed));
-        }
+            if (isSPressed) {
+                tank.moveWithCollisions(tank.frontVector.multiplyByFloats(-tank.speed, 0, -tank.speed));
+            }
 
-        if (isDPressed) {
-            tank.rotation.y += 0.1 * tank.rotationSensitivity;
-            tank.frontVector.x = Math.sin(tank.rotation.y) * -1;
-            tank.frontVector.z = Math.cos(tank.rotation.y) * -1;
-        }
+            if (isDPressed) {
+                tank.rotation.y += 0.1 * tank.rotationSensitivity;
+                tank.frontVector.x = Math.sin(tank.rotation.y) * -1;
+                tank.frontVector.z = Math.cos(tank.rotation.y) * -1;
+            }
 
-        if (isAPressed) {
-            tank.rotation.y -= 0.1 * tank.rotationSensitivity;
-            tank.frontVector.x = Math.sin(tank.rotation.y) * -1;
-            tank.frontVector.z = Math.cos(tank.rotation.y) * -1;
+            if (isAPressed) {
+                tank.rotation.y -= 0.1 * tank.rotationSensitivity;
+                tank.frontVector.x = Math.sin(tank.rotation.y) * -1;
+                tank.frontVector.z = Math.cos(tank.rotation.y) * -1;
+            }
         }
-
         if (isEPressed) {
             console.log(tank.position);
             console.log(tank.laps);
@@ -484,7 +495,7 @@ Game.createFirstScene = function () {
             console.log(Goo.length);
             console.log(madafe3.length);
             if (tank.power === "CannonBall") {
-                var cannonball = BABYLON.Mesh.CreateSphere("cannonball", 3,20, scene, false);
+                var cannonball = BABYLON.Mesh.CreateSphere("cannonball", 3, 20, scene, false);
                 var cannonMat = new BABYLON.StandardMaterial("cannonMat", scene);
                 cannonMat.diffuseColor = new BABYLON.Color3.Black;
                 cannonball.material = cannonMat;
@@ -542,7 +553,7 @@ Game.createFirstScene = function () {
             }
         }
 
-        
+
     }
     Game.scenes[1].applyPlayer2Movement = function (tank, PowerUps, finish) {
         if (tank.position.y > 1)
@@ -711,7 +722,8 @@ Game.createFirstScene = function () {
                 PowerUps[6].position = temp0;
             }, 2000);
         }
-
+        if (tank.laps == 3)
+            isGameOver = true;
         if (tank.position.x > PowerUps[7].position.x - 5.5 &&
             tank.position.x < PowerUps[7].position.x + 5.5 &&
             tank.position.z > PowerUps[7].position.z - 5.5 &&
@@ -733,25 +745,26 @@ Game.createFirstScene = function () {
                 PowerUps[7].position = temp0;
             }, 2000);
         }
+        if (!isGameOver) {
+            if (isIPressed) {
+                tank.moveWithCollisions(tank.frontVector.multiplyByFloats(tank.speed, 0, tank.speed));
+            }
 
-        if (isIPressed) {
-            tank.moveWithCollisions(tank.frontVector.multiplyByFloats(tank.speed, 0, tank.speed));
-        }
+            if (isKPressed) {
+                tank.moveWithCollisions(tank.frontVector.multiplyByFloats(-tank.speed, 0, -tank.speed));
+            }
 
-        if (isKPressed) {
-            tank.moveWithCollisions(tank.frontVector.multiplyByFloats(-tank.speed, 0, -tank.speed));
-        }
+            if (isLPressed) {
+                tank.rotation.y += 0.1 * tank.rotationSensitivity;
+                tank.frontVector.x = Math.sin(tank.rotation.y) * -1;
+                tank.frontVector.z = Math.cos(tank.rotation.y) * -1;
+            }
 
-        if (isLPressed) {
-            tank.rotation.y += 0.1 * tank.rotationSensitivity;
-            tank.frontVector.x = Math.sin(tank.rotation.y) * -1;
-            tank.frontVector.z = Math.cos(tank.rotation.y) * -1;
-        }
-
-        if (isJPressed) {
-            tank.rotation.y -= 0.1 * tank.rotationSensitivity;
-            tank.frontVector.x = Math.sin(tank.rotation.y) * -1;
-            tank.frontVector.z = Math.cos(tank.rotation.y) * -1;
+            if (isJPressed) {
+                tank.rotation.y -= 0.1 * tank.rotationSensitivity;
+                tank.frontVector.x = Math.sin(tank.rotation.y) * -1;
+                tank.frontVector.z = Math.cos(tank.rotation.y) * -1;
+            }
         }
 
         if (isOPressed) {
@@ -823,7 +836,7 @@ Game.createFirstScene = function () {
             }
         }
 
-        
+
     }
 
     Game.scenes[1].renderLoop = function () {
@@ -850,13 +863,13 @@ Game.createSecondScene = function () {
     var PowerUps = [];
     var Goo = [];
     var madafe3 = [];
-    var finish = createFinishLine(scene,1);
+    var finish = createFinishLine(scene, 1);
     scene.fogMode = BABYLON.Scene.FOGMODE_EXP;
 
     scene.fogColor = new BABYLON.Color3(0.9, 0.9, 0.85);
     scene.fogDensity = 0.003;
-    PowerUps = createPowerups(scene,1);
-    var skybox = createSkybox("textures/sky/sky",scene);
+    PowerUps = createPowerups(scene, 1);
+    var skybox = createSkybox("textures/sky/sky", scene);
     tank[0].position = new BABYLON.Vector3(831, 1, 41);
     tank[1].position = new BABYLON.Vector3(835, 1, 41);
     //var freeCamera = createFreeCamera(scene);
@@ -941,7 +954,8 @@ Game.createSecondScene = function () {
                 PowerUps[0].position = temp0;
             }, 2000);
         }
-
+        if (tank.laps == 3)
+            isGameOver = true;
         if (tank.position.x > PowerUps[1].position.x - 5.5 &&
             tank.position.x < PowerUps[1].position.x + 5.5 &&
             tank.position.z > PowerUps[1].position.z - 5.5 &&
@@ -1095,27 +1109,27 @@ Game.createSecondScene = function () {
                 PowerUps[7].position = temp0;
             }, 2000);
         }
+        if (!isGameOver) {
+            if (isWPressed) {
+                tank.moveWithCollisions(tank.frontVector.multiplyByFloats(tank.speed, 0, tank.speed));
+            }
 
-        if (isWPressed) {
-            tank.moveWithCollisions(tank.frontVector.multiplyByFloats(tank.speed, 0, tank.speed));
+            if (isSPressed) {
+                tank.moveWithCollisions(tank.frontVector.multiplyByFloats(-tank.speed, 0, -tank.speed));
+            }
+
+            if (isDPressed) {
+                tank.rotation.y += 0.1 * tank.rotationSensitivity;
+                tank.frontVector.x = Math.sin(tank.rotation.y) * -1;
+                tank.frontVector.z = Math.cos(tank.rotation.y) * -1;
+            }
+
+            if (isAPressed) {
+                tank.rotation.y -= 0.1 * tank.rotationSensitivity;
+                tank.frontVector.x = Math.sin(tank.rotation.y) * -1;
+                tank.frontVector.z = Math.cos(tank.rotation.y) * -1;
+            }
         }
-
-        if (isSPressed) {
-            tank.moveWithCollisions(tank.frontVector.multiplyByFloats(-tank.speed, 0, -tank.speed));
-        }
-
-        if (isDPressed) {
-            tank.rotation.y += 0.1 * tank.rotationSensitivity;
-            tank.frontVector.x = Math.sin(tank.rotation.y) * -1;
-            tank.frontVector.z = Math.cos(tank.rotation.y) * -1;
-        }
-
-        if (isAPressed) {
-            tank.rotation.y -= 0.1 * tank.rotationSensitivity;
-            tank.frontVector.x = Math.sin(tank.rotation.y) * -1;
-            tank.frontVector.z = Math.cos(tank.rotation.y) * -1;
-        }
-
         if (isEPressed) {
             console.log(tank.position);
             console.log(tank.laps);
@@ -1182,7 +1196,7 @@ Game.createSecondScene = function () {
             }
         }
 
-        
+
     }
     Game.scenes[2].applyPlayer2Movement = function (tank, PowerUps, finish) {
         if (tank.position.y > 1)
@@ -1241,7 +1255,8 @@ Game.createSecondScene = function () {
                 PowerUps[1].position = temp0;
             }, 2000);
         }
-
+        if (tank.laps == 3)
+            isGameOver = true;
         if (tank.position.x > PowerUps[2].position.x - 5.5 &&
             tank.position.x < PowerUps[2].position.x + 5.5 &&
             tank.position.z > PowerUps[2].position.z - 5.5 &&
@@ -1373,27 +1388,27 @@ Game.createSecondScene = function () {
                 PowerUps[7].position = temp0;
             }, 2000);
         }
+        if (!isGameOver) {
+            if (isIPressed) {
+                tank.moveWithCollisions(tank.frontVector.multiplyByFloats(tank.speed, 0, tank.speed));
+            }
 
-        if (isIPressed) {
-            tank.moveWithCollisions(tank.frontVector.multiplyByFloats(tank.speed, 0, tank.speed));
+            if (isKPressed) {
+                tank.moveWithCollisions(tank.frontVector.multiplyByFloats(-tank.speed, 0, -tank.speed));
+            }
+
+            if (isLPressed) {
+                tank.rotation.y += 0.1 * tank.rotationSensitivity;
+                tank.frontVector.x = Math.sin(tank.rotation.y) * -1;
+                tank.frontVector.z = Math.cos(tank.rotation.y) * -1;
+            }
+
+            if (isJPressed) {
+                tank.rotation.y -= 0.1 * tank.rotationSensitivity;
+                tank.frontVector.x = Math.sin(tank.rotation.y) * -1;
+                tank.frontVector.z = Math.cos(tank.rotation.y) * -1;
+            }
         }
-
-        if (isKPressed) {
-            tank.moveWithCollisions(tank.frontVector.multiplyByFloats(-tank.speed, 0, -tank.speed));
-        }
-
-        if (isLPressed) {
-            tank.rotation.y += 0.1 * tank.rotationSensitivity;
-            tank.frontVector.x = Math.sin(tank.rotation.y) * -1;
-            tank.frontVector.z = Math.cos(tank.rotation.y) * -1;
-        }
-
-        if (isJPressed) {
-            tank.rotation.y -= 0.1 * tank.rotationSensitivity;
-            tank.frontVector.x = Math.sin(tank.rotation.y) * -1;
-            tank.frontVector.z = Math.cos(tank.rotation.y) * -1;
-        }
-
         if (isOPressed) {
             console.log(tank.position);
             console.log(tank.laps);
@@ -1463,7 +1478,7 @@ Game.createSecondScene = function () {
             }
         }
 
-       
+
     }
     Game.scenes[2].renderLoop = function () {
         this.applyPlayer1Movement(tank[0], PowerUps, finish);
@@ -1494,7 +1509,7 @@ Game.createThirdScene = function () {
         tank[1].position = new BABYLON.Vector3(145, 1, 806);
 
         PowerUps = createPowerups(scene, 2);
-        var skybox = createSkybox("textures/sky36/sky36",scene);
+        var skybox = createSkybox("textures/sky36/sky36", scene);
         var followCamera2 = createFollowCamera(tank[0], scene);
         var followCamera = createFollowCamera(tank[1], scene);
         scene.activeCameras.push(followCamera);
@@ -1642,7 +1657,8 @@ Game.createThirdScene = function () {
                     PowerUps[3].position = temp0;
                 }, 2000);
             }
-
+            if (tank.laps == 3)
+                isGameOver = true;
             if (tank.position.x > PowerUps[4].position.x - 5.5 &&
                 tank.position.x < PowerUps[4].position.x + 5.5 &&
                 tank.position.z > PowerUps[4].position.z - 5.5 &&
@@ -1730,27 +1746,27 @@ Game.createThirdScene = function () {
                     PowerUps[7].position = temp0;
                 }, 2000);
             }
+            if (!isGameOver) {
+                if (isWPressed) {
+                    tank.moveWithCollisions(tank.frontVector.multiplyByFloats(tank.speed, 0, tank.speed));
+                }
 
-            if (isWPressed) {
-                tank.moveWithCollisions(tank.frontVector.multiplyByFloats(tank.speed, 0, tank.speed));
+                if (isSPressed) {
+                    tank.moveWithCollisions(tank.frontVector.multiplyByFloats(-tank.speed, 0, -tank.speed));
+                }
+
+                if (isDPressed) {
+                    tank.rotation.y += 0.1 * tank.rotationSensitivity;
+                    tank.frontVector.x = Math.sin(tank.rotation.y) * -1;
+                    tank.frontVector.z = Math.cos(tank.rotation.y) * -1;
+                }
+
+                if (isAPressed) {
+                    tank.rotation.y -= 0.1 * tank.rotationSensitivity;
+                    tank.frontVector.x = Math.sin(tank.rotation.y) * -1;
+                    tank.frontVector.z = Math.cos(tank.rotation.y) * -1;
+                }
             }
-
-            if (isSPressed) {
-                tank.moveWithCollisions(tank.frontVector.multiplyByFloats(-tank.speed, 0, -tank.speed));
-            }
-
-            if (isDPressed) {
-                tank.rotation.y += 0.1 * tank.rotationSensitivity;
-                tank.frontVector.x = Math.sin(tank.rotation.y) * -1;
-                tank.frontVector.z = Math.cos(tank.rotation.y) * -1;
-            }
-
-            if (isAPressed) {
-                tank.rotation.y -= 0.1 * tank.rotationSensitivity;
-                tank.frontVector.x = Math.sin(tank.rotation.y) * -1;
-                tank.frontVector.z = Math.cos(tank.rotation.y) * -1;
-            }
-
             if (isEPressed) {
                 console.log(tank.position);
                 console.log(tank.laps);
@@ -1817,7 +1833,7 @@ Game.createThirdScene = function () {
                 }
             }
 
-            
+
         }
         Game.scenes[3].applyPlayer2Movement = function (tank, PowerUps, finish) {
             if (tank.position.y > 1)
@@ -1964,7 +1980,8 @@ Game.createThirdScene = function () {
                     PowerUps[5].position = temp0;
                 }, 2000);
             }
-
+            if (tank.laps == 3)
+                isGameOver = true;
             if (tank.position.x > PowerUps[6].position.x - 5.5 &&
                 tank.position.x < PowerUps[6].position.x + 5.5 &&
                 tank.position.z > PowerUps[6].position.z - 5.5 &&
@@ -2008,27 +2025,27 @@ Game.createThirdScene = function () {
                     PowerUps[7].position = temp0;
                 }, 2000);
             }
+            if (!isGameOver) {
+                if (isIPressed) {
+                    tank.moveWithCollisions(tank.frontVector.multiplyByFloats(tank.speed, 0, tank.speed));
+                }
 
-            if (isIPressed) {
-                tank.moveWithCollisions(tank.frontVector.multiplyByFloats(tank.speed, 0, tank.speed));
+                if (isKPressed) {
+                    tank.moveWithCollisions(tank.frontVector.multiplyByFloats(-tank.speed, 0, -tank.speed));
+                }
+
+                if (isLPressed) {
+                    tank.rotation.y += 0.1 * tank.rotationSensitivity;
+                    tank.frontVector.x = Math.sin(tank.rotation.y) * -1;
+                    tank.frontVector.z = Math.cos(tank.rotation.y) * -1;
+                }
+
+                if (isJPressed) {
+                    tank.rotation.y -= 0.1 * tank.rotationSensitivity;
+                    tank.frontVector.x = Math.sin(tank.rotation.y) * -1;
+                    tank.frontVector.z = Math.cos(tank.rotation.y) * -1;
+                }
             }
-
-            if (isKPressed) {
-                tank.moveWithCollisions(tank.frontVector.multiplyByFloats(-tank.speed, 0, -tank.speed));
-            }
-
-            if (isLPressed) {
-                tank.rotation.y += 0.1 * tank.rotationSensitivity;
-                tank.frontVector.x = Math.sin(tank.rotation.y) * -1;
-                tank.frontVector.z = Math.cos(tank.rotation.y) * -1;
-            }
-
-            if (isJPressed) {
-                tank.rotation.y -= 0.1 * tank.rotationSensitivity;
-                tank.frontVector.x = Math.sin(tank.rotation.y) * -1;
-                tank.frontVector.z = Math.cos(tank.rotation.y) * -1;
-            }
-
             if (isOPressed) {
                 console.log(tank.position);
                 console.log(tank.laps);
@@ -2098,7 +2115,7 @@ Game.createThirdScene = function () {
                 }
             }
 
-            
+
         }
         Game.scenes[3].renderLoop = function () {
             this.applyPlayer1Movement(tank[0], PowerUps, finish);
@@ -2188,8 +2205,8 @@ document.addEventListener("keyup", function (event) {
 });
 
 function createGround(ur1, ur2, scene) {
-    var ground = new BABYLON.Mesh.CreateGroundFromHeightMap("G"+Game.activeScene, ur1, 2000, 2000,50,0,75   ,scene,false);
-    var groundMaterial = new BABYLON.StandardMaterial("M"+Game.activeScene, scene);
+    var ground = new BABYLON.Mesh.CreateGroundFromHeightMap("G" + Game.activeScene, ur1, 2000, 2000, 50, 0, 75, scene, false);
+    var groundMaterial = new BABYLON.StandardMaterial("M" + Game.activeScene, scene);
     groundMaterial.diffuseTexture = new BABYLON.Texture(ur2, scene);
     ground.material = groundMaterial;
     ground.checkCollisions = true;
@@ -2212,7 +2229,7 @@ function createFreeCamera(scene) {
     camera.keysRight.push('D'.charCodeAt(0));
 
     camera.checkCollisions = false;
-    camera.speed = 10   ;
+    camera.speed = 10;
     return camera;
 }
 
@@ -2381,7 +2398,7 @@ function createFinishLine(scene, sceneIndex) {
     var lineMaterial = new BABYLON.StandardMaterial("M2", scene);
     lineMaterial.diffuseTexture = new BABYLON.Texture("images/stripes33.jpg", scene);
     lineMaterial.emissiveColor = new BABYLON.Color3(0, 1, 0);
-    
+
     var signMaterial = new BABYLON.StandardMaterial("M3", scene);
     signMaterial.emissiveColor = new BABYLON.Color3(1, 1, 1);
 
@@ -2530,7 +2547,7 @@ function createFinishLine(scene, sceneIndex) {
     return realFinishLine;
 }
 
-function createPowerups(scene,sceneIndex) {
+function createPowerups(scene, sceneIndex) {
     var Ups = [];
     var UpsMaterial = [];
 
@@ -2674,82 +2691,82 @@ function createPowerups(scene,sceneIndex) {
         Ups[7].position.z = -559;
     }
 
-        Ups[0].material = UpsMaterial[0];
-        Ups[1].material = UpsMaterial[1];
-        Ups[2].material = UpsMaterial[2];
-        Ups[3].material = UpsMaterial[3];
-        Ups[4].material = UpsMaterial[4];
-        Ups[5].material = UpsMaterial[5];
-        Ups[6].material = UpsMaterial[6];
-        Ups[7].material = UpsMaterial[7];
+    Ups[0].material = UpsMaterial[0];
+    Ups[1].material = UpsMaterial[1];
+    Ups[2].material = UpsMaterial[2];
+    Ups[3].material = UpsMaterial[3];
+    Ups[4].material = UpsMaterial[4];
+    Ups[5].material = UpsMaterial[5];
+    Ups[6].material = UpsMaterial[6];
+    Ups[7].material = UpsMaterial[7];
 
-        var animationBox = [];
-        animationBox[0] = new BABYLON.Animation("tutoAnimation", "rotation.y", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT,
-            BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
+    var animationBox = [];
+    animationBox[0] = new BABYLON.Animation("tutoAnimation", "rotation.y", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT,
+        BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
 
-        animationBox[1] = new BABYLON.Animation("tutoAnimation", "rotation.y", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT,
-            BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
+    animationBox[1] = new BABYLON.Animation("tutoAnimation", "rotation.y", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT,
+        BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
 
-        animationBox[2] = new BABYLON.Animation("tutoAnimation", "rotation.y", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT,
-            BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
+    animationBox[2] = new BABYLON.Animation("tutoAnimation", "rotation.y", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT,
+        BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
 
-        animationBox[3] = new BABYLON.Animation("tutoAnimation", "rotation.y", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT,
-            BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
+    animationBox[3] = new BABYLON.Animation("tutoAnimation", "rotation.y", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT,
+        BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
 
-        animationBox[4] = new BABYLON.Animation("tutoAnimation", "rotation.y", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT,
-            BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
+    animationBox[4] = new BABYLON.Animation("tutoAnimation", "rotation.y", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT,
+        BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
 
-        animationBox[5] = new BABYLON.Animation("tutoAnimation", "rotation.y", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT,
-            BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
+    animationBox[5] = new BABYLON.Animation("tutoAnimation", "rotation.y", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT,
+        BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
 
-        animationBox[6] = new BABYLON.Animation("tutoAnimation", "rotation.y", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT,
-            BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
+    animationBox[6] = new BABYLON.Animation("tutoAnimation", "rotation.y", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT,
+        BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
 
-        animationBox[7] = new BABYLON.Animation("tutoAnimation", "rotation.y", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT,
-            BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
+    animationBox[7] = new BABYLON.Animation("tutoAnimation", "rotation.y", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT,
+        BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
 
-        var keys = [];
-        keys.push({
-            frame: 0,
-            value: 0
-        });
+    var keys = [];
+    keys.push({
+        frame: 0,
+        value: 0
+    });
 
-        keys.push({
-            frame: 60,
-            value: 2 * Math.PI
-        });
+    keys.push({
+        frame: 60,
+        value: 2 * Math.PI
+    });
 
 
-        animationBox[0].setKeys(keys);
-        animationBox[1].setKeys(keys);
-        animationBox[2].setKeys(keys);
-        animationBox[3].setKeys(keys);
-        animationBox[4].setKeys(keys);
-        animationBox[5].setKeys(keys);
-        animationBox[6].setKeys(keys);
-        animationBox[7].setKeys(keys);
+    animationBox[0].setKeys(keys);
+    animationBox[1].setKeys(keys);
+    animationBox[2].setKeys(keys);
+    animationBox[3].setKeys(keys);
+    animationBox[4].setKeys(keys);
+    animationBox[5].setKeys(keys);
+    animationBox[6].setKeys(keys);
+    animationBox[7].setKeys(keys);
 
-        Ups[0].animations.push(animationBox[0]);
-        Ups[1].animations.push(animationBox[1]);
-        Ups[2].animations.push(animationBox[2]);
-        Ups[3].animations.push(animationBox[3]);
-        Ups[4].animations.push(animationBox[4]);
-        Ups[5].animations.push(animationBox[5]);
-        Ups[6].animations.push(animationBox[6]);
-        Ups[7].animations.push(animationBox[7]);
+    Ups[0].animations.push(animationBox[0]);
+    Ups[1].animations.push(animationBox[1]);
+    Ups[2].animations.push(animationBox[2]);
+    Ups[3].animations.push(animationBox[3]);
+    Ups[4].animations.push(animationBox[4]);
+    Ups[5].animations.push(animationBox[5]);
+    Ups[6].animations.push(animationBox[6]);
+    Ups[7].animations.push(animationBox[7]);
 
-        scene.beginAnimation(Ups[0], 0, 60, true);
-        scene.beginAnimation(Ups[1], 0, 60, true);
-        scene.beginAnimation(Ups[2], 0, 60, true);
-        scene.beginAnimation(Ups[3], 0, 60, true);
-        scene.beginAnimation(Ups[4], 0, 60, true);
-        scene.beginAnimation(Ups[5], 0, 60, true);
-        scene.beginAnimation(Ups[6], 0, 60, true);
-        scene.beginAnimation(Ups[7], 0, 60, true);
+    scene.beginAnimation(Ups[0], 0, 60, true);
+    scene.beginAnimation(Ups[1], 0, 60, true);
+    scene.beginAnimation(Ups[2], 0, 60, true);
+    scene.beginAnimation(Ups[3], 0, 60, true);
+    scene.beginAnimation(Ups[4], 0, 60, true);
+    scene.beginAnimation(Ups[5], 0, 60, true);
+    scene.beginAnimation(Ups[6], 0, 60, true);
+    scene.beginAnimation(Ups[7], 0, 60, true);
     return Ups;
 }
 
-function createSkybox(url,scene) {
+function createSkybox(url, scene) {
     var skybox = BABYLON.Mesh.CreateBox("skyBox", 10000.0, scene);
     var skyboxMaterial = new BABYLON.StandardMaterial("skyBox", scene);
     skyboxMaterial.backFaceCulling = false;
@@ -2762,6 +2779,7 @@ function createSkybox(url,scene) {
 }
 
 function RandomPower(tank) {
+    return "CannonBall";
     if (tank.power !== "none")
         return tank.power;
     var r = Math.floor(Math.random() * 4);
