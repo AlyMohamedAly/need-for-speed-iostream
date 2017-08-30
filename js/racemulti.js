@@ -275,6 +275,7 @@ Game.createFirstScene = function () {
 
         if (tank.passedCheckpoint && tank.intersectsMesh(finish, true)) {
             tank.laps++;
+            updateTextTexture(tank);
             tank.passedCheckpoint = false;
         }
 
@@ -553,6 +554,7 @@ Game.createFirstScene = function () {
 
         if (tank.passedCheckpoint && tank.intersectsMesh(finish, true)) {
             tank.laps++;
+            updateTextTexture(tank);
             tank.passedCheckpoint = false;
         }
 
@@ -823,6 +825,7 @@ Game.createFirstScene = function () {
 
         
     }
+
     Game.scenes[1].renderLoop = function () {
         this.applyPlayer1Movement(tank[0], PowerUps, finish);
         this.applyPlayer2Movement(tank[1], PowerUps, finish);
@@ -913,6 +916,7 @@ Game.createSecondScene = function () {
 
         if (tank.passedCheckpoint && tank.intersectsMesh(finish, true)) {
             tank.laps++;
+            updateTextTexture(tank);
             tank.passedCheckpoint = false;
         }
 
@@ -1190,6 +1194,7 @@ Game.createSecondScene = function () {
 
         if (tank.passedCheckpoint && tank.intersectsMesh(finish, true)) {
             tank.laps++;
+            updateTextTexture(tank);
             tank.passedCheckpoint = false;
         }
 
@@ -1546,6 +1551,7 @@ Game.createThirdScene = function () {
 
             if (tank.passedCheckpoint && tank.intersectsMesh(finish, true)) {
                 tank.laps++;
+                updateTextTexture(tank);
                 tank.passedCheckpoint = false;
             }
 
@@ -1823,6 +1829,7 @@ Game.createThirdScene = function () {
 
             if (tank.passedCheckpoint && tank.intersectsMesh(finish, true)) {
                 tank.laps++;
+                updateTextTexture(tank);
                 tank.passedCheckpoint = false;
             }
 
@@ -2339,9 +2346,31 @@ function createHero(color, scene) {
     tank.particleSystem.gravity = new BABYLON.Vector3(0, -9.81, 0);
     tank.particleSystem.emitter = tank;
 
+    var textPlaneTexture = new BABYLON.DynamicTexture("dynamic texture", 2048, scene, true);
+    textPlaneTexture.drawText(tank.laps, null, 1000, "bold 1000px verdana", "white", "transparent");
+    textPlaneTexture.hasAlpha = true;
+
+    tank.textPlane = BABYLON.Mesh.CreatePlane("textPlane", 10, scene, false);
+    tank.textPlane.billboardMode = BABYLON.AbstractMesh.BILLBOARDMODE_ALL;
+    tank.textPlane.material = new BABYLON.StandardMaterial("textPlane", scene);
+    tank.textPlane.parent = tank;
+    tank.textPlane.position.y += 3;
+    tank.textPlane.material.diffuseTexture = textPlaneTexture;
+    tank.textPlane.material.specularColor = new BABYLON.Color3(0, 0, 0);
+    tank.textPlane.material.emissiveColor = new BABYLON.Color3(1, 1, 1);
+    tank.textPlane.material.backFaceCulling = false;
+
     return tank;
 }
 
+function updateTextTexture(tank) {
+    var context = tank.textPlane.material.diffuseTexture.getContext();
+    context.save();
+    var size = tank.textPlane.material.diffuseTexture.getSize();
+    context.clearRect(0, 0, size.width, size.height);
+    tank.textPlane.material.diffuseTexture.drawText(tank.laps, null, 1000, "bold 1000px verdana", "white", "transparent");
+
+}
 function createFinishLine(scene, sceneIndex) {
     var finishLine = BABYLON.Mesh.CreateBox("line", 2, scene);
     var finishSign = BABYLON.Mesh.CreateCylinder("cylinder", 50, 3, 3, 12, 1, scene);
@@ -2733,7 +2762,6 @@ function createSkybox(url,scene) {
 }
 
 function RandomPower(tank) {
-    return "CannonBall";
     if (tank.power !== "none")
         return tank.power;
     var r = Math.floor(Math.random() * 4);
