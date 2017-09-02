@@ -7,6 +7,7 @@
 // <reference path="js/cannon.max.js" />
 // <reference path="js/babylon.d.ts" />
 
+
 var canvas;
 var engine;
 var Game = {};
@@ -94,7 +95,10 @@ Game.ChooseScene = function () {
     map4mat.diffuseTexture = new BABYLON.Texture("images/OceanSequence.png", scene);
     map4.material = map4mat;
     map4.position = new BABYLON.Vector3(-185, 5, 30);
-
+    createModeText(map1, "race",scene);
+    createModeText(map2, "race",scene);
+    createModeText(map3, "race",scene);
+    createModeText(map4, "fight",scene);
     Game.scenes.push(scene);
 
     Game.scenes[0].applyPlayer1Movement = function (tank) {
@@ -221,10 +225,10 @@ Game.createFirstScene = function () {
     var Goo = [];
     var madafe3 = [];
 
-    //var startMusic = new BABYLON.Sound("racestart", "sounds/Mario Kart Race Start.mp3", scene, null, { loop: false, autoplay: true });
-    //var raceMusic = new BABYLON.Sound("racemusic", "sounds/Luigi Circuit & Mario Circuit.mp3", scene, null, { loop: false, autoplay: true });
-    //raceMusic.play();
-    //startMusic.play();
+    var startMusic = new BABYLON.Sound("racestart", "sounds/Mario Kart Race Start.mp3", scene, null, { loop: false, autoplay: true });
+    var raceMusic = new BABYLON.Sound("racemusic", "sounds/Luigi Circuit & Mario Circuit.mp3", scene, null, { loop: false, autoplay: true });
+    raceMusic.play();
+    startMusic.play();
 
     PowerUps = createPowerups(scene, 0);
     var skybox = createSkybox("textures/sky/sky", scene);
@@ -2116,11 +2120,13 @@ Game.createForthScene = function () {
         tank[0].position = new BABYLON.Vector3(627, 1, 430);
         tank[1].position = new BABYLON.Vector3(632, 1, 430);
         var followCamera2 = createFollowCamera(tank[0], scene);
-        var followCamera = createFollowCamera(tank[1], scene);
-        scene.activeCameras.push(followCamera);
+        //var followCamera = createFollowCamera(tank[1], scene);
+        var freeCamera = createFreeCamera(scene);
+        scene.activeCameras.push(freeCamera);
+        //scene.activeCameras.push(followCamera);
         scene.activeCameras.push(followCamera2);
-        followCamera.attachControl(canvas);
-        followCamera.viewport = new BABYLON.Viewport(0, 0, 1, 0.5);
+        //followCamera.attachControl(canvas);
+        freeCamera.viewport = new BABYLON.Viewport(0, 0, 1, 0.5);
         followCamera2.viewport = new BABYLON.Viewport(0, 0.5, 1, 0.5);
         var finish = createFinishLine(scene, 1);
         var splaat = new BABYLON.Sound("can", "sounds/Cartoon Slip.mp3", scene, null, { loop: false, autoplay: false });
@@ -2364,6 +2370,8 @@ Game.createForthScene = function () {
                     tank.frontVector.z = Math.cos(tank.rotation.y) * -1;
                 }
             }
+            if (isSpacePressed)
+                consonle.log(freeCamera.position);
             if (isEPressed) {
                 console.log(tank.position);
                 console.log(tank.laps);
@@ -2757,6 +2765,9 @@ document.addEventListener("keydown", function (event) {
     if (event.key === 'l' || event.key === 'L') {
         isLPressed = true;
     }
+    if (event.key === ' ') {
+        isSpacePressed = true;
+    }
 });
 
 document.addEventListener("keyup", function (event) {
@@ -2793,6 +2804,9 @@ document.addEventListener("keyup", function (event) {
     }
     if (event.key === 'l' || event.key === 'L') {
         isLPressed = false;
+    }
+    if (event.key === ' ') {
+        isSpacePressed = false;
     }
 });
 
@@ -3423,4 +3437,20 @@ function RandomPower(tank) {
         if (r === 4)
             return "healthUp";
     }
+}
+function createModeText(portal,gameMode,scene) {
+    var textPlaneTexture = new BABYLON.DynamicTexture("dynamic texture", 2048, scene, true);
+    textPlaneTexture.drawText(gameMode, null, 1000, "bold 1000px verdana", "white", "transparent");
+    textPlaneTexture.hasAlpha = true;
+
+    
+    portal.Mode = BABYLON.Mesh.CreatePlane("healthText", 5  , scene, false);
+    portal.Mode.billboardMode = BABYLON.AbstractMesh.BILLBOARDMODE_ALL;
+    portal.Mode.material = new BABYLON.StandardMaterial("healthText", scene);
+    portal.Mode.parent = portal;
+    portal.Mode.position.y +=5;
+    portal.Mode.material.diffuseTexture = textPlaneTexture;
+    portal.Mode.material.specularColor = new BABYLON.Color3(0, 0, 0);
+    portal.Mode.material.emissiveColor = new BABYLON.Color3(1, 1, 1);
+    portal.Mode.material.backFaceCulling = false;
 }
