@@ -443,8 +443,10 @@ Game.createFirstScene = function () {
                 PowerUps[6].position = temp0;
             }, 2000);
         }
-        if (tank.laps == 3)
+        if (tank.laps == 3) {
             isGameOver = true;
+            location.href = "http://localhost:8000/end.html";
+        }
         if (tank.position.x > PowerUps[7].position.x - 5.5 &&
             tank.position.x < PowerUps[7].position.x + 5.5 &&
             tank.position.z > PowerUps[7].position.z - 5.5 &&
@@ -717,8 +719,10 @@ Game.createFirstScene = function () {
                 PowerUps[6].position = temp0;
             }, 2000);
         }
-        if (tank.laps == 3)
+        if (tank.laps == 3) {
             isGameOver = true;
+            location.href = "http://localhost:8000/end.html";
+        }
         if (tank.position.x > PowerUps[7].position.x - 5.5 &&
             tank.position.x < PowerUps[7].position.x + 5.5 &&
             tank.position.z > PowerUps[7].position.z - 5.5 &&
@@ -952,8 +956,10 @@ Game.createSecondScene = function () {
                 PowerUps[0].position = temp0;
             }, 2000);
         }
-        if (tank.laps == 3)
+        if (tank.laps == 3) {
             isGameOver = true;
+            location.href = "http://localhost:8000/end.html";
+        }
         if (tank.position.x > PowerUps[1].position.x - 5.5 &&
             tank.position.x < PowerUps[1].position.x + 5.5 &&
             tank.position.z > PowerUps[1].position.z - 5.5 &&
@@ -1241,8 +1247,10 @@ Game.createSecondScene = function () {
                 PowerUps[1].position = temp0;
             }, 2000);
         }
-        if (tank.laps == 3)
+        if (tank.laps == 3) {
             isGameOver = true;
+            location.href = "http://localhost:8000/end.html";
+        }
         if (tank.position.x > PowerUps[2].position.x - 5.5 &&
             tank.position.x < PowerUps[2].position.x + 5.5 &&
             tank.position.z > PowerUps[2].position.z - 5.5 &&
@@ -1630,8 +1638,10 @@ Game.createThirdScene = function () {
                 PowerUps[3].position = temp0;
             }, 2000);
         }
-        if (tank.laps == 3)
+        if (tank.laps == 3) {
             isGameOver = true;
+            location.href = "http://localhost:8000/end.html";
+        }
         if (tank.position.x > PowerUps[4].position.x - 5.5 &&
             tank.position.x < PowerUps[4].position.x + 5.5 &&
             tank.position.z > PowerUps[4].position.z - 5.5 &&
@@ -1936,8 +1946,10 @@ Game.createThirdScene = function () {
                 PowerUps[5].position = temp0;
             }, 2000);
         }
-        if (tank.laps == 3)
+        if (tank.laps == 3) {
             isGameOver = true;
+            location.href = "http://localhost:8000/end.html";
+        }
         if (tank.position.x > PowerUps[6].position.x - 5.5 &&
             tank.position.x < PowerUps[6].position.x + 5.5 &&
             tank.position.z > PowerUps[6].position.z - 5.5 &&
@@ -2297,7 +2309,10 @@ Game.createForthScene = function () {
             }, 2000);
         }
         if (tank.health == 0)
-            isGameOver = true;
+        {
+                isGameOver = true;
+                location.href = "http://localhost:8000/end.html";
+        }
         if (tank.position.x > PowerUps[7].position.x - 5.5 &&
             tank.position.x < PowerUps[7].position.x + 5.5 &&
             tank.position.z > PowerUps[7].position.z - 5.5 &&
@@ -2562,8 +2577,10 @@ Game.createForthScene = function () {
                 PowerUps[6].position = temp0;
             }, 2000);
         }
-        if (tank.health == 0)
+        if (tank.health == 0) {
             isGameOver = true;
+            location.href = "http://localhost:8000/end.html";
+        }
         if (tank.position.x > PowerUps[7].position.x - 5.5 &&
             tank.position.x < PowerUps[7].position.x + 5.5 &&
             tank.position.z > PowerUps[7].position.z - 5.5 &&
