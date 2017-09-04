@@ -1561,7 +1561,7 @@ Game.createThirdScene = function () {
             tank.position.z < PowerUps[0].position.z + 5.5) {
             tank.particleSystem.start();
             var temp0 = PowerUps[0].position;
-            PowerUps[0].position = BABYLON.Vector3.Zero();
+            PowerUps[0].position = new BABYLON.Vector3(998, 0, 296);
 
             glass.play();
 
@@ -1582,7 +1582,7 @@ Game.createThirdScene = function () {
             tank.position.z < PowerUps[1].position.z + 5.5) {
             tank.particleSystem.start();
             var temp0 = PowerUps[1].position;
-            PowerUps[1].position = BABYLON.Vector3.Zero();
+            PowerUps[1].position = new BABYLON.Vector3(998, 0, 296);
 
             glass.play();
 
@@ -1603,7 +1603,7 @@ Game.createThirdScene = function () {
             tank.position.z < PowerUps[2].position.z + 5.5) {
             tank.particleSystem.start();
             var temp0 = PowerUps[2].position;
-            PowerUps[2].position = BABYLON.Vector3.Zero();
+            PowerUps[2].position = new BABYLON.Vector3(998, 0, 296);
 
             glass.play();
 
@@ -1624,7 +1624,7 @@ Game.createThirdScene = function () {
             tank.position.z < PowerUps[3].position.z + 5.5) {
             tank.particleSystem.start();
             var temp0 = PowerUps[3].position;
-            PowerUps[3].position = BABYLON.Vector3.Zero();
+            PowerUps[3].position = new BABYLON.Vector3(998, 0, 296);
 
             glass.play();
 
@@ -1648,7 +1648,7 @@ Game.createThirdScene = function () {
             tank.position.z < PowerUps[4].position.z + 5.5) {
             tank.particleSystem.start();
             var temp0 = PowerUps[4].position;
-            PowerUps[4].position = BABYLON.Vector3.Zero();
+            PowerUps[4].position = new BABYLON.Vector3(998, 0, 296);
 
             glass.play();
 
@@ -1669,7 +1669,7 @@ Game.createThirdScene = function () {
             tank.position.z < PowerUps[5].position.z + 5.5) {
             tank.particleSystem.start();
             var temp0 = PowerUps[5].position;
-            PowerUps[5].position = BABYLON.Vector3.Zero();
+            PowerUps[5].position = new BABYLON.Vector3(998, 0, 296);
 
             glass.play();
 
@@ -1690,7 +1690,7 @@ Game.createThirdScene = function () {
             tank.position.z < PowerUps[6].position.z + 5.5) {
             tank.particleSystem.start();
             var temp0 = PowerUps[6].position;
-            PowerUps[6].position = BABYLON.Vector3.Zero();
+            PowerUps[6].position = new BABYLON.Vector3(998, 0, 296);
 
             glass.play();
 
@@ -1711,7 +1711,7 @@ Game.createThirdScene = function () {
             tank.position.z < PowerUps[7].position.z + 5.5) {
             tank.particleSystem.start();
             var temp0 = PowerUps[7].position;
-            PowerUps[7].position = BABYLON.Vector3.Zero();
+            PowerUps[7].position = new BABYLON.Vector3(998, 0, 296);
 
             glass.play();
 
