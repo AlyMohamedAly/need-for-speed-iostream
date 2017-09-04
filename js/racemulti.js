@@ -184,7 +184,7 @@ Game.ChooseScene = function () {
             Game.activeScene = 3;
 
         if (isIPressed) {
-            tank.moveWithCollisions(tank.frontVector.multiplyByFloats(tank.speed, 0, tank.speed));
+            tank.moveWithCollisions(tank.frontVector.multiplyByFloats(tank.speed, 3, tank.speed));
         }
 
         if (isOPressed) {
@@ -192,7 +192,7 @@ Game.ChooseScene = function () {
         }
 
         if (isKPressed) {
-            tank.moveWithCollisions(tank.frontVector.multiplyByFloats(-tank.speed, 0, -tank.speed));
+            tank.moveWithCollisions(tank.frontVector.multiplyByFloats(-tank.speed, 3, -tank.speed));
         }
 
         if (isLPressed) {
@@ -746,11 +746,11 @@ Game.createFirstScene = function () {
         }
         if (!isGameOver) {
             if (isIPressed) {
-                tank.moveWithCollisions(tank.frontVector.multiplyByFloats(tank.speed, 0, tank.speed));
+                tank.moveWithCollisions(tank.frontVector.multiplyByFloats(tank.speed, 3, tank.speed));
             }
 
             if (isKPressed) {
-                tank.moveWithCollisions(tank.frontVector.multiplyByFloats(-tank.speed, 0, -tank.speed));
+                tank.moveWithCollisions(tank.frontVector.multiplyByFloats(-tank.speed, 3, -tank.speed));
             }
 
             if (isLPressed) {
@@ -1378,11 +1378,11 @@ Game.createSecondScene = function () {
         }
         if (!isGameOver) {
             if (isIPressed) {
-                tank.moveWithCollisions(tank.frontVector.multiplyByFloats(tank.speed, 0, tank.speed));
+                tank.moveWithCollisions(tank.frontVector.multiplyByFloats(tank.speed, 3, tank.speed));
             }
 
             if (isKPressed) {
-                tank.moveWithCollisions(tank.frontVector.multiplyByFloats(-tank.speed, 0, -tank.speed));
+                tank.moveWithCollisions(tank.frontVector.multiplyByFloats(-tank.speed, 3, -tank.speed));
             }
 
             if (isLPressed) {
@@ -1993,11 +1993,11 @@ Game.createThirdScene = function () {
         }
         if (!isGameOver) {
             if (isIPressed) {
-                tank.moveWithCollisions(tank.frontVector.multiplyByFloats(tank.speed, 0, tank.speed));
+                tank.moveWithCollisions(tank.frontVector.multiplyByFloats(tank.speed, 3, tank.speed));
             }
 
             if (isKPressed) {
-                tank.moveWithCollisions(tank.frontVector.multiplyByFloats(-tank.speed, 0, -tank.speed));
+                tank.moveWithCollisions(tank.frontVector.multiplyByFloats(-tank.speed, 3, -tank.speed));
             }
 
             if (isLPressed) {
@@ -2603,11 +2603,11 @@ Game.createForthScene = function () {
         }
         if (!isGameOver) {
             if (isIPressed) {
-                tank.moveWithCollisions(tank.frontVector.multiplyByFloats(tank.speed, 0, tank.speed));
+                tank.moveWithCollisions(tank.frontVector.multiplyByFloats(tank.speed, 3, tank.speed));
             }
 
             if (isKPressed) {
-                tank.moveWithCollisions(tank.frontVector.multiplyByFloats(-tank.speed, 0, -tank.speed));
+                tank.moveWithCollisions(tank.frontVector.multiplyByFloats(-tank.speed, 3, -tank.speed));
             }
 
             if (isLPressed) {
@@ -3393,8 +3393,14 @@ function createSkybox(url, scene) {
 }
 
 function RandomPower(tank) {
-    if (tank.power !== "none")
-        return tank.power;
+    if (tank.power === "SpeedBuff")
+        return "SpeedBuff";
+    if (tank.power === "SpeedNerf")
+        return "SpeedNerf";
+    if (tank.power === "CannonBall")
+        return "CannonBall";
+    if (tank.power === "GooStain")
+        return "GooStain";
     if (Game.activeScene < 4) {
         var r = Math.floor(Math.random() * 5);
         if (r === 0)
