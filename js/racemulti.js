@@ -294,10 +294,10 @@ Game.createFirstScene = function () {
             tank.passedCheckpoint = false;
         }
 
-        if (tank.position.x > PowerUps[0].position.x - 5.5 &&
-            tank.position.x < PowerUps[0].position.x + 5.5 &&
-            tank.position.z > PowerUps[0].position.z - 5.5 &&
-            tank.position.z < PowerUps[0].position.z + 5.5) {
+        if (tank.position.x > PowerUps[0].position.x - 30 &&
+            tank.position.x < PowerUps[0].position.x + 30 &&
+            tank.position.z > PowerUps[0].position.z - 30 &&
+            tank.position.z < PowerUps[0].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[0].position;
             PowerUps[0].position = BABYLON.Vector3.Zero();
@@ -315,10 +315,10 @@ Game.createFirstScene = function () {
             }, 2000);
         }
 
-        if (tank.position.x > PowerUps[1].position.x - 5.5 &&
-            tank.position.x < PowerUps[1].position.x + 5.5 &&
-            tank.position.z > PowerUps[1].position.z - 5.5 &&
-            tank.position.z < PowerUps[1].position.z + 5.5) {
+        if (tank.position.x > PowerUps[1].position.x - 30 &&
+            tank.position.x < PowerUps[1].position.x + 30 &&
+            tank.position.z > PowerUps[1].position.z - 30 &&
+            tank.position.z < PowerUps[1].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[1].position;
             PowerUps[1].position = BABYLON.Vector3.Zero();
@@ -336,10 +336,10 @@ Game.createFirstScene = function () {
             }, 2000);
         }
 
-        if (tank.position.x > PowerUps[2].position.x - 5.5 &&
-            tank.position.x < PowerUps[2].position.x + 5.5 &&
-            tank.position.z > PowerUps[2].position.z - 5.5 &&
-            tank.position.z < PowerUps[2].position.z + 5.5) {
+        if (tank.position.x > PowerUps[2].position.x - 30 &&
+            tank.position.x < PowerUps[2].position.x + 30 &&
+            tank.position.z > PowerUps[2].position.z - 30 &&
+            tank.position.z < PowerUps[2].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[2].position;
             PowerUps[2].position = BABYLON.Vector3.Zero();
@@ -358,10 +358,10 @@ Game.createFirstScene = function () {
             }, 2000);
         }
 
-        if (tank.position.x > PowerUps[3].position.x - 5.5 &&
-            tank.position.x < PowerUps[3].position.x + 5.5 &&
-            tank.position.z > PowerUps[3].position.z - 5.5 &&
-            tank.position.z < PowerUps[3].position.z + 5.5) {
+        if (tank.position.x > PowerUps[3].position.x - 30 &&
+            tank.position.x < PowerUps[3].position.x + 30 &&
+            tank.position.z > PowerUps[3].position.z - 30 &&
+            tank.position.z < PowerUps[3].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[3].position;
             PowerUps[3].position = BABYLON.Vector3.Zero();
@@ -379,10 +379,10 @@ Game.createFirstScene = function () {
             }, 2000);
         }
 
-        if (tank.position.x > PowerUps[4].position.x - 5.5 &&
-            tank.position.x < PowerUps[4].position.x + 5.5 &&
-            tank.position.z > PowerUps[4].position.z - 5.5 &&
-            tank.position.z < PowerUps[4].position.z + 5.5) {
+        if (tank.position.x > PowerUps[4].position.x - 30 &&
+            tank.position.x < PowerUps[4].position.x + 30 &&
+            tank.position.z > PowerUps[4].position.z - 30 &&
+            tank.position.z < PowerUps[4].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[4].position;
             PowerUps[4].position = BABYLON.Vector3.Zero();
@@ -400,10 +400,10 @@ Game.createFirstScene = function () {
             }, 2000);
         }
 
-        if (tank.position.x > PowerUps[5].position.x - 5.5 &&
-            tank.position.x < PowerUps[5].position.x + 5.5 &&
-            tank.position.z > PowerUps[5].position.z - 5.5 &&
-            tank.position.z < PowerUps[5].position.z + 5.5) {
+        if (tank.position.x > PowerUps[5].position.x - 30 &&
+            tank.position.x < PowerUps[5].position.x + 30 &&
+            tank.position.z > PowerUps[5].position.z - 30 &&
+            tank.position.z < PowerUps[5].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[5].position;
             PowerUps[5].position = BABYLON.Vector3.Zero();
@@ -422,10 +422,10 @@ Game.createFirstScene = function () {
             }, 2000);
         }
 
-        if (tank.position.x > PowerUps[6].position.x - 5.5 &&
-            tank.position.x < PowerUps[6].position.x + 5.5 &&
-            tank.position.z > PowerUps[6].position.z - 5.5 &&
-            tank.position.z < PowerUps[6].position.z + 5.5) {
+        if (tank.position.x > PowerUps[6].position.x - 30 &&
+            tank.position.x < PowerUps[6].position.x + 30 &&
+            tank.position.z > PowerUps[6].position.z - 30 &&
+            tank.position.z < PowerUps[6].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[6].position;
             PowerUps[6].position = BABYLON.Vector3.Zero();
@@ -447,10 +447,10 @@ Game.createFirstScene = function () {
             isGameOver = true;
             window.open("http://localhost:8000/end.html","_self");;
         }
-        if (tank.position.x > PowerUps[7].position.x - 5.5 &&
-            tank.position.x < PowerUps[7].position.x + 5.5 &&
-            tank.position.z > PowerUps[7].position.z - 5.5 &&
-            tank.position.z < PowerUps[7].position.z + 5.5) {
+        if (tank.position.x > PowerUps[7].position.x - 30 &&
+            tank.position.x < PowerUps[7].position.x + 30 &&
+            tank.position.z > PowerUps[7].position.z - 30 &&
+            tank.position.z < PowerUps[7].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[7].position;
             PowerUps[7].position = BABYLON.Vector3.Zero();
@@ -566,10 +566,10 @@ Game.createFirstScene = function () {
             tank.passedCheckpoint = false;
         }
 
-        if (tank.position.x > PowerUps[0].position.x - 5.5 &&
-            tank.position.x < PowerUps[0].position.x + 5.5 &&
-            tank.position.z > PowerUps[0].position.z - 5.5 &&
-            tank.position.z < PowerUps[0].position.z + 5.5) {
+        if (tank.position.x > PowerUps[0].position.x - 30 &&
+            tank.position.x < PowerUps[0].position.x + 30 &&
+            tank.position.z > PowerUps[0].position.z - 30 &&
+            tank.position.z < PowerUps[0].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[0].position;
             PowerUps[0].position = BABYLON.Vector3.Zero();
@@ -588,10 +588,10 @@ Game.createFirstScene = function () {
             }, 2000);
         }
 
-        if (tank.position.x > PowerUps[1].position.x - 5.5 &&
-            tank.position.x < PowerUps[1].position.x + 5.5 &&
-            tank.position.z > PowerUps[1].position.z - 5.5 &&
-            tank.position.z < PowerUps[1].position.z + 5.5) {
+        if (tank.position.x > PowerUps[1].position.x - 30 &&
+            tank.position.x < PowerUps[1].position.x + 30 &&
+            tank.position.z > PowerUps[1].position.z - 30 &&
+            tank.position.z < PowerUps[1].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[1].position;
             PowerUps[1].position = BABYLON.Vector3.Zero();
@@ -610,10 +610,10 @@ Game.createFirstScene = function () {
             }, 2000);
         }
 
-        if (tank.position.x > PowerUps[2].position.x - 5.5 &&
-            tank.position.x < PowerUps[2].position.x + 5.5 &&
-            tank.position.z > PowerUps[2].position.z - 5.5 &&
-            tank.position.z < PowerUps[2].position.z + 5.5) {
+        if (tank.position.x > PowerUps[2].position.x - 30 &&
+            tank.position.x < PowerUps[2].position.x + 30 &&
+            tank.position.z > PowerUps[2].position.z - 30 &&
+            tank.position.z < PowerUps[2].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[2].position;
             PowerUps[2].position = BABYLON.Vector3.Zero();
@@ -632,10 +632,10 @@ Game.createFirstScene = function () {
             }, 2000);
         }
 
-        if (tank.position.x > PowerUps[3].position.x - 5.5 &&
-            tank.position.x < PowerUps[3].position.x + 5.5 &&
-            tank.position.z > PowerUps[3].position.z - 5.5 &&
-            tank.position.z < PowerUps[3].position.z + 5.5) {
+        if (tank.position.x > PowerUps[3].position.x - 30 &&
+            tank.position.x < PowerUps[3].position.x + 30 &&
+            tank.position.z > PowerUps[3].position.z - 30 &&
+            tank.position.z < PowerUps[3].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[3].position;
             PowerUps[3].position = BABYLON.Vector3.Zero();
@@ -654,10 +654,10 @@ Game.createFirstScene = function () {
             }, 2000);
         }
 
-        if (tank.position.x > PowerUps[4].position.x - 5.5 &&
-            tank.position.x < PowerUps[4].position.x + 5.5 &&
-            tank.position.z > PowerUps[4].position.z - 5.5 &&
-            tank.position.z < PowerUps[4].position.z + 5.5) {
+        if (tank.position.x > PowerUps[4].position.x - 30 &&
+            tank.position.x < PowerUps[4].position.x + 30 &&
+            tank.position.z > PowerUps[4].position.z - 30 &&
+            tank.position.z < PowerUps[4].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[4].position;
             PowerUps[4].position = BABYLON.Vector3.Zero();
@@ -676,10 +676,10 @@ Game.createFirstScene = function () {
             }, 2000);
         }
 
-        if (tank.position.x > PowerUps[5].position.x - 5.5 &&
-            tank.position.x < PowerUps[5].position.x + 5.5 &&
-            tank.position.z > PowerUps[5].position.z - 5.5 &&
-            tank.position.z < PowerUps[5].position.z + 5.5) {
+        if (tank.position.x > PowerUps[5].position.x - 30 &&
+            tank.position.x < PowerUps[5].position.x + 30 &&
+            tank.position.z > PowerUps[5].position.z - 30 &&
+            tank.position.z < PowerUps[5].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[5].position;
             PowerUps[5].position = BABYLON.Vector3.Zero();
@@ -698,10 +698,10 @@ Game.createFirstScene = function () {
             }, 2000);
         }
 
-        if (tank.position.x > PowerUps[6].position.x - 5.5 &&
-            tank.position.x < PowerUps[6].position.x + 5.5 &&
-            tank.position.z > PowerUps[6].position.z - 5.5 &&
-            tank.position.z < PowerUps[6].position.z + 5.5) {
+        if (tank.position.x > PowerUps[6].position.x - 30 &&
+            tank.position.x < PowerUps[6].position.x + 30 &&
+            tank.position.z > PowerUps[6].position.z - 30 &&
+            tank.position.z < PowerUps[6].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[6].position;
             PowerUps[6].position = BABYLON.Vector3.Zero();
@@ -723,10 +723,10 @@ Game.createFirstScene = function () {
             isGameOver = true;
             window.open("http://localhost:8000/end.html","_self");;
         }
-        if (tank.position.x > PowerUps[7].position.x - 5.5 &&
-            tank.position.x < PowerUps[7].position.x + 5.5 &&
-            tank.position.z > PowerUps[7].position.z - 5.5 &&
-            tank.position.z < PowerUps[7].position.z + 5.5) {
+        if (tank.position.x > PowerUps[7].position.x - 30 &&
+            tank.position.x < PowerUps[7].position.x + 30 &&
+            tank.position.z > PowerUps[7].position.z - 30 &&
+            tank.position.z < PowerUps[7].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[7].position;
             PowerUps[7].position = BABYLON.Vector3.Zero();
@@ -936,10 +936,10 @@ Game.createSecondScene = function () {
             tank.passedCheckpoint = false;
         }
 
-        if (tank.position.x > PowerUps[0].position.x - 5.5 &&
-            tank.position.x < PowerUps[0].position.x + 5.5 &&
-            tank.position.z > PowerUps[0].position.z - 5.5 &&
-            tank.position.z < PowerUps[0].position.z + 5.5) {
+        if (tank.position.x > PowerUps[0].position.x - 30 &&
+            tank.position.x < PowerUps[0].position.x + 30 &&
+            tank.position.z > PowerUps[0].position.z - 30 &&
+            tank.position.z < PowerUps[0].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[0].position;
             PowerUps[0].position = BABYLON.Vector3.Zero();
@@ -960,10 +960,10 @@ Game.createSecondScene = function () {
             isGameOver = true;
             window.open("http://localhost:8000/end.html","_self");;
         }
-        if (tank.position.x > PowerUps[1].position.x - 5.5 &&
-            tank.position.x < PowerUps[1].position.x + 5.5 &&
-            tank.position.z > PowerUps[1].position.z - 5.5 &&
-            tank.position.z < PowerUps[1].position.z + 5.5) {
+        if (tank.position.x > PowerUps[1].position.x - 30 &&
+            tank.position.x < PowerUps[1].position.x + 30 &&
+            tank.position.z > PowerUps[1].position.z - 30 &&
+            tank.position.z < PowerUps[1].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[1].position;
             PowerUps[1].position = BABYLON.Vector3.Zero();
@@ -981,10 +981,10 @@ Game.createSecondScene = function () {
             }, 2000);
         }
 
-        if (tank.position.x > PowerUps[2].position.x - 5.5 &&
-            tank.position.x < PowerUps[2].position.x + 5.5 &&
-            tank.position.z > PowerUps[2].position.z - 5.5 &&
-            tank.position.z < PowerUps[2].position.z + 5.5) {
+        if (tank.position.x > PowerUps[2].position.x - 30 &&
+            tank.position.x < PowerUps[2].position.x + 30 &&
+            tank.position.z > PowerUps[2].position.z - 30 &&
+            tank.position.z < PowerUps[2].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[2].position;
             PowerUps[2].position = BABYLON.Vector3.Zero();
@@ -1002,10 +1002,10 @@ Game.createSecondScene = function () {
             }, 2000);
         }
 
-        if (tank.position.x > PowerUps[3].position.x - 5.5 &&
-            tank.position.x < PowerUps[3].position.x + 5.5 &&
-            tank.position.z > PowerUps[3].position.z - 5.5 &&
-            tank.position.z < PowerUps[3].position.z + 5.5) {
+        if (tank.position.x > PowerUps[3].position.x - 30 &&
+            tank.position.x < PowerUps[3].position.x + 30 &&
+            tank.position.z > PowerUps[3].position.z - 30 &&
+            tank.position.z < PowerUps[3].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[3].position;
             PowerUps[3].position = BABYLON.Vector3.Zero();
@@ -1023,10 +1023,10 @@ Game.createSecondScene = function () {
             }, 2000);
         }
 
-        if (tank.position.x > PowerUps[4].position.x - 5.5 &&
-            tank.position.x < PowerUps[4].position.x + 5.5 &&
-            tank.position.z > PowerUps[4].position.z - 5.5 &&
-            tank.position.z < PowerUps[4].position.z + 5.5) {
+        if (tank.position.x > PowerUps[4].position.x - 30 &&
+            tank.position.x < PowerUps[4].position.x + 30 &&
+            tank.position.z > PowerUps[4].position.z - 30 &&
+            tank.position.z < PowerUps[4].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[4].position;
             PowerUps[4].position = BABYLON.Vector3.Zero();
@@ -1044,10 +1044,10 @@ Game.createSecondScene = function () {
             }, 2000);
         }
 
-        if (tank.position.x > PowerUps[5].position.x - 5.5 &&
-            tank.position.x < PowerUps[5].position.x + 5.5 &&
-            tank.position.z > PowerUps[5].position.z - 5.5 &&
-            tank.position.z < PowerUps[5].position.z + 5.5) {
+        if (tank.position.x > PowerUps[5].position.x - 30 &&
+            tank.position.x < PowerUps[5].position.x + 30 &&
+            tank.position.z > PowerUps[5].position.z - 30 &&
+            tank.position.z < PowerUps[5].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[5].position;
             PowerUps[5].position = BABYLON.Vector3.Zero();
@@ -1065,10 +1065,10 @@ Game.createSecondScene = function () {
             }, 2000);
         }
 
-        if (tank.position.x > PowerUps[6].position.x - 5.5 &&
-            tank.position.x < PowerUps[6].position.x + 5.5 &&
-            tank.position.z > PowerUps[6].position.z - 5.5 &&
-            tank.position.z < PowerUps[6].position.z + 5.5) {
+        if (tank.position.x > PowerUps[6].position.x - 30 &&
+            tank.position.x < PowerUps[6].position.x + 30 &&
+            tank.position.z > PowerUps[6].position.z - 30 &&
+            tank.position.z < PowerUps[6].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[6].position;
             PowerUps[6].position = BABYLON.Vector3.Zero();
@@ -1086,10 +1086,10 @@ Game.createSecondScene = function () {
             }, 2000);
         }
 
-        if (tank.position.x > PowerUps[7].position.x - 5.5 &&
-            tank.position.x < PowerUps[7].position.x + 5.5 &&
-            tank.position.z > PowerUps[7].position.z - 5.5 &&
-            tank.position.z < PowerUps[7].position.z + 5.5) {
+        if (tank.position.x > PowerUps[7].position.x - 30 &&
+            tank.position.x < PowerUps[7].position.x + 30 &&
+            tank.position.z > PowerUps[7].position.z - 30 &&
+            tank.position.z < PowerUps[7].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[7].position;
             PowerUps[7].position = BABYLON.Vector3.Zero();
@@ -1206,10 +1206,10 @@ Game.createSecondScene = function () {
             tank.passedCheckpoint = false;
         }
 
-        if (tank.position.x > PowerUps[0].position.x - 5.5 &&
-            tank.position.x < PowerUps[0].position.x + 5.5 &&
-            tank.position.z > PowerUps[0].position.z - 5.5 &&
-            tank.position.z < PowerUps[0].position.z + 5.5) {
+        if (tank.position.x > PowerUps[0].position.x - 30 &&
+            tank.position.x < PowerUps[0].position.x + 30 &&
+            tank.position.z > PowerUps[0].position.z - 30 &&
+            tank.position.z < PowerUps[0].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[0].position;
             PowerUps[0].position = BABYLON.Vector3.Zero();
@@ -1227,10 +1227,10 @@ Game.createSecondScene = function () {
             }, 2000);
         }
 
-        if (tank.position.x > PowerUps[1].position.x - 5.5 &&
-            tank.position.x < PowerUps[1].position.x + 5.5 &&
-            tank.position.z > PowerUps[1].position.z - 5.5 &&
-            tank.position.z < PowerUps[1].position.z + 5.5) {
+        if (tank.position.x > PowerUps[1].position.x - 30 &&
+            tank.position.x < PowerUps[1].position.x + 30 &&
+            tank.position.z > PowerUps[1].position.z - 30 &&
+            tank.position.z < PowerUps[1].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[1].position;
             PowerUps[1].position = BABYLON.Vector3.Zero();
@@ -1251,10 +1251,10 @@ Game.createSecondScene = function () {
             isGameOver = true;
             window.open("http://localhost:8000/end.html","_self");;
         }
-        if (tank.position.x > PowerUps[2].position.x - 5.5 &&
-            tank.position.x < PowerUps[2].position.x + 5.5 &&
-            tank.position.z > PowerUps[2].position.z - 5.5 &&
-            tank.position.z < PowerUps[2].position.z + 5.5) {
+        if (tank.position.x > PowerUps[2].position.x - 30 &&
+            tank.position.x < PowerUps[2].position.x + 30 &&
+            tank.position.z > PowerUps[2].position.z - 30 &&
+            tank.position.z < PowerUps[2].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[2].position;
             PowerUps[2].position = BABYLON.Vector3.Zero();
@@ -1272,10 +1272,10 @@ Game.createSecondScene = function () {
             }, 2000);
         }
 
-        if (tank.position.x > PowerUps[3].position.x - 5.5 &&
-            tank.position.x < PowerUps[3].position.x + 5.5 &&
-            tank.position.z > PowerUps[3].position.z - 5.5 &&
-            tank.position.z < PowerUps[3].position.z + 5.5) {
+        if (tank.position.x > PowerUps[3].position.x - 30 &&
+            tank.position.x < PowerUps[3].position.x + 30 &&
+            tank.position.z > PowerUps[3].position.z - 30 &&
+            tank.position.z < PowerUps[3].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[3].position;
             PowerUps[3].position = BABYLON.Vector3.Zero();
@@ -1293,10 +1293,10 @@ Game.createSecondScene = function () {
             }, 2000);
         }
 
-        if (tank.position.x > PowerUps[4].position.x - 5.5 &&
-            tank.position.x < PowerUps[4].position.x + 5.5 &&
-            tank.position.z > PowerUps[4].position.z - 5.5 &&
-            tank.position.z < PowerUps[4].position.z + 5.5) {
+        if (tank.position.x > PowerUps[4].position.x - 30 &&
+            tank.position.x < PowerUps[4].position.x + 30 &&
+            tank.position.z > PowerUps[4].position.z - 30 &&
+            tank.position.z < PowerUps[4].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[4].position;
             PowerUps[4].position = BABYLON.Vector3.Zero();
@@ -1314,10 +1314,10 @@ Game.createSecondScene = function () {
             }, 2000);
         }
 
-        if (tank.position.x > PowerUps[5].position.x - 5.5 &&
-            tank.position.x < PowerUps[5].position.x + 5.5 &&
-            tank.position.z > PowerUps[5].position.z - 5.5 &&
-            tank.position.z < PowerUps[5].position.z + 5.5) {
+        if (tank.position.x > PowerUps[5].position.x - 30 &&
+            tank.position.x < PowerUps[5].position.x + 30 &&
+            tank.position.z > PowerUps[5].position.z - 30 &&
+            tank.position.z < PowerUps[5].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[5].position;
             PowerUps[5].position = BABYLON.Vector3.Zero();
@@ -1335,10 +1335,10 @@ Game.createSecondScene = function () {
             }, 2000);
         }
 
-        if (tank.position.x > PowerUps[6].position.x - 5.5 &&
-            tank.position.x < PowerUps[6].position.x + 5.5 &&
-            tank.position.z > PowerUps[6].position.z - 5.5 &&
-            tank.position.z < PowerUps[6].position.z + 5.5) {
+        if (tank.position.x > PowerUps[6].position.x - 30 &&
+            tank.position.x < PowerUps[6].position.x + 30 &&
+            tank.position.z > PowerUps[6].position.z - 30 &&
+            tank.position.z < PowerUps[6].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[6].position;
             PowerUps[6].position = BABYLON.Vector3.Zero();
@@ -1356,10 +1356,10 @@ Game.createSecondScene = function () {
             }, 2000);
         }
 
-        if (tank.position.x > PowerUps[7].position.x - 5.5 &&
-            tank.position.x < PowerUps[7].position.x + 5.5 &&
-            tank.position.z > PowerUps[7].position.z - 5.5 &&
-            tank.position.z < PowerUps[7].position.z + 5.5) {
+        if (tank.position.x > PowerUps[7].position.x - 30 &&
+            tank.position.x < PowerUps[7].position.x + 30 &&
+            tank.position.z > PowerUps[7].position.z - 30 &&
+            tank.position.z < PowerUps[7].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[7].position;
             PowerUps[7].position = BABYLON.Vector3.Zero();
@@ -1555,10 +1555,10 @@ Game.createThirdScene = function () {
             tank.passedCheckpoint = false;
         }
 
-        if (tank.position.x > PowerUps[0].position.x - 5.5 &&
-            tank.position.x < PowerUps[0].position.x + 5.5 &&
-            tank.position.z > PowerUps[0].position.z - 5.5 &&
-            tank.position.z < PowerUps[0].position.z + 5.5) {
+        if (tank.position.x > PowerUps[0].position.x - 30 &&
+            tank.position.x < PowerUps[0].position.x + 30 &&
+            tank.position.z > PowerUps[0].position.z - 30 &&
+            tank.position.z < PowerUps[0].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[0].position;
             PowerUps[0].position = new BABYLON.Vector3(998, 0, 296);
@@ -1576,10 +1576,10 @@ Game.createThirdScene = function () {
             }, 2000);
         }
 
-        if (tank.position.x > PowerUps[1].position.x - 5.5 &&
-            tank.position.x < PowerUps[1].position.x + 5.5 &&
-            tank.position.z > PowerUps[1].position.z - 5.5 &&
-            tank.position.z < PowerUps[1].position.z + 5.5) {
+        if (tank.position.x > PowerUps[1].position.x - 30 &&
+            tank.position.x < PowerUps[1].position.x + 30 &&
+            tank.position.z > PowerUps[1].position.z - 30 &&
+            tank.position.z < PowerUps[1].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[1].position;
             PowerUps[1].position = new BABYLON.Vector3(998, 0, 296);
@@ -1597,10 +1597,10 @@ Game.createThirdScene = function () {
             }, 2000);
         }
 
-        if (tank.position.x > PowerUps[2].position.x - 5.5 &&
-            tank.position.x < PowerUps[2].position.x + 5.5 &&
-            tank.position.z > PowerUps[2].position.z - 5.5 &&
-            tank.position.z < PowerUps[2].position.z + 5.5) {
+        if (tank.position.x > PowerUps[2].position.x - 30 &&
+            tank.position.x < PowerUps[2].position.x + 30 &&
+            tank.position.z > PowerUps[2].position.z - 30 &&
+            tank.position.z < PowerUps[2].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[2].position;
             PowerUps[2].position = new BABYLON.Vector3(998, 0, 296);
@@ -1618,10 +1618,10 @@ Game.createThirdScene = function () {
             }, 2000);
         }
 
-        if (tank.position.x > PowerUps[3].position.x - 5.5 &&
-            tank.position.x < PowerUps[3].position.x + 5.5 &&
-            tank.position.z > PowerUps[3].position.z - 5.5 &&
-            tank.position.z < PowerUps[3].position.z + 5.5) {
+        if (tank.position.x > PowerUps[3].position.x - 30 &&
+            tank.position.x < PowerUps[3].position.x + 30 &&
+            tank.position.z > PowerUps[3].position.z - 30 &&
+            tank.position.z < PowerUps[3].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[3].position;
             PowerUps[3].position = new BABYLON.Vector3(998, 0, 296);
@@ -1642,10 +1642,10 @@ Game.createThirdScene = function () {
             isGameOver = true;
             window.open("http://localhost:8000/end.html","_self");;
         }
-        if (tank.position.x > PowerUps[4].position.x - 5.5 &&
-            tank.position.x < PowerUps[4].position.x + 5.5 &&
-            tank.position.z > PowerUps[4].position.z - 5.5 &&
-            tank.position.z < PowerUps[4].position.z + 5.5) {
+        if (tank.position.x > PowerUps[4].position.x - 30 &&
+            tank.position.x < PowerUps[4].position.x + 30 &&
+            tank.position.z > PowerUps[4].position.z - 30 &&
+            tank.position.z < PowerUps[4].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[4].position;
             PowerUps[4].position = new BABYLON.Vector3(998, 0, 296);
@@ -1663,10 +1663,10 @@ Game.createThirdScene = function () {
             }, 2000);
         }
 
-        if (tank.position.x > PowerUps[5].position.x - 5.5 &&
-            tank.position.x < PowerUps[5].position.x + 5.5 &&
-            tank.position.z > PowerUps[5].position.z - 5.5 &&
-            tank.position.z < PowerUps[5].position.z + 5.5) {
+        if (tank.position.x > PowerUps[5].position.x - 30 &&
+            tank.position.x < PowerUps[5].position.x + 30 &&
+            tank.position.z > PowerUps[5].position.z - 30 &&
+            tank.position.z < PowerUps[5].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[5].position;
             PowerUps[5].position = new BABYLON.Vector3(998, 0, 296);
@@ -1684,10 +1684,10 @@ Game.createThirdScene = function () {
             }, 2000);
         }
 
-        if (tank.position.x > PowerUps[6].position.x - 5.5 &&
-            tank.position.x < PowerUps[6].position.x + 5.5 &&
-            tank.position.z > PowerUps[6].position.z - 5.5 &&
-            tank.position.z < PowerUps[6].position.z + 5.5) {
+        if (tank.position.x > PowerUps[6].position.x - 30 &&
+            tank.position.x < PowerUps[6].position.x + 30 &&
+            tank.position.z > PowerUps[6].position.z - 30 &&
+            tank.position.z < PowerUps[6].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[6].position;
             PowerUps[6].position = new BABYLON.Vector3(998, 0, 296);
@@ -1705,10 +1705,10 @@ Game.createThirdScene = function () {
             }, 2000);
         }
 
-        if (tank.position.x > PowerUps[7].position.x - 5.5 &&
-            tank.position.x < PowerUps[7].position.x + 5.5 &&
-            tank.position.z > PowerUps[7].position.z - 5.5 &&
-            tank.position.z < PowerUps[7].position.z + 5.5) {
+        if (tank.position.x > PowerUps[7].position.x - 30 &&
+            tank.position.x < PowerUps[7].position.x + 30 &&
+            tank.position.z > PowerUps[7].position.z - 30 &&
+            tank.position.z < PowerUps[7].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[7].position;
             PowerUps[7].position = new BABYLON.Vector3(998, 0, 296);
@@ -1821,10 +1821,10 @@ Game.createThirdScene = function () {
             tank.passedCheckpoint = false;
         }
 
-        if (tank.position.x > PowerUps[0].position.x - 5.5 &&
-            tank.position.x < PowerUps[0].position.x + 5.5 &&
-            tank.position.z > PowerUps[0].position.z - 5.5 &&
-            tank.position.z < PowerUps[0].position.z + 5.5) {
+        if (tank.position.x > PowerUps[0].position.x - 30 &&
+            tank.position.x < PowerUps[0].position.x + 30 &&
+            tank.position.z > PowerUps[0].position.z - 30 &&
+            tank.position.z < PowerUps[0].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[0].position;
             PowerUps[0].position = BABYLON.Vector3.Zero();
@@ -1842,10 +1842,10 @@ Game.createThirdScene = function () {
             }, 2000);
         }
 
-        if (tank.position.x > PowerUps[1].position.x - 5.5 &&
-            tank.position.x < PowerUps[1].position.x + 5.5 &&
-            tank.position.z > PowerUps[1].position.z - 5.5 &&
-            tank.position.z < PowerUps[1].position.z + 5.5) {
+        if (tank.position.x > PowerUps[1].position.x - 30 &&
+            tank.position.x < PowerUps[1].position.x + 30 &&
+            tank.position.z > PowerUps[1].position.z - 30 &&
+            tank.position.z < PowerUps[1].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[1].position;
             PowerUps[1].position = BABYLON.Vector3.Zero();
@@ -1863,10 +1863,10 @@ Game.createThirdScene = function () {
             }, 2000);
         }
 
-        if (tank.position.x > PowerUps[2].position.x - 5.5 &&
-            tank.position.x < PowerUps[2].position.x + 5.5 &&
-            tank.position.z > PowerUps[2].position.z - 5.5 &&
-            tank.position.z < PowerUps[2].position.z + 5.5) {
+        if (tank.position.x > PowerUps[2].position.x - 30 &&
+            tank.position.x < PowerUps[2].position.x + 30 &&
+            tank.position.z > PowerUps[2].position.z - 30 &&
+            tank.position.z < PowerUps[2].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[2].position;
             PowerUps[2].position = BABYLON.Vector3.Zero();
@@ -1884,10 +1884,10 @@ Game.createThirdScene = function () {
             }, 2000);
         }
 
-        if (tank.position.x > PowerUps[3].position.x - 5.5 &&
-            tank.position.x < PowerUps[3].position.x + 5.5 &&
-            tank.position.z > PowerUps[3].position.z - 5.5 &&
-            tank.position.z < PowerUps[3].position.z + 5.5) {
+        if (tank.position.x > PowerUps[3].position.x - 30 &&
+            tank.position.x < PowerUps[3].position.x + 30 &&
+            tank.position.z > PowerUps[3].position.z - 30 &&
+            tank.position.z < PowerUps[3].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[3].position;
             PowerUps[3].position = BABYLON.Vector3.Zero();
@@ -1905,10 +1905,10 @@ Game.createThirdScene = function () {
             }, 2000);
         }
 
-        if (tank.position.x > PowerUps[4].position.x - 5.5 &&
-            tank.position.x < PowerUps[4].position.x + 5.5 &&
-            tank.position.z > PowerUps[4].position.z - 5.5 &&
-            tank.position.z < PowerUps[4].position.z + 5.5) {
+        if (tank.position.x > PowerUps[4].position.x - 30 &&
+            tank.position.x < PowerUps[4].position.x + 30 &&
+            tank.position.z > PowerUps[4].position.z - 30 &&
+            tank.position.z < PowerUps[4].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[4].position;
             PowerUps[4].position = BABYLON.Vector3.Zero();
@@ -1926,10 +1926,10 @@ Game.createThirdScene = function () {
             }, 2000);
         }
 
-        if (tank.position.x > PowerUps[5].position.x - 5.5 &&
-            tank.position.x < PowerUps[5].position.x + 5.5 &&
-            tank.position.z > PowerUps[5].position.z - 5.5 &&
-            tank.position.z < PowerUps[5].position.z + 5.5) {
+        if (tank.position.x > PowerUps[5].position.x - 30 &&
+            tank.position.x < PowerUps[5].position.x + 30 &&
+            tank.position.z > PowerUps[5].position.z - 30 &&
+            tank.position.z < PowerUps[5].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[5].position;
             PowerUps[5].position = BABYLON.Vector3.Zero();
@@ -1950,10 +1950,10 @@ Game.createThirdScene = function () {
             isGameOver = true;
             window.open("http://localhost:8000/end.html","_self");;
         }
-        if (tank.position.x > PowerUps[6].position.x - 5.5 &&
-            tank.position.x < PowerUps[6].position.x + 5.5 &&
-            tank.position.z > PowerUps[6].position.z - 5.5 &&
-            tank.position.z < PowerUps[6].position.z + 5.5) {
+        if (tank.position.x > PowerUps[6].position.x - 30 &&
+            tank.position.x < PowerUps[6].position.x + 30 &&
+            tank.position.z > PowerUps[6].position.z - 30 &&
+            tank.position.z < PowerUps[6].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[6].position;
             PowerUps[6].position = BABYLON.Vector3.Zero();
@@ -1971,10 +1971,10 @@ Game.createThirdScene = function () {
             }, 2000);
         }
 
-        if (tank.position.x > PowerUps[7].position.x - 5.5 &&
-            tank.position.x < PowerUps[7].position.x + 5.5 &&
-            tank.position.z > PowerUps[7].position.z - 5.5 &&
-            tank.position.z < PowerUps[7].position.z + 5.5) {
+        if (tank.position.x > PowerUps[7].position.x - 30 &&
+            tank.position.x < PowerUps[7].position.x + 30 &&
+            tank.position.z > PowerUps[7].position.z - 30 &&
+            tank.position.z < PowerUps[7].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[7].position;
             PowerUps[7].position = BABYLON.Vector3.Zero();
@@ -2161,10 +2161,10 @@ Game.createForthScene = function () {
     }
 
     Game.scenes[4].applyPlayer1Movement = function (tank, PowerUps, finish) {
-        if (tank.position.x > PowerUps[0].position.x - 5.5 &&
-            tank.position.x < PowerUps[0].position.x + 5.5 &&
-            tank.position.z > PowerUps[0].position.z - 5.5 &&
-            tank.position.z < PowerUps[0].position.z + 5.5) {
+        if (tank.position.x > PowerUps[0].position.x - 30 &&
+            tank.position.x < PowerUps[0].position.x + 30 &&
+            tank.position.z > PowerUps[0].position.z - 30 &&
+            tank.position.z < PowerUps[0].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[0].position;
             PowerUps[0].position = BABYLON.Vector3.Zero();
@@ -2183,10 +2183,10 @@ Game.createForthScene = function () {
             }, 2000);
         }
 
-        if (tank.position.x > PowerUps[1].position.x - 5.5 &&
-            tank.position.x < PowerUps[1].position.x + 5.5 &&
-            tank.position.z > PowerUps[1].position.z - 5.5 &&
-            tank.position.z < PowerUps[1].position.z + 5.5) {
+        if (tank.position.x > PowerUps[1].position.x - 30 &&
+            tank.position.x < PowerUps[1].position.x + 30 &&
+            tank.position.z > PowerUps[1].position.z - 30 &&
+            tank.position.z < PowerUps[1].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[1].position;
             PowerUps[1].position = BABYLON.Vector3.Zero();
@@ -2204,10 +2204,10 @@ Game.createForthScene = function () {
             }, 2000);
         }
 
-        if (tank.position.x > PowerUps[2].position.x - 5.5 &&
-            tank.position.x < PowerUps[2].position.x + 5.5 &&
-            tank.position.z > PowerUps[2].position.z - 5.5 &&
-            tank.position.z < PowerUps[2].position.z + 5.5) {
+        if (tank.position.x > PowerUps[2].position.x - 30 &&
+            tank.position.x < PowerUps[2].position.x + 30 &&
+            tank.position.z > PowerUps[2].position.z - 30 &&
+            tank.position.z < PowerUps[2].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[2].position;
             PowerUps[2].position = BABYLON.Vector3.Zero();
@@ -2225,10 +2225,10 @@ Game.createForthScene = function () {
             }, 2000);
         }
 
-        if (tank.position.x > PowerUps[3].position.x - 5.5 &&
-            tank.position.x < PowerUps[3].position.x + 5.5 &&
-            tank.position.z > PowerUps[3].position.z - 5.5 &&
-            tank.position.z < PowerUps[3].position.z + 5.5) {
+        if (tank.position.x > PowerUps[3].position.x - 30 &&
+            tank.position.x < PowerUps[3].position.x + 30 &&
+            tank.position.z > PowerUps[3].position.z - 30 &&
+            tank.position.z < PowerUps[3].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[3].position;
             PowerUps[3].position = BABYLON.Vector3.Zero();
@@ -2246,10 +2246,10 @@ Game.createForthScene = function () {
             }, 2000);
         }
 
-        if (tank.position.x > PowerUps[4].position.x - 5.5 &&
-            tank.position.x < PowerUps[4].position.x + 5.5 &&
-            tank.position.z > PowerUps[4].position.z - 5.5 &&
-            tank.position.z < PowerUps[4].position.z + 5.5) {
+        if (tank.position.x > PowerUps[4].position.x - 30 &&
+            tank.position.x < PowerUps[4].position.x + 30 &&
+            tank.position.z > PowerUps[4].position.z - 30 &&
+            tank.position.z < PowerUps[4].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[4].position;
             PowerUps[4].position = BABYLON.Vector3.Zero();
@@ -2267,10 +2267,10 @@ Game.createForthScene = function () {
             }, 2000);
         }
 
-        if (tank.position.x > PowerUps[5].position.x - 5.5 &&
-            tank.position.x < PowerUps[5].position.x + 5.5 &&
-            tank.position.z > PowerUps[5].position.z - 5.5 &&
-            tank.position.z < PowerUps[5].position.z + 5.5) {
+        if (tank.position.x > PowerUps[5].position.x - 30 &&
+            tank.position.x < PowerUps[5].position.x + 30 &&
+            tank.position.z > PowerUps[5].position.z - 30 &&
+            tank.position.z < PowerUps[5].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[5].position;
             PowerUps[5].position = BABYLON.Vector3.Zero();
@@ -2288,10 +2288,10 @@ Game.createForthScene = function () {
             }, 2000);
         }
 
-        if (tank.position.x > PowerUps[6].position.x - 5.5 &&
-            tank.position.x < PowerUps[6].position.x + 5.5 &&
-            tank.position.z > PowerUps[6].position.z - 5.5 &&
-            tank.position.z < PowerUps[6].position.z + 5.5) {
+        if (tank.position.x > PowerUps[6].position.x - 30 &&
+            tank.position.x < PowerUps[6].position.x + 30 &&
+            tank.position.z > PowerUps[6].position.z - 30 &&
+            tank.position.z < PowerUps[6].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[6].position;
             PowerUps[6].position = BABYLON.Vector3.Zero();
@@ -2313,10 +2313,10 @@ Game.createForthScene = function () {
                 isGameOver = true;
                 window.open("http://localhost:8000/end.html","_self");;
         }
-        if (tank.position.x > PowerUps[7].position.x - 5.5 &&
-            tank.position.x < PowerUps[7].position.x + 5.5 &&
-            tank.position.z > PowerUps[7].position.z - 5.5 &&
-            tank.position.z < PowerUps[7].position.z + 5.5) {
+        if (tank.position.x > PowerUps[7].position.x - 30 &&
+            tank.position.x < PowerUps[7].position.x + 30 &&
+            tank.position.z > PowerUps[7].position.z - 30 &&
+            tank.position.z < PowerUps[7].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[7].position;
             PowerUps[7].position = BABYLON.Vector3.Zero();
@@ -2431,10 +2431,10 @@ Game.createForthScene = function () {
 
     }
     Game.scenes[4].applyPlayer2Movement = function (tank, PowerUps, finish) {
-        if (tank.position.x > PowerUps[0].position.x - 5.5 &&
-            tank.position.x < PowerUps[0].position.x + 5.5 &&
-            tank.position.z > PowerUps[0].position.z - 5.5 &&
-            tank.position.z < PowerUps[0].position.z + 5.5) {
+        if (tank.position.x > PowerUps[0].position.x - 30 &&
+            tank.position.x < PowerUps[0].position.x + 30 &&
+            tank.position.z > PowerUps[0].position.z - 30 &&
+            tank.position.z < PowerUps[0].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[0].position;
             PowerUps[0].position = BABYLON.Vector3.Zero();
@@ -2452,10 +2452,10 @@ Game.createForthScene = function () {
             }, 2000);
         }
 
-        if (tank.position.x > PowerUps[1].position.x - 5.5 &&
-            tank.position.x < PowerUps[1].position.x + 5.5 &&
-            tank.position.z > PowerUps[1].position.z - 5.5 &&
-            tank.position.z < PowerUps[1].position.z + 5.5) {
+        if (tank.position.x > PowerUps[1].position.x - 30 &&
+            tank.position.x < PowerUps[1].position.x + 30 &&
+            tank.position.z > PowerUps[1].position.z - 30 &&
+            tank.position.z < PowerUps[1].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[1].position;
             PowerUps[1].position = BABYLON.Vector3.Zero();
@@ -2473,10 +2473,10 @@ Game.createForthScene = function () {
             }, 2000);
         }
 
-        if (tank.position.x > PowerUps[2].position.x - 5.5 &&
-            tank.position.x < PowerUps[2].position.x + 5.5 &&
-            tank.position.z > PowerUps[2].position.z - 5.5 &&
-            tank.position.z < PowerUps[2].position.z + 5.5) {
+        if (tank.position.x > PowerUps[2].position.x - 30 &&
+            tank.position.x < PowerUps[2].position.x + 30 &&
+            tank.position.z > PowerUps[2].position.z - 30 &&
+            tank.position.z < PowerUps[2].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[2].position;
             PowerUps[2].position = BABYLON.Vector3.Zero();
@@ -2494,10 +2494,10 @@ Game.createForthScene = function () {
             }, 2000);
         }
 
-        if (tank.position.x > PowerUps[3].position.x - 5.5 &&
-            tank.position.x < PowerUps[3].position.x + 5.5 &&
-            tank.position.z > PowerUps[3].position.z - 5.5 &&
-            tank.position.z < PowerUps[3].position.z + 5.5) {
+        if (tank.position.x > PowerUps[3].position.x - 30 &&
+            tank.position.x < PowerUps[3].position.x + 30 &&
+            tank.position.z > PowerUps[3].position.z - 30 &&
+            tank.position.z < PowerUps[3].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[3].position;
             PowerUps[3].position = BABYLON.Vector3.Zero();
@@ -2515,10 +2515,10 @@ Game.createForthScene = function () {
             }, 2000);
         }
 
-        if (tank.position.x > PowerUps[4].position.x - 5.5 &&
-            tank.position.x < PowerUps[4].position.x + 5.5 &&
-            tank.position.z > PowerUps[4].position.z - 5.5 &&
-            tank.position.z < PowerUps[4].position.z + 5.5) {
+        if (tank.position.x > PowerUps[4].position.x - 30 &&
+            tank.position.x < PowerUps[4].position.x + 30 &&
+            tank.position.z > PowerUps[4].position.z - 30 &&
+            tank.position.z < PowerUps[4].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[4].position;
             PowerUps[4].position = BABYLON.Vector3.Zero();
@@ -2536,10 +2536,10 @@ Game.createForthScene = function () {
             }, 2000);
         }
 
-        if (tank.position.x > PowerUps[5].position.x - 5.5 &&
-            tank.position.x < PowerUps[5].position.x + 5.5 &&
-            tank.position.z > PowerUps[5].position.z - 5.5 &&
-            tank.position.z < PowerUps[5].position.z + 5.5) {
+        if (tank.position.x > PowerUps[5].position.x - 30 &&
+            tank.position.x < PowerUps[5].position.x + 30 &&
+            tank.position.z > PowerUps[5].position.z - 30 &&
+            tank.position.z < PowerUps[5].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[5].position;
             PowerUps[5].position = BABYLON.Vector3.Zero();
@@ -2557,10 +2557,10 @@ Game.createForthScene = function () {
             }, 2000);
         }
 
-        if (tank.position.x > PowerUps[6].position.x - 5.5 &&
-            tank.position.x < PowerUps[6].position.x + 5.5 &&
-            tank.position.z > PowerUps[6].position.z - 5.5 &&
-            tank.position.z < PowerUps[6].position.z + 5.5) {
+        if (tank.position.x > PowerUps[6].position.x - 30 &&
+            tank.position.x < PowerUps[6].position.x + 30 &&
+            tank.position.z > PowerUps[6].position.z - 30 &&
+            tank.position.z < PowerUps[6].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[6].position;
             PowerUps[6].position = BABYLON.Vector3.Zero();
@@ -2581,10 +2581,10 @@ Game.createForthScene = function () {
             isGameOver = true;
             window.open("http://localhost:8000/end.html","_self");;
         }
-        if (tank.position.x > PowerUps[7].position.x - 5.5 &&
-            tank.position.x < PowerUps[7].position.x + 5.5 &&
-            tank.position.z > PowerUps[7].position.z - 5.5 &&
-            tank.position.z < PowerUps[7].position.z + 5.5) {
+        if (tank.position.x > PowerUps[7].position.x - 30 &&
+            tank.position.x < PowerUps[7].position.x + 30 &&
+            tank.position.z > PowerUps[7].position.z - 30 &&
+            tank.position.z < PowerUps[7].position.z + 30) {
             tank.particleSystem.start();
             var temp0 = PowerUps[7].position;
             PowerUps[7].position = BABYLON.Vector3.Zero();
@@ -3206,14 +3206,14 @@ function createPowerups(scene, sceneIndex) {
     UpsMaterial[7].alpha = 0.8;
     UpsMaterial[7].diffuseTexture = texture;
 
-    Ups[0] = new BABYLON.Mesh.CreateBox("powerup_1", 8, scene);
-    Ups[1] = new BABYLON.Mesh.CreateBox("powerup_2", 8, scene);
-    Ups[2] = new BABYLON.Mesh.CreateBox("powerup_3", 8, scene);
-    Ups[3] = new BABYLON.Mesh.CreateBox("powerup_4", 8, scene);
-    Ups[4] = new BABYLON.Mesh.CreateBox("powerup_5", 8, scene);
-    Ups[5] = new BABYLON.Mesh.CreateBox("powerup_6", 8, scene);
-    Ups[6] = new BABYLON.Mesh.CreateBox("powerup_7", 8, scene);
-    Ups[7] = new BABYLON.Mesh.CreateBox("powerup_8", 8, scene);
+    Ups[0] = new BABYLON.Mesh.CreateBox("powerup_1", 24, scene);
+    Ups[1] = new BABYLON.Mesh.CreateBox("powerup_2", 24, scene);
+    Ups[2] = new BABYLON.Mesh.CreateBox("powerup_3", 24, scene);
+    Ups[3] = new BABYLON.Mesh.CreateBox("powerup_4", 24, scene);
+    Ups[4] = new BABYLON.Mesh.CreateBox("powerup_5", 24, scene);
+    Ups[5] = new BABYLON.Mesh.CreateBox("powerup_6", 24, scene);
+    Ups[6] = new BABYLON.Mesh.CreateBox("powerup_7", 24, scene);
+    Ups[7] = new BABYLON.Mesh.CreateBox("powerup_8", 24, scene);
 
     if (sceneIndex === 0) {
         Ups[0].position.x = 563;
