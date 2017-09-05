@@ -38,7 +38,7 @@ function startGame() {
     Game.createFirstScene();
     Game.createSecondScene();
     Game.createThirdScene();
-    Game.createForthScene();
+    //Game.createForthScene();
 
     engine.runRenderLoop(function () {
         Game.scenes[Game.activeScene].renderLoop();
@@ -3164,38 +3164,47 @@ function createFinishLine(scene, sceneIndex) {
 function createPowerups(scene, sceneIndex) {
     var Ups = [];
     var UpsMaterial = [];
+    var texture = new BABYLON.Texture("images/marioMark.jpg", scene);
 
     UpsMaterial[0] = new BABYLON.StandardMaterial("U1", scene);
     UpsMaterial[0].emissiveColor = new BABYLON.Color3(1, 1, 1);
     UpsMaterial[0].alpha = 0.8;
+    UpsMaterial[0].diffuseTexture = texture;
 
     UpsMaterial[1] = new BABYLON.StandardMaterial("U2", scene);
     UpsMaterial[1].emissiveColor = new BABYLON.Color3(1, 1, 1);
     UpsMaterial[1].alpha = 0.8;
+    UpsMaterial[1].diffuseTexture = texture;
 
     UpsMaterial[2] = new BABYLON.StandardMaterial("U3", scene);
     UpsMaterial[2].emissiveColor = new BABYLON.Color3(1, 1, 1);
     UpsMaterial[2].alpha = 0.8;
+    UpsMaterial[2].diffuseTexture = texture;
 
     UpsMaterial[3] = new BABYLON.StandardMaterial("U4", scene);
     UpsMaterial[3].emissiveColor = new BABYLON.Color3(1, 1, 1);
     UpsMaterial[3].alpha = 0.8;
+    UpsMaterial[3].diffuseTexture = texture;
 
     UpsMaterial[4] = new BABYLON.StandardMaterial("U5", scene);
     UpsMaterial[4].emissiveColor = new BABYLON.Color3(1, 1, 1);
     UpsMaterial[4].alpha = 0.8;
+    UpsMaterial[4].diffuseTexture = texture;
 
     UpsMaterial[5] = new BABYLON.StandardMaterial("U6", scene);
     UpsMaterial[5].emissiveColor = new BABYLON.Color3(1, 1, 1);
     UpsMaterial[5].alpha = 0.8;
+    UpsMaterial[5].diffuseTexture = texture;
 
     UpsMaterial[6] = new BABYLON.StandardMaterial("U7", scene);
     UpsMaterial[6].emissiveColor = new BABYLON.Color3(1, 1, 1);
     UpsMaterial[6].alpha = 0.8;
+    UpsMaterial[6].diffuseTexture = texture;
 
     UpsMaterial[7] = new BABYLON.StandardMaterial("U8", scene);
     UpsMaterial[7].emissiveColor = new BABYLON.Color3(1, 1, 1);
     UpsMaterial[7].alpha = 0.8;
+    UpsMaterial[7].diffuseTexture = texture;
 
     Ups[0] = new BABYLON.Mesh.CreateBox("powerup_1", 8, scene);
     Ups[1] = new BABYLON.Mesh.CreateBox("powerup_2", 8, scene);
@@ -3205,6 +3214,7 @@ function createPowerups(scene, sceneIndex) {
     Ups[5] = new BABYLON.Mesh.CreateBox("powerup_6", 8, scene);
     Ups[6] = new BABYLON.Mesh.CreateBox("powerup_7", 8, scene);
     Ups[7] = new BABYLON.Mesh.CreateBox("powerup_8", 8, scene);
+
     if (sceneIndex === 0) {
         Ups[0].position.x = 563;
         Ups[0].position.y = 5;
