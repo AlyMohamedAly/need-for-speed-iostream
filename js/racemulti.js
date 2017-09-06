@@ -69,6 +69,8 @@ Game.ChooseScene = function () {
     followCamera.viewport = new BABYLON.Viewport(0, 0, 1, 0.5);
     followCamera2.viewport = new BABYLON.Viewport(0, 0.5, 1, 0.5);
 
+    var raceMusic0 = new BABYLON.Sound("racemusic", "sounds/Main Menu.mp3", scene, null, { loop: true, autoplay: true });
+
     var map1 = new BABYLON.Mesh.CreateBox("map1", 8, scene);
     map1mat = new BABYLON.StandardMaterial("M1", scene);
     map1mat.diffuseTexture = new BABYLON.Texture("images/Earth.jpg", scene);
@@ -97,11 +99,11 @@ Game.ChooseScene = function () {
     createModeText(map2, "race",scene);
     createModeText(map3, "race",scene);
     createModeText(map4, "fight", scene);
-
+    
     var raceMusic1 = new BABYLON.Sound("racemusic", "sounds/Luigi Circuit & Mario Circuit.mp3", scene, null, { loop: true, autoplay: false });
     var raceMusic2 = new BABYLON.Sound("racemusic", "sounds/Warios Gold Mine.mp3", scene, null, { loop: true, autoplay: false });
     var raceMusic3 = new BABYLON.Sound("racemusic", "sounds/Moonview Highway.mp3", scene, null, { loop: true, autoplay: false });
-
+    
     Game.scenes.push(scene);
 
     Game.scenes[0].applyPlayer1Movement = function (tank) {
@@ -110,6 +112,7 @@ Game.ChooseScene = function () {
             tank.position.z > map1.position.z - 5 &&
             tank.position.z < map1.position.z + 5
             && isEPressed) {
+            raceMusic0.stop();
             raceMusic1.play();
             Game.activeScene = 1;
         }
@@ -119,6 +122,7 @@ Game.ChooseScene = function () {
             tank.position.z > map2.position.z - 5 &&
             tank.position.z < map2.position.z + 5
             && isEPressed) {
+            raceMusic0.stop();
             raceMusic2.play();
             Game.activeScene = 2;
         }
@@ -127,6 +131,7 @@ Game.ChooseScene = function () {
             tank.position.z > map3.position.z - 5 &&
             tank.position.z < map3.position.z + 5
             && isEPressed) {
+            raceMusic0.stop();
             raceMusic3.play();
             Game.activeScene = 3;
         }
@@ -3403,16 +3408,10 @@ function createSkybox(url, scene) {
 }
 
 function RandomPower(tank) {
-    if (tank.power === "SpeedBuff")
-        return "SpeedBuff";
-    if (tank.power === "SpeedNerf")
-        return "SpeedNerf";
-    if (tank.power === "CannonBall")
-        return "CannonBall";
-    if (tank.power === "GooStain")
-        return "GooStain";
+    if (tank.power !== "none")
+        return tank.power;
     if (Game.activeScene < 4) {
-        var r = Math.floor(Math.random() * 5);
+        var r = Math.floor(Math.random() * 4);
         if (r === 0)
             return "SpeedBuff";
         if (r === 1)
@@ -3424,7 +3423,7 @@ function RandomPower(tank) {
     }
     else
     {
-        var r = Math.floor(Math.random() * 5);
+        var r = Math.floor(Math.random() * 4);
         if (r === 0)
             return "SpeedBuff";
         if (r === 1)
