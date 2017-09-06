@@ -450,7 +450,7 @@ Game.createFirstScene = function () {
         }
         if (tank.laps == 3) {
             isGameOver = true;
-            window.open("http://localhost:8000/end.html","_self");;
+            window.open("http://localhost:8000/white.html","_self");;
         }
         if (tank.position.x > PowerUps[7].position.x - 11 &&
             tank.position.x < PowerUps[7].position.x + 11 &&
@@ -726,7 +726,7 @@ Game.createFirstScene = function () {
         }
         if (tank.laps == 3) {
             isGameOver = true;
-            window.open("http://localhost:8000/end.html","_self");;
+            window.open("http://localhost:8000/black.html","_self");;
         }
         if (tank.position.x > PowerUps[7].position.x - 11 &&
             tank.position.x < PowerUps[7].position.x + 11 &&
@@ -963,7 +963,7 @@ Game.createSecondScene = function () {
         }
         if (tank.laps == 3) {
             isGameOver = true;
-            window.open("http://localhost:8000/end.html","_self");;
+            window.open("http://localhost:8000/white.html","_self");;
         }
         if (tank.position.x > PowerUps[1].position.x - 11 &&
             tank.position.x < PowerUps[1].position.x + 11 &&
@@ -1254,7 +1254,7 @@ Game.createSecondScene = function () {
         }
         if (tank.laps == 3) {
             isGameOver = true;
-            window.open("http://localhost:8000/end.html","_self");;
+            window.open("http://localhost:8000/black.html","_self");;
         }
         if (tank.position.x > PowerUps[2].position.x - 11 &&
             tank.position.x < PowerUps[2].position.x + 11 &&
@@ -1645,7 +1645,7 @@ Game.createThirdScene = function () {
         }
         if (tank.laps == 3) {
             isGameOver = true;
-            window.open("http://localhost:8000/end.html","_self");;
+            window.open("http://localhost:8000/white.html","_self");;
         }
         if (tank.position.x > PowerUps[4].position.x - 11 &&
             tank.position.x < PowerUps[4].position.x + 11 &&
@@ -1953,7 +1953,7 @@ Game.createThirdScene = function () {
         }
         if (tank.laps == 3) {
             isGameOver = true;
-            window.open("http://localhost:8000/end.html","_self");;
+            window.open("http://localhost:8000/black.html","_self");;
         }
         if (tank.position.x > PowerUps[6].position.x - 11 &&
             tank.position.x < PowerUps[6].position.x + 11 &&
@@ -2316,7 +2316,7 @@ Game.createForthScene = function () {
         if (tank.health == 0)
         {
                 isGameOver = true;
-                window.open("http://localhost:8000/end.html","_self");;
+                window.open("http://localhost:8000/white.html","_self");;
         }
         if (tank.position.x > PowerUps[7].position.x - 11 &&
             tank.position.x < PowerUps[7].position.x + 11 &&
@@ -2584,7 +2584,7 @@ Game.createForthScene = function () {
         }
         if (tank.health == 0) {
             isGameOver = true;
-            window.open("http://localhost:8000/end.html","_self");;
+            window.open("http://localhost:8000/black.html","_self");;
         }
         if (tank.position.x > PowerUps[7].position.x - 11 &&
             tank.position.x < PowerUps[7].position.x + 11 &&
