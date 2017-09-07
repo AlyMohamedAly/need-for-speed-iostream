@@ -24,8 +24,8 @@ var isLPressed = false;
 var isKPressed = false;
 var isJPressed = false;
 var isOPressed = false;
+
 var isGameOver = false;
-var isSpacePressed = false;
 
 
 document.addEventListener("DOMContentLoaded", startGame, false);
@@ -38,7 +38,6 @@ function startGame() {
     Game.createFirstScene();
     Game.createSecondScene();
     Game.createThirdScene();
-    //Game.createForthScene();
 
     engine.runRenderLoop(function () {
         Game.scenes[Game.activeScene].renderLoop();
@@ -89,16 +88,9 @@ Game.ChooseScene = function () {
     map3.material = map3mat;
     map3.position = new BABYLON.Vector3(142, 5, 12);
 
-    var map4 = new BABYLON.Mesh.CreateBox("map4", 8, scene);
-    map4mat = new BABYLON.StandardMaterial("M4", scene);
-    map4mat.diffuseTexture = new BABYLON.Texture("images/OceanSequence.png", scene);
-    map4.material = map4mat;
-    map4.position = new BABYLON.Vector3(-185, 5, 30);
-
     createModeText(map1, "race",scene);
     createModeText(map2, "race",scene);
     createModeText(map3, "race",scene);
-    createModeText(map4, "fight", scene);
     
     var raceMusic1 = new BABYLON.Sound("racemusic", "sounds/Luigi Circuit & Mario Circuit.mp3", scene, null, { loop: true, autoplay: false });
     var raceMusic2 = new BABYLON.Sound("racemusic", "sounds/Warios Gold Mine.mp3", scene, null, { loop: true, autoplay: false });
@@ -135,19 +127,9 @@ Game.ChooseScene = function () {
             raceMusic3.play();
             Game.activeScene = 3;
         }
-        if (tank.position.x > map4.position.x - 5 &&
-            tank.position.x < map4.position.x + 5 &&
-            tank.position.z > map4.position.z - 5 &&
-            tank.position.z < map4.position.z + 5
-            && isEPressed)
-            Game.activeScene = 4;
 
         if (isWPressed) {
             tank.moveWithCollisions(tank.frontVector.multiplyByFloats(tank.speed, 3, tank.speed));
-        }
-
-        if (isEPressed) {
-            console.log(tank.position);
         }
 
         if (isSPressed) {
@@ -192,10 +174,6 @@ Game.ChooseScene = function () {
             tank.moveWithCollisions(tank.frontVector.multiplyByFloats(tank.speed, 3, tank.speed));
         }
 
-        if (isOPressed) {
-            console.log(tank.position);
-        }
-
         if (isKPressed) {
             tank.moveWithCollisions(tank.frontVector.multiplyByFloats(-tank.speed, 3, -tank.speed));
         }
@@ -223,7 +201,7 @@ Game.ChooseScene = function () {
 Game.createFirstScene = function () {
     var scene = new BABYLON.Scene(engine);
     scene.enablePhysics(new BABYLON.Vector3(0, 0, 0), new BABYLON.CannonJSPlugin());
-    var ground = createGround("images/Untitled2.png", "images/Earth.jpg",75, scene);
+    var ground = createGround("images/Untitled2.png", "images/Earth.jpg", scene);
     var light1 = new BABYLON.HemisphericLight("l1", new BABYLON.Vector3(0, 5, 0), scene);
     var tank = [];
     tank[0] = createHero(new BABYLON.Color3.White, "race", scene);
@@ -310,6 +288,11 @@ Game.createFirstScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+            if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
+                console.log("White power: " + tank.power);
+            else {
+                console.log("White power: " + "Speed");
+            }
 
             setTimeout(function () {
                 tank.particleSystem.stop();
@@ -331,6 +314,11 @@ Game.createFirstScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+            if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
+                console.log("White power: " + tank.power);
+            else {
+                console.log("White power: " + "Speed");
+            }
 
             setTimeout(function () {
                 tank.particleSystem.stop();
@@ -353,6 +341,11 @@ Game.createFirstScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+            if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
+                console.log("White power: " + tank.power);
+            else {
+                console.log("White power: " + "Speed");
+            }
 
             setTimeout(function () {
                 tank.particleSystem.stop();
@@ -374,6 +367,11 @@ Game.createFirstScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+            if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
+                console.log("White power: " + tank.power);
+            else {
+                console.log("White power: " + "Speed");
+            }
 
             setTimeout(function () {
                 tank.particleSystem.stop();
@@ -395,6 +393,11 @@ Game.createFirstScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+            if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
+                console.log("White power: " + tank.power);
+            else {
+                console.log("White power: " + "Speed");
+            }
 
             setTimeout(function () {
                 tank.particleSystem.stop();
@@ -417,6 +420,11 @@ Game.createFirstScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+            if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
+                console.log("White power: " + tank.power);
+            else {
+                console.log("White power: " + "Speed");
+            }
 
             setTimeout(function () {
                 tank.particleSystem.stop();
@@ -439,6 +447,11 @@ Game.createFirstScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+            if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
+                console.log("White power: " + tank.power);
+            else {
+                console.log("White power: " + "Speed");
+            }
 
             setTimeout(function () {
                 tank.particleSystem.stop();
@@ -464,6 +477,11 @@ Game.createFirstScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+            if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
+                console.log("White power: " + tank.power);
+            else {
+                console.log("White power: " + "Speed");
+            }
 
             setTimeout(function () {
                 tank.particleSystem.stop();
@@ -497,12 +515,6 @@ Game.createFirstScene = function () {
             }
         }
         if (isEPressed) {
-            console.log(tank.position);
-            console.log(tank.laps);
-            console.log(tank.passedCheckpoint);
-            console.log(tank.power);
-            console.log(Goo.length);
-            console.log(madafe3.length);
             if (tank.power === "CannonBall") {
                 var cannonball = BABYLON.Mesh.CreateSphere("cannonball", 3, 20, scene, false);
                 var cannonMat = new BABYLON.StandardMaterial("cannonMat", scene);
@@ -583,6 +595,11 @@ Game.createFirstScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+            if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
+                console.log("Black power: " + tank.power);
+            else {
+                console.log("Black power: " + "Speed");
+            }
 
             setTimeout(function () {
                 tank.particleSystem.stop();
@@ -605,6 +622,11 @@ Game.createFirstScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+            if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
+                console.log("Black power: " + tank.power);
+            else {
+                console.log("Black power: " + "Speed");
+            }
 
             setTimeout(function () {
                 tank.particleSystem.stop();
@@ -627,6 +649,11 @@ Game.createFirstScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+            if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
+                console.log("Black power: " + tank.power);
+            else {
+                console.log("Black power: " + "Speed");
+            }
 
             setTimeout(function () {
                 tank.particleSystem.stop();
@@ -649,6 +676,11 @@ Game.createFirstScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+            if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
+                console.log("Black power: " + tank.power);
+            else {
+                console.log("Black power: " + "Speed");
+            }
 
             setTimeout(function () {
                 tank.particleSystem.stop();
@@ -671,6 +703,11 @@ Game.createFirstScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+            if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
+                console.log("Black power: " + tank.power);
+            else {
+                console.log("Black power: " + "Speed");
+            }
 
             setTimeout(function () {
                 tank.particleSystem.stop();
@@ -693,6 +730,11 @@ Game.createFirstScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+            if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
+                console.log("Black power: " + tank.power);
+            else {
+                console.log("Black power: " + "Speed");
+            }
 
             setTimeout(function () {
                 tank.particleSystem.stop();
@@ -715,6 +757,11 @@ Game.createFirstScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+            if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
+                console.log("Black power: " + tank.power);
+            else {
+                console.log("Black power: " + "Speed");
+            }
 
             setTimeout(function () {
                 tank.particleSystem.stop();
@@ -740,6 +787,11 @@ Game.createFirstScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+            if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
+                console.log("Black power: " + tank.power);
+            else {
+                console.log("Black power: " + "Speed");
+            }
 
             setTimeout(function () {
                 tank.particleSystem.stop();
@@ -772,12 +824,6 @@ Game.createFirstScene = function () {
         }
 
         if (isOPressed) {
-            console.log(tank.position);
-            console.log(tank.laps);
-            console.log(tank.passedCheckpoint);
-            console.log(tank.power);
-            console.log(Goo.length);
-            console.log(madafe3.length);
             if (tank.power === "CannonBall") {
                 var cannonball = BABYLON.Mesh.CreateSphere("cannonball", 3, 20, scene, false);
                 var cannonMat = new BABYLON.StandardMaterial("cannonMat", scene);
@@ -858,7 +904,7 @@ Game.createFirstScene = function () {
 Game.createSecondScene = function () {
     var scene = new BABYLON.Scene(engine);
     scene.enablePhysics(new BABYLON.Vector3(0, 0, 0), new BABYLON.CannonJSPlugin());
-    var ground = createGround("images/Track1.png", "images/earth2.jpg",75, scene);
+    var ground = createGround("images/Track1.png", "images/earth2.jpg", scene);
     var light1 = new BABYLON.HemisphericLight("l1", new BABYLON.Vector3(0, 5, 0), scene);
     var tank = [];
     var tank = [];
@@ -952,6 +998,11 @@ Game.createSecondScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+            if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
+                console.log("White power: " + tank.power);
+            else {
+                console.log("White power: " + "Speed");
+            }
 
             setTimeout(function () {
                 tank.particleSystem.stop();
@@ -976,6 +1027,11 @@ Game.createSecondScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+            if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
+                console.log("White power: " + tank.power);
+            else {
+                console.log("White power: " + "Speed");
+            }
 
             setTimeout(function () {
                 tank.particleSystem.stop();
@@ -997,6 +1053,11 @@ Game.createSecondScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+            if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
+                console.log("White power: " + tank.power);
+            else {
+                console.log("White power: " + "Speed");
+            }
 
             setTimeout(function () {
                 tank.particleSystem.stop();
@@ -1018,6 +1079,11 @@ Game.createSecondScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+            if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
+                console.log("White power: " + tank.power);
+            else {
+                console.log("White power: " + "Speed");
+            }
 
             setTimeout(function () {
                 tank.particleSystem.stop();
@@ -1039,6 +1105,11 @@ Game.createSecondScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+            if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
+                console.log("White power: " + tank.power);
+            else {
+                console.log("White power: " + "Speed");
+            }
 
             setTimeout(function () {
                 tank.particleSystem.stop();
@@ -1060,6 +1131,11 @@ Game.createSecondScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+            if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
+                console.log("White power: " + tank.power);
+            else {
+                console.log("White power: " + "Speed");
+            }
 
             setTimeout(function () {
                 tank.particleSystem.stop();
@@ -1081,6 +1157,11 @@ Game.createSecondScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+            if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
+                console.log("White power: " + tank.power);
+            else {
+                console.log("White power: " + "Speed");
+            }
 
             setTimeout(function () {
                 tank.particleSystem.stop();
@@ -1102,6 +1183,11 @@ Game.createSecondScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+            if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
+                console.log("White power: " + tank.power);
+            else {
+                console.log("White power: " + "Speed");
+            }
 
             setTimeout(function () {
                 tank.particleSystem.stop();
@@ -1133,12 +1219,6 @@ Game.createSecondScene = function () {
             }
         }
         if (isEPressed) {
-            console.log(tank.position);
-            console.log(tank.laps);
-            console.log(tank.passedCheckpoint);
-            console.log(tank.power);
-            console.log(Goo.length);
-            console.log(madafe3.length);
             if (tank.power === "CannonBall") {
                 var cannonball = BABYLON.Mesh.CreateSphere("cannonball", 3, 20, scene, false);
                 var cannonMat = new BABYLON.StandardMaterial("cannonMat", scene);
@@ -1222,6 +1302,11 @@ Game.createSecondScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+            if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
+                console.log("Black power: " + tank.power);
+            else {
+                console.log("Black power: " + "Speed");
+            }
 
             setTimeout(function () {
                 tank.particleSystem.stop();
@@ -1243,6 +1328,11 @@ Game.createSecondScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+            if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
+                console.log("Black power: " + tank.power);
+            else {
+                console.log("Black power: " + "Speed");
+            }
 
             setTimeout(function () {
                 tank.particleSystem.stop();
@@ -1267,6 +1357,11 @@ Game.createSecondScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+            if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
+                console.log("Black power: " + tank.power);
+            else {
+                console.log("Black power: " + "Speed");
+            }
 
             setTimeout(function () {
                 tank.particleSystem.stop();
@@ -1288,6 +1383,11 @@ Game.createSecondScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+            if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
+                console.log("Black power: " + tank.power);
+            else {
+                console.log("Black power: " + "Speed");
+            }
 
             setTimeout(function () {
                 tank.particleSystem.stop();
@@ -1309,6 +1409,11 @@ Game.createSecondScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+            if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
+                console.log("Black power: " + tank.power);
+            else {
+                console.log("Black power: " + "Speed");
+            }
 
             setTimeout(function () {
                 tank.particleSystem.stop();
@@ -1330,6 +1435,11 @@ Game.createSecondScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+            if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
+                console.log("Black power: " + tank.power);
+            else {
+                console.log("Black power: " + "Speed");
+            }
 
             setTimeout(function () {
                 tank.particleSystem.stop();
@@ -1351,6 +1461,11 @@ Game.createSecondScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+            if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
+                console.log("Black power: " + tank.power);
+            else {
+                console.log("Black power: " + "Speed");
+            }
 
             setTimeout(function () {
                 tank.particleSystem.stop();
@@ -1372,6 +1487,11 @@ Game.createSecondScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+            if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
+                console.log("Black power: " + tank.power);
+            else {
+                console.log("Black power: " + "Speed");
+            }
 
             setTimeout(function () {
                 tank.particleSystem.stop();
@@ -1403,12 +1523,6 @@ Game.createSecondScene = function () {
             }
         }
         if (isOPressed) {
-            console.log(tank.position);
-            console.log(tank.laps);
-            console.log(tank.passedCheckpoint);
-            console.log(tank.power);
-            console.log(Goo.length);
-            console.log(madafe3.length);
             if (tank.power === "CannonBall") {
                 var cannonball = BABYLON.Mesh.CreateSphere("cannonball", 3, 20, scene, false);
                 var cannonMat = new BABYLON.StandardMaterial("cannonMat", scene);
@@ -1485,7 +1599,7 @@ Game.createSecondScene = function () {
 Game.createThirdScene = function () {
     var scene = new BABYLON.Scene(engine);
     scene.enablePhysics(new BABYLON.Vector3(0, 0, 0), new BABYLON.CannonJSPlugin());
-    var ground = createGround("images/Track2.png", "images/earth3.jpg", 75, scene);
+    var ground = createGround("images/Track2.png", "images/earth3.jpg", scene);
     var light1 = new BABYLON.HemisphericLight("l1", new BABYLON.Vector3(0, 5, 0), scene);
     var tank = [];
     tank[0] = createHero(new BABYLON.Color3.White, "race", scene);
@@ -1571,6 +1685,11 @@ Game.createThirdScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+            if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
+                console.log("White power: " + tank.power);
+            else {
+                console.log("White power: " + "Speed");
+            }
 
             setTimeout(function () {
                 tank.particleSystem.stop();
@@ -1592,6 +1711,11 @@ Game.createThirdScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+            if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
+                console.log("White power: " + tank.power);
+            else {
+                console.log("White power: " + "Speed");
+            }
 
             setTimeout(function () {
                 tank.particleSystem.stop();
@@ -1613,6 +1737,11 @@ Game.createThirdScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+            if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
+                console.log("White power: " + tank.power);
+            else {
+                console.log("White power: " + "Speed");
+            }
 
             setTimeout(function () {
                 tank.particleSystem.stop();
@@ -1634,6 +1763,11 @@ Game.createThirdScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+            if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
+                console.log("White power: " + tank.power);
+            else {
+                console.log("White power: " + "Speed");
+            }
 
             setTimeout(function () {
                 tank.particleSystem.stop();
@@ -1658,6 +1792,11 @@ Game.createThirdScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+            if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
+                console.log("White power: " + tank.power);
+            else {
+                console.log("White power: " + "Speed");
+            }
 
             setTimeout(function () {
                 tank.particleSystem.stop();
@@ -1679,6 +1818,11 @@ Game.createThirdScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+            if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
+                console.log("White power: " + tank.power);
+            else {
+                console.log("White power: " + "Speed");
+            }
 
             setTimeout(function () {
                 tank.particleSystem.stop();
@@ -1700,6 +1844,11 @@ Game.createThirdScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+            if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
+                console.log("White power: " + tank.power);
+            else {
+                console.log("White power: " + "Speed");
+            }
 
             setTimeout(function () {
                 tank.particleSystem.stop();
@@ -1721,6 +1870,11 @@ Game.createThirdScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+            if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
+                console.log("White power: " + tank.power);
+            else {
+                console.log("White power: " + "Speed");
+            }
 
             setTimeout(function () {
                 tank.particleSystem.stop();
@@ -1752,12 +1906,6 @@ Game.createThirdScene = function () {
             }
         }
         if (isEPressed) {
-            console.log(tank.position);
-            console.log(tank.laps);
-            console.log(tank.passedCheckpoint);
-            console.log(tank.power);
-            console.log(Goo.length);
-            console.log(madafe3.length);
             if (tank.power === "CannonBall") {
                 var cannonball = BABYLON.Mesh.CreateSphere("cannonball", 3, 20, scene, false);
                 var cannonMat = new BABYLON.StandardMaterial("cannonMat", scene);
@@ -1837,6 +1985,11 @@ Game.createThirdScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+            if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
+                console.log("Black power: " + tank.power);
+            else {
+                console.log("Black power: " + "Speed");
+            }
 
             setTimeout(function () {
                 tank.particleSystem.stop();
@@ -1858,6 +2011,11 @@ Game.createThirdScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+            if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
+                console.log("Black power: " + tank.power);
+            else {
+                console.log("Black power: " + "Speed");
+            }
 
             setTimeout(function () {
                 tank.particleSystem.stop();
@@ -1879,6 +2037,11 @@ Game.createThirdScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+            if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
+                console.log("Black power: " + tank.power);
+            else {
+                console.log("Black power: " + "Speed");
+            }
 
             setTimeout(function () {
                 tank.particleSystem.stop();
@@ -1900,6 +2063,11 @@ Game.createThirdScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+            if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
+                console.log("Black power: " + tank.power);
+            else {
+                console.log("Black power: " + "Speed");
+            }
 
             setTimeout(function () {
                 tank.particleSystem.stop();
@@ -1921,6 +2089,11 @@ Game.createThirdScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+            if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
+                console.log("Black power: " + tank.power);
+            else {
+                console.log("Black power: " + "Speed");
+            }
 
             setTimeout(function () {
                 tank.particleSystem.stop();
@@ -1942,6 +2115,11 @@ Game.createThirdScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+            if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
+                console.log("Black power: " + tank.power);
+            else {
+                console.log("Black power: " + "Speed");
+            }
 
             setTimeout(function () {
                 tank.particleSystem.stop();
@@ -1966,6 +2144,11 @@ Game.createThirdScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+            if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
+                console.log("Black power: " + tank.power);
+            else {
+                console.log("Black power: " + "Speed");
+            }
 
             setTimeout(function () {
                 tank.particleSystem.stop();
@@ -1987,6 +2170,11 @@ Game.createThirdScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+            if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
+                console.log("Black power: " + tank.power);
+            else {
+                console.log("Black power: " + "Speed");
+            }
 
             setTimeout(function () {
                 tank.particleSystem.stop();
@@ -2018,12 +2206,6 @@ Game.createThirdScene = function () {
             }
         }
         if (isOPressed) {
-            console.log(tank.position);
-            console.log(tank.laps);
-            console.log(tank.passedCheckpoint);
-            console.log(tank.power);
-            console.log(Goo.length);
-            console.log(madafe3.length);
             if (tank.power === "CannonBall") {
                 var cannonball = BABYLON.Mesh.CreateSphere("cannonball", 3, 20, scene, false);
                 var cannonMat = new BABYLON.StandardMaterial("cannonMat", scene);
@@ -2096,627 +2278,6 @@ Game.createThirdScene = function () {
     return scene;
 }
 
-Game.createForthScene = function () {
-    var scene = new BABYLON.Scene(engine);
-    scene.enablePhysics(new BABYLON.Vector3(0, 0, 0), new BABYLON.CannonJSPlugin());
-    var ground = createGround("images/fight1.png", "images/OceanSequence.png", 10, scene);
-    var light1 = new BABYLON.HemisphericLight("l1", new BABYLON.Vector3(0, 5, 0), scene);
-    var tank = [];
-    tank[0] = createHero(new BABYLON.Color3.White, "fight", scene);
-    tank[1] = createHero(new BABYLON.Color3.Black, "fight", scene);
-    var PowerUps = [];
-    var Goo = [];
-    var madafe3 = [];
-
-    PowerUps = createPowerups(scene, 0);
-    var skybox = createSkybox("textures/sky34/sky34", scene);
-    tank[0].position = new BABYLON.Vector3(627, 1, 430);
-    tank[1].position = new BABYLON.Vector3(632, 1, 430);
-    var followCamera2 = createFollowCamera(tank[0], scene);
-    var freeCamera = createFreeCamera(scene);
-    scene.activeCameras.push(freeCamera);
-    scene.activeCameras.push(followCamera2);
-    freeCamera.viewport = new BABYLON.Viewport(0, 0, 1, 0.5);
-    followCamera2.viewport = new BABYLON.Viewport(0, 0.5, 1, 0.5);
-    var finish = createFinishLine(scene, 1);
-    var slip = new BABYLON.Sound("can", "sounds/Cartoon Slip.mp3", scene, null, { loop: false, autoplay: false });
-    var boom = new BABYLON.Sound("can", "sounds/Punch.mp3", scene, null, { loop: false, autoplay: false });
-    var glass = new BABYLON.Sound("broken", "sounds/Glass Vase-trimmed.mp3", scene, null, { loop: false, autoplay: false });
-    var cannonsound = new BABYLON.Sound("can", "sounds/Cannon.wav", scene, null, { loop: false, autoplay: false });
-    var speedsound = new BABYLON.Sound("can", "sounds/Item Box Sound3.mp3", scene, null, { loop: false, autoplay: false });
-    var slowsound = new BABYLON.Sound("can", "sounds/Sitcom Laughter Applause2.mp3", scene, null, { loop: false, autoplay: false });
-    var splat = new BABYLON.Sound("can", "sounds/Splat.mp3", scene, null, { loop: false, autoplay: false });
-    var HPUp = new BABYLON.Sound("hp", "sounds/fuel.wav", scene, null, { loop: false, autoplay: false });
-    Game.scenes.push(scene);
-
-    Game.scenes[4].touchGoo = function (tank) {
-        var sz = Goo.length;
-        for (var i = 0; i < sz; i++) {
-            if (tank.intersectsMesh(Goo[i], false)) {
-                splat.play();
-                tank.rotationSensitivity *= 5;
-                Goo[i].dispose();
-                Goo.splice(i);
-                setTimeout(function () {
-                    tank.rotationSensitivity /= 5;
-                }, 4000);
-                break;
-            }
-        }
-
-    }
-
-    Game.scenes[4].touchCannon = function (tank) {
-        var sz = madafe3.length;
-        for (var i = 0; i < sz; i++) {
-            if (tank.intersectsMesh(madafe3[i], false)) {
-                boom.play();
-                if (tank.health - 15 <= 0)
-                    tank.health = 0;
-                else
-                    tank.health -= 15;
-                updateHealthText(tank);
-                madafe3[i].dispose();
-                madafe3.splice(i);
-
-                break;
-            }
-        }
-
-    }
-
-    Game.scenes[4].applyPlayer1Movement = function (tank, PowerUps, finish) {
-        if (tank.position.x > PowerUps[0].position.x - 11 &&
-            tank.position.x < PowerUps[0].position.x + 11 &&
-            tank.position.z > PowerUps[0].position.z - 11 &&
-            tank.position.z < PowerUps[0].position.z + 11) {
-            tank.particleSystem.start();
-            var temp0 = PowerUps[0].position;
-            PowerUps[0].position = BABYLON.Vector3.Zero();
-
-            glass.play();
-
-
-            tank.power = RandomPower(tank);
-
-            setTimeout(function () {
-                tank.particleSystem.stop();
-            }, 75);
-
-            setTimeout(function () {
-                PowerUps[0].position = temp0;
-            }, 2000);
-        }
-
-        if (tank.position.x > PowerUps[1].position.x - 11 &&
-            tank.position.x < PowerUps[1].position.x + 11 &&
-            tank.position.z > PowerUps[1].position.z - 11 &&
-            tank.position.z < PowerUps[1].position.z + 11) {
-            tank.particleSystem.start();
-            var temp0 = PowerUps[1].position;
-            PowerUps[1].position = BABYLON.Vector3.Zero();
-
-            glass.play();
-
-            tank.power = RandomPower(tank);
-
-            setTimeout(function () {
-                tank.particleSystem.stop();
-            }, 75);
-
-            setTimeout(function () {
-                PowerUps[1].position = temp0;
-            }, 2000);
-        }
-
-        if (tank.position.x > PowerUps[2].position.x - 11 &&
-            tank.position.x < PowerUps[2].position.x + 11 &&
-            tank.position.z > PowerUps[2].position.z - 11 &&
-            tank.position.z < PowerUps[2].position.z + 11) {
-            tank.particleSystem.start();
-            var temp0 = PowerUps[2].position;
-            PowerUps[2].position = BABYLON.Vector3.Zero();
-
-            glass.play();
-
-            tank.power = RandomPower(tank);
-
-            setTimeout(function () {
-                tank.particleSystem.stop();
-            }, 75);
-
-            setTimeout(function () {
-                PowerUps[2].position = temp0;
-            }, 2000);
-        }
-
-        if (tank.position.x > PowerUps[3].position.x - 11 &&
-            tank.position.x < PowerUps[3].position.x + 11 &&
-            tank.position.z > PowerUps[3].position.z - 11 &&
-            tank.position.z < PowerUps[3].position.z + 11) {
-            tank.particleSystem.start();
-            var temp0 = PowerUps[3].position;
-            PowerUps[3].position = BABYLON.Vector3.Zero();
-
-            glass.play();
-
-            tank.power = RandomPower(tank);
-
-            setTimeout(function () {
-                tank.particleSystem.stop();
-            }, 75);
-
-            setTimeout(function () {
-                PowerUps[3].position = temp0;
-            }, 2000);
-        }
-
-        if (tank.position.x > PowerUps[4].position.x - 11 &&
-            tank.position.x < PowerUps[4].position.x + 11 &&
-            tank.position.z > PowerUps[4].position.z - 11 &&
-            tank.position.z < PowerUps[4].position.z + 11) {
-            tank.particleSystem.start();
-            var temp0 = PowerUps[4].position;
-            PowerUps[4].position = BABYLON.Vector3.Zero();
-
-            glass.play();
-
-            tank.power = RandomPower(tank);
-
-            setTimeout(function () {
-                tank.particleSystem.stop();
-            }, 75);
-
-            setTimeout(function () {
-                PowerUps[4].position = temp0;
-            }, 2000);
-        }
-
-        if (tank.position.x > PowerUps[5].position.x - 11 &&
-            tank.position.x < PowerUps[5].position.x + 11 &&
-            tank.position.z > PowerUps[5].position.z - 11 &&
-            tank.position.z < PowerUps[5].position.z + 11) {
-            tank.particleSystem.start();
-            var temp0 = PowerUps[5].position;
-            PowerUps[5].position = BABYLON.Vector3.Zero();
-
-            glass.play();
-
-            tank.power = RandomPower(tank);
-
-            setTimeout(function () {
-                tank.particleSystem.stop();
-            }, 75);
-
-            setTimeout(function () {
-                PowerUps[5].position = temp0;
-            }, 2000);
-        }
-
-        if (tank.position.x > PowerUps[6].position.x - 11 &&
-            tank.position.x < PowerUps[6].position.x + 11 &&
-            tank.position.z > PowerUps[6].position.z - 11 &&
-            tank.position.z < PowerUps[6].position.z + 11) {
-            tank.particleSystem.start();
-            var temp0 = PowerUps[6].position;
-            PowerUps[6].position = BABYLON.Vector3.Zero();
-
-            glass.play();
-
-            tank.power = RandomPower(tank);
-
-            setTimeout(function () {
-                tank.particleSystem.stop();
-            }, 75);
-
-            setTimeout(function () {
-                PowerUps[6].position = temp0;
-            }, 2000);
-        }
-        if (tank.health == 0)
-        {
-                isGameOver = true;
-                window.open("http://localhost:8000/white.html","_self");;
-        }
-        if (tank.position.x > PowerUps[7].position.x - 11 &&
-            tank.position.x < PowerUps[7].position.x + 11 &&
-            tank.position.z > PowerUps[7].position.z - 11 &&
-            tank.position.z < PowerUps[7].position.z + 11) {
-            tank.particleSystem.start();
-            var temp0 = PowerUps[7].position;
-            PowerUps[7].position = BABYLON.Vector3.Zero();
-
-            glass.play();
-
-            tank.power = RandomPower(tank);
-
-            setTimeout(function () {
-                tank.particleSystem.stop();
-            }, 75);
-
-            setTimeout(function () {
-                PowerUps[7].position = temp0;
-            }, 2000);
-        }
-
-        if (!isGameOver) {
-            if (isWPressed) {
-                tank.moveWithCollisions(tank.frontVector.multiplyByFloats(tank.speed, 3, tank.speed));
-            }
-
-            if (isSPressed) {
-                tank.moveWithCollisions(tank.frontVector.multiplyByFloats(-tank.speed, 3, -tank.speed));
-            }
-
-            if (isDPressed) {
-                tank.rotation.y += 0.1 * tank.rotationSensitivity;
-                tank.frontVector.x = Math.sin(tank.rotation.y) * -1;
-                tank.frontVector.z = Math.cos(tank.rotation.y) * -1;
-            }
-
-            if (isAPressed) {
-                tank.rotation.y -= 0.1 * tank.rotationSensitivity;
-                tank.frontVector.x = Math.sin(tank.rotation.y) * -1;
-                tank.frontVector.z = Math.cos(tank.rotation.y) * -1;
-            }
-        }
-        if (isSpacePressed)
-            consonle.log(freeCamera.position);
-        if (isEPressed) {
-            console.log(tank.position);
-            console.log(tank.laps);
-            console.log(tank.passedCheckpoint);
-            console.log(tank.power);
-            console.log(Goo.length);
-            console.log(madafe3.length);
-            if (tank.power === "CannonBall") {
-                var cannonball = BABYLON.Mesh.CreateSphere("cannonball", 3, 20, scene, false);
-                var cannonMat = new BABYLON.StandardMaterial("cannonMat", scene);
-                cannonMat.diffuseColor = new BABYLON.Color3.Black;
-                cannonball.material = cannonMat;
-
-                cannonsound.play();
-
-                cannonball.position = tank.position.add(BABYLON.Vector3.Zero().add(tank.frontVector.normalize().multiplyByFloats(20, 0, 20)));
-                cannonball.position.y += 5;
-
-                cannonball.physicsImpostor = new BABYLON.PhysicsImpostor(cannonball, BABYLON.PhysicsImpostor.SphereImpostor, { mass: 5, friction: 10, restitution: .2 }, scene);
-                cannonball.physicsImpostor.setLinearVelocity(BABYLON.Vector3.Zero().add(tank.frontVector.normalize().multiplyByFloats(200, 0, 200)));
-                madafe3.push(cannonball);
-                setTimeout(function () {
-                    madafe3.splice(cannonball);
-                    cannonball.dispose();
-                }, 2000);
-                tank.power = "none";
-            }
-            else if (tank.power === "SpeedBuff") {
-                speedsound.play();
-                tank.speed *= 1.5;
-                tank.power = "none";
-                var color = tank.material.diffuseColor;
-                var ani = scene.beginAnimation(tank, 0, 180, true);
-                setTimeout(function () {
-                    tank.speed /= 1.5;
-                    speedsound.stop();
-                    ani.stop();
-                    tank.material.diffuseColor = color;
-                }, 3000);
-            }
-            else if (tank.power === "SpeedNerf") {
-                tank.speed /= 1.5;
-                tank.power = "none";
-                slowsound.play();
-                setTimeout(function () {
-                    tank.speed *= 1.5;
-                    slowsound.stop();
-                }, 3000);
-            }
-            else if (tank.power === "GooStain") {
-                splat.play();
-                var goo = new BABYLON.Mesh.CreateBox("boxsss", 20, scene);
-                goo.position = tank.position.add(BABYLON.Vector3.Zero().add(tank.frontVector.normalize().multiplyByFloats(-50, 0, -50)));
-                goo.position.y = -9;
-                goo.material = new BABYLON.StandardMaterial("target", scene);
-                goo.material.diffuseTexture = new BABYLON.Texture("images/goo.png", scene);
-                goo.material.diffuseTexture.hasAlpha = true;
-                Goo.push(goo);
-                tank.power = "none";
-            }
-            else if (tank.power === "healthUp") {
-                HPUp.play();
-                if (tank.health + 10 >= 100)
-                    tank.health = 100;
-                else
-                    tank.health += 10;
-                updateHealthText(tank);
-                tank.power = "none";
-            }
-        }
-
-
-    }
-    Game.scenes[4].applyPlayer2Movement = function (tank, PowerUps, finish) {
-        if (tank.position.x > PowerUps[0].position.x - 11 &&
-            tank.position.x < PowerUps[0].position.x + 11 &&
-            tank.position.z > PowerUps[0].position.z - 11 &&
-            tank.position.z < PowerUps[0].position.z + 11) {
-            tank.particleSystem.start();
-            var temp0 = PowerUps[0].position;
-            PowerUps[0].position = BABYLON.Vector3.Zero();
-
-            glass.play();
-
-            tank.power = RandomPower(tank);
-
-            setTimeout(function () {
-                tank.particleSystem.stop();
-            }, 75);
-
-            setTimeout(function () {
-                PowerUps[0].position = temp0;
-            }, 2000);
-        }
-
-        if (tank.position.x > PowerUps[1].position.x - 11 &&
-            tank.position.x < PowerUps[1].position.x + 11 &&
-            tank.position.z > PowerUps[1].position.z - 11 &&
-            tank.position.z < PowerUps[1].position.z + 11) {
-            tank.particleSystem.start();
-            var temp0 = PowerUps[1].position;
-            PowerUps[1].position = BABYLON.Vector3.Zero();
-
-            glass.play();
-
-            tank.power = RandomPower(tank);
-
-            setTimeout(function () {
-                tank.particleSystem.stop();
-            }, 75);
-
-            setTimeout(function () {
-                PowerUps[1].position = temp0;
-            }, 2000);
-        }
-
-        if (tank.position.x > PowerUps[2].position.x - 11 &&
-            tank.position.x < PowerUps[2].position.x + 11 &&
-            tank.position.z > PowerUps[2].position.z - 11 &&
-            tank.position.z < PowerUps[2].position.z + 11) {
-            tank.particleSystem.start();
-            var temp0 = PowerUps[2].position;
-            PowerUps[2].position = BABYLON.Vector3.Zero();
-
-            glass.play();
-
-            tank.power = RandomPower(tank);
-
-            setTimeout(function () {
-                tank.particleSystem.stop();
-            }, 75);
-
-            setTimeout(function () {
-                PowerUps[2].position = temp0;
-            }, 2000);
-        }
-
-        if (tank.position.x > PowerUps[3].position.x - 11 &&
-            tank.position.x < PowerUps[3].position.x + 11 &&
-            tank.position.z > PowerUps[3].position.z - 11 &&
-            tank.position.z < PowerUps[3].position.z + 11) {
-            tank.particleSystem.start();
-            var temp0 = PowerUps[3].position;
-            PowerUps[3].position = BABYLON.Vector3.Zero();
-
-            glass.play();
-
-            tank.power = RandomPower(tank);
-
-            setTimeout(function () {
-                tank.particleSystem.stop();
-            }, 75);
-
-            setTimeout(function () {
-                PowerUps[3].position = temp0;
-            }, 2000);
-        }
-
-        if (tank.position.x > PowerUps[4].position.x - 11 &&
-            tank.position.x < PowerUps[4].position.x + 11 &&
-            tank.position.z > PowerUps[4].position.z - 11 &&
-            tank.position.z < PowerUps[4].position.z + 11) {
-            tank.particleSystem.start();
-            var temp0 = PowerUps[4].position;
-            PowerUps[4].position = BABYLON.Vector3.Zero();
-
-            glass.play();
-
-            tank.power = RandomPower(tank);
-
-            setTimeout(function () {
-                tank.particleSystem.stop();
-            }, 75);
-
-            setTimeout(function () {
-                PowerUps[4].position = temp0;
-            }, 2000);
-        }
-
-        if (tank.position.x > PowerUps[5].position.x - 11 &&
-            tank.position.x < PowerUps[5].position.x + 11 &&
-            tank.position.z > PowerUps[5].position.z - 11 &&
-            tank.position.z < PowerUps[5].position.z + 11) {
-            tank.particleSystem.start();
-            var temp0 = PowerUps[5].position;
-            PowerUps[5].position = BABYLON.Vector3.Zero();
-
-            glass.play();
-
-            tank.power = RandomPower(tank);
-
-            setTimeout(function () {
-                tank.particleSystem.stop();
-            }, 75);
-
-            setTimeout(function () {
-                PowerUps[5].position = temp0;
-            }, 2000);
-        }
-
-        if (tank.position.x > PowerUps[6].position.x - 11 &&
-            tank.position.x < PowerUps[6].position.x + 11 &&
-            tank.position.z > PowerUps[6].position.z - 11 &&
-            tank.position.z < PowerUps[6].position.z + 11) {
-            tank.particleSystem.start();
-            var temp0 = PowerUps[6].position;
-            PowerUps[6].position = BABYLON.Vector3.Zero();
-
-            glass.play();
-
-            tank.power = RandomPower(tank);
-
-            setTimeout(function () {
-                tank.particleSystem.stop();
-            }, 75);
-
-            setTimeout(function () {
-                PowerUps[6].position = temp0;
-            }, 2000);
-        }
-        if (tank.health == 0) {
-            isGameOver = true;
-            window.open("http://localhost:8000/black.html","_self");;
-        }
-        if (tank.position.x > PowerUps[7].position.x - 11 &&
-            tank.position.x < PowerUps[7].position.x + 11 &&
-            tank.position.z > PowerUps[7].position.z - 11 &&
-            tank.position.z < PowerUps[7].position.z + 11) {
-            tank.particleSystem.start();
-            var temp0 = PowerUps[7].position;
-            PowerUps[7].position = BABYLON.Vector3.Zero();
-
-            glass.play();
-
-            tank.power = RandomPower(tank);
-
-            setTimeout(function () {
-                tank.particleSystem.stop();
-            }, 75);
-
-            setTimeout(function () {
-                PowerUps[7].position = temp0;
-            }, 2000);
-        }
-        if (!isGameOver) {
-            if (isIPressed) {
-                tank.moveWithCollisions(tank.frontVector.multiplyByFloats(tank.speed, 3, tank.speed));
-            }
-
-            if (isKPressed) {
-                tank.moveWithCollisions(tank.frontVector.multiplyByFloats(-tank.speed, 3, -tank.speed));
-            }
-
-            if (isLPressed) {
-                tank.rotation.y += 0.1 * tank.rotationSensitivity;
-                tank.frontVector.x = Math.sin(tank.rotation.y) * -1;
-                tank.frontVector.z = Math.cos(tank.rotation.y) * -1;
-            }
-
-            if (isJPressed) {
-                tank.rotation.y -= 0.1 * tank.rotationSensitivity;
-                tank.frontVector.x = Math.sin(tank.rotation.y) * -1;
-                tank.frontVector.z = Math.cos(tank.rotation.y) * -1;
-            }
-        }
-
-        if (isOPressed) {
-            console.log(tank.position);
-            console.log(tank.laps);
-            console.log(tank.passedCheckpoint);
-            console.log(tank.power);
-            console.log(Goo.length);
-            console.log(madafe3.length);
-            if (tank.power === "CannonBall") {
-                var cannonball = BABYLON.Mesh.CreateSphere("cannonball", 3, 20, scene, false);
-                var cannonMat = new BABYLON.StandardMaterial("cannonMat", scene);
-                cannonMat.diffuseColor = new BABYLON.Color3.Black;
-                cannonball.material = cannonMat;
-
-                cannonsound.play();
-                setTimeout(function () {
-                    cannonsound.stop();
-                }, 1000);
-
-                cannonball.position = tank.position.add(BABYLON.Vector3.Zero().add(tank.frontVector.normalize().multiplyByFloats(20, 0, 20)));
-                cannonball.position.y += 5;
-
-                cannonball.physicsImpostor = new BABYLON.PhysicsImpostor(cannonball, BABYLON.PhysicsImpostor.SphereImpostor, { mass: 5, friction: 10, restitution: .2 }, scene);
-                cannonball.physicsImpostor.setLinearVelocity(BABYLON.Vector3.Zero().add(tank.frontVector.normalize().multiplyByFloats(200, 0, 200)));
-                madafe3.push(cannonball);
-                setTimeout(function () {
-                    madafe3.splice(cannonball);
-                    cannonball.dispose();
-                }, 2000);
-                tank.power = "none";
-            }
-            else if (tank.power === "SpeedBuff") {
-                speedsound.play();
-                tank.speed *= 1.5;
-                tank.power = "none";
-                var color = tank.material.diffuseColor;
-                var ani = scene.beginAnimation(tank, 0, 180, true);
-                setTimeout(function () {
-                    tank.speed /= 1.5;
-                    speedsound.stop();
-                    ani.stop();
-                    tank.material.diffuseColor = color;
-                }, 3000);
-            }
-            else if (tank.power === "SpeedNerf") {
-                tank.speed /= 1.5;
-                tank.power = "none";
-                slowsound.play();
-                setTimeout(function () {
-                    tank.speed *= 1.5;
-                    slowsound.stop();
-                }, 3000);
-            }
-            else if (tank.power === "GooStain") {
-                splat.play();
-                var goo = new BABYLON.Mesh.CreateBox("boxsss", 20, scene);
-                goo.position = tank.position.add(BABYLON.Vector3.Zero().add(tank.frontVector.normalize().multiplyByFloats(-50, 0, -50)));
-                goo.position.y = -9;
-                goo.material = new BABYLON.StandardMaterial("target", scene);
-                goo.material.diffuseTexture = new BABYLON.Texture("images/goo.png", scene);
-                goo.material.diffuseTexture.hasAlpha = true;
-                Goo.push(goo);
-                tank.power = "none";
-            }
-            else if (tank.power === "healthUp") {
-                HPUp.play();
-                if (tank.health + 10 >= 100)
-                    tank.health = 100;
-                else
-                    tank.health += 10;
-                updateHealthText(tank);
-                tank.power = "none";
-            }
-        }
-
-
-    }
-
-    Game.scenes[4].renderLoop = function () {
-        this.applyPlayer1Movement(tank[0], PowerUps, finish);
-        this.applyPlayer2Movement(tank[1], PowerUps, finish);
-        this.touchGoo(tank[0]);
-        this.touchGoo(tank[1]);
-        this.touchCannon(tank[0]);
-        this.touchCannon(tank[1]);
-        this.render();
-    }
-    return scene;
-}
-
 document.addEventListener("keydown", function (event) {
 
     if (event.key === 'a' || event.key === 'A') {
@@ -2748,12 +2309,6 @@ document.addEventListener("keydown", function (event) {
     }
     if (event.key === 'o' || event.key === 'O') {
         isOPressed = true;
-    }
-    if (event.key === 'l' || event.key === 'L') {
-        isLPressed = true;
-    }
-    if (event.key === ' ') {
-        isSpacePressed = true;
     }
 });
 
@@ -2792,13 +2347,10 @@ document.addEventListener("keyup", function (event) {
     if (event.key === 'l' || event.key === 'L') {
         isLPressed = false;
     }
-    if (event.key === ' ') {
-        isSpacePressed = false;
-    }
 });
 
-function createGround(ur1, ur2,maxH, scene) {
-    var ground = new BABYLON.Mesh.CreateGroundFromHeightMap("G" + Game.activeScene, ur1, 2000, 2000, 50, 0, maxH, scene, false);
+function createGround(ur1, ur2, scene) {
+    var ground = new BABYLON.Mesh.CreateGroundFromHeightMap("G" + Game.activeScene, ur1, 2000, 2000, 50, 0, 75, scene, false);
     var groundMaterial = new BABYLON.StandardMaterial("M" + Game.activeScene, scene);
     groundMaterial.diffuseTexture = new BABYLON.Texture(ur2, scene);
     ground.material = groundMaterial;
@@ -2960,32 +2512,17 @@ function createHero(color,gameMode, scene) {
         var textPlaneTexture1 = new BABYLON.DynamicTexture("dynamic texture", 2048, scene, true);
         textPlaneTexture1.drawText(tank.laps, null, 1000, "bold 1000px verdana", "white", "transparent");
         textPlaneTexture1.hasAlpha = true;
+
         tank.textPlane = BABYLON.Mesh.CreatePlane("textPlane", 10, scene, false);
         tank.textPlane.billboardMode = BABYLON.AbstractMesh.BILLBOARDMODE_ALL;
         tank.textPlane.material = new BABYLON.StandardMaterial("textPlane", scene);
         tank.textPlane.parent = tank;
         tank.textPlane.position.y += 3;
+
         tank.textPlane.material.diffuseTexture = textPlaneTexture1;
         tank.textPlane.material.specularColor = new BABYLON.Color3(0, 0, 0);
         tank.textPlane.material.emissiveColor = new BABYLON.Color3(1, 1, 1);
         tank.textPlane.material.backFaceCulling = false;
-    }
-    if (gameMode == "fight")
-    {
-        var textPlaneTexture2 = new BABYLON.DynamicTexture("dynamic texture", 2048, scene, true);
-        textPlaneTexture2.drawText(tank.health, null, 1000, "bold 1000px verdana", "white", "transparent");
-        textPlaneTexture2.hasAlpha = true;
-
-
-        tank.healthText = BABYLON.Mesh.CreatePlane("healthText", 10, scene, false);
-        tank.healthText.billboardMode = BABYLON.AbstractMesh.BILLBOARDMODE_ALL;
-        tank.healthText.material = new BABYLON.StandardMaterial("healthText", scene);
-        tank.healthText.parent = tank;
-        tank.healthText.position.y += 3;
-        tank.healthText.material.diffuseTexture = textPlaneTexture2;
-        tank.healthText.material.specularColor = new BABYLON.Color3(0, 0, 0);
-        tank.healthText.material.emissiveColor = new BABYLON.Color3(1, 1, 1);
-        tank.healthText.material.backFaceCulling = false;
     }
     return tank;
 }
@@ -2996,15 +2533,6 @@ function updateTextTexture(tank) {
     var size = tank.textPlane.material.diffuseTexture.getSize();
     context.clearRect(0, 0, size.width, size.height);
     tank.textPlane.material.diffuseTexture.drawText(tank.laps, null, 1000, "bold 1000px verdana", "white", "transparent");
-
-}
-
-function updateHealthText(tank){
-    var context = tank.healthText.material.diffuseTexture.getContext();
-    context.save();
-    var size = tank.healthText.material.diffuseTexture.getSize();
-    context.clearRect(0, 0, size.width, size.height);
-    tank.healthText.material.diffuseTexture.drawText(tank.health, null, 1000, "bold 1000px verdana", "white", "transparent");
 }
 
 function createFinishLine(scene, sceneIndex) {
@@ -3410,31 +2938,16 @@ function createSkybox(url, scene) {
 function RandomPower(tank) {
     if (tank.power !== "none")
         return tank.power;
-    if (Game.activeScene < 4) {
-        var r = Math.floor(Math.random() * 4);
-        if (r === 0)
-            return "SpeedBuff";
-        if (r === 1)
-            return "SpeedNerf";
-        if (r === 2)
-            return "CannonBall";
-        if (r === 3)
-            return "GooStain";
-    }
-    else
-    {
-        var r = Math.floor(Math.random() * 4);
-        if (r === 0)
-            return "SpeedBuff";
-        if (r === 1)
-            return "SpeedNerf";
-        if (r === 2)
-            return "CannonBall";
-        if (r === 3)
-            return "GooStain";
-        if (r === 4)
-            return "healthUp";
-    }
+    var r = Math.floor(Math.random() * 4);
+    if (r === 0)
+        return "SpeedBuff";
+    if (r === 1)
+        return "SpeedNerf";
+    if (r === 2)
+        return "CannonBall";
+    if (r === 3)
+        return "GooStain";
+
 }
 
 function createModeText(portal,gameMode,scene) {
