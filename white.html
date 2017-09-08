@@ -1,33 +1,44 @@
-﻿<html>
-<head>
-<title>white wins</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-</head>
-<body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>Winner!</title>
+		<link rel="stylesheet" href="css/bootstrap.min.css"/>
+		<link rel="stylesheet" href="fonts/fonts.css"/>
+		<link rel="stylesheet" href="css/blackandwhite.css"/>
+	</head>
+<body>
 
-<audio autoplay src="sound/victory.mp3" type="audio/mpeg"></audio>
+		<h1 class="main-font title">White WINS!</h1>
+		<ul id="main-menu"></ul>
+		<div id="loading">
+			<img id="loading-img" width="120" src="img/loading.gif"/>
+			<h2 class="main-font">Loading...</h2>
+		</div>
+		
 
+		
+		<div id="assets">
+			<audio id="sfx-background" loop>
+				<source src=""></source>
+			</audio>
+					<audio autoplay src="sound/victory.mp3" type="audio/mpeg">
+			</audio>
+			<audio id="sfx-select">
+				<source src="sound/menu_select_1.ogg"></source>
+				<source src="sound/menu_select_1.mp3"></source>
+			</audio>
+			<audio id="sfx-move">
+				<source src="sound/menu_move_1.ogg"></source>
+				<source src="sound/menu_move_1.mp3"></source>
+			</audio>
+		</div>
+		
 
-<!-- Save for Web Slices (white wins) -->
-<table id="Table_01" width="1495" height="760" border="0" cellpadding="0" cellspacing="0">
-	<tr>
-		<td colspan="3">
-			<img src="images/white_01.gif" width="1495" height="333" alt=""></td>
-	</tr>
-	<tr>
-		<td rowspan="2">
-			<img src="images/white_02.gif" width="477" height="427" alt=""></td>
-		<td>
-			<a href="/index.html">
-				<img src="images/returnwhite.gif" width="670" height="87" border="0" alt=""></a></td>
-		<td rowspan="2">
-			<img src="images/white_04.gif" width="348" height="427" alt=""></td>
-	</tr>
-	<tr>
-		<td>
-			<img src="images/white_05.gif" width="670" height="340" alt=""></td>
-	</tr>
-</table>
-<!-- End Save for Web Slices -->
 </body>
+
+<script src="js/jquery-2.1.4.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/blackandwhite.js"></script>
+
 </html>

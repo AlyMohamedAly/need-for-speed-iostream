@@ -1,33 +1,44 @@
-﻿<html>
-<head>
-<title>Untitled-1</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-</head>
-<body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>Winner!</title>
+		<link rel="stylesheet" href="css/bootstrap.min.css"/>
+		<link rel="stylesheet" href="fonts/fonts.css"/>
+		<link rel="stylesheet" href="css/blackandwhite.css"/>
+	</head>
+<body>
 
-<audio autoplay src="sound/victory.mp3" type="audio/mpeg"></audio>
+		<h1 class="main-font title1">Black WINS!</h1>
+		<ul id="main-menu"></ul>
+		<div id="loading">
+			<img id="loading-img" width="120" src="img/loading.gif"/>
+			<h2 class="main-font">Loading...</h2>
+		</div>
+		
 
+		
+		<div id="assets">
+			<audio id="sfx-background" loop>
+				<source src=""></source>
+			</audio>
+					<audio autoplay src="sound/victory.mp3" type="audio/mpeg">
+			</audio>
+			<audio id="sfx-select">
+				<source src="sound/menu_select_1.ogg"></source>
+				<source src="sound/menu_select_1.mp3"></source>
+			</audio>
+			<audio id="sfx-move">
+				<source src="sound/menu_move_1.ogg"></source>
+				<source src="sound/menu_move_1.mp3"></source>
+			</audio>
+		</div>
+		
 
-<!-- Save for Web Slices (Untitled-1) -->
-<table id="Table_01" width="1495" height="760" border="0" cellpadding="0" cellspacing="0">
-	<tr>
-		<td colspan="3">
-			<img src="images/black_01.gif" width="1495" height="330" alt=""></td>
-	</tr>
-	<tr>
-		<td rowspan="2">
-			<img src="images/black_02.gif" width="475" height="430" alt=""></td>
-		<td>
-			<a href="/index.html">
-				<img src="images/returnblack.gif" width="675" height="87" border="0" alt=""></a></td>
-		<td rowspan="2">
-			<img src="images/black_04.gif" width="345" height="430" alt=""></td>
-	</tr>
-	<tr>
-		<td>
-			<img src="images/black_05.gif" width="675" height="343" alt=""></td>
-	</tr>
-</table>
-<!-- End Save for Web Slices -->
 </body>
+
+<script src="js/jquery-2.1.4.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/blackandwhite.js"></script>
+
 </html>

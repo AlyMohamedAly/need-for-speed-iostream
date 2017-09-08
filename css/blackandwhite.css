@@ -1,6 +1,6 @@
 
 body { 
-  background: url("../img/background/background.jpg") no-repeat center center fixed; 
+  background: url("../img/background/blackandwhite.jpg") no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -17,20 +17,25 @@ h1{O
 	position:relative;
 	top:60px;
 	right:5px;
-	font-size:90px;
+	font-size:200px;
 }
 
-.main-font{
-	font-family: '8-bit_limit_brkregular';
+.title1{
+	color:black;
+	position:relative;
+	top:60px;
+	right:5px;
+	font-size:200px;
 }
+
 
 #main-menu{
-	color:#FFF;
+	color:#0000FF;
 	list-style-type: none;
 	margin:0 auto;
 	/*display:none;*/
 	position:relative;
-	top:100px;
+	top:400px;
 	right:25px;
 	font-size:60px;
 	font-family: '8-bit_limit_brkregular';
@@ -38,7 +43,7 @@ h1{O
 }
 
 .sub-menu{
-	color:#FFF;
+	color:#0000FF;
 	list-style-type: none;
 	margin:0 auto;
 	display:none;
@@ -52,18 +57,6 @@ h1{O
 }
 
 
-.back{
-	text-align:center;
-	color:#FFF;
-	list-style-type: none;
-	margin:0 auto;
-	display:none;
-	position:relative;
-	font-size:40px;
-	font-family: '8-bit_limit_brkregular';
-	display:inline-block;
-	cursor:pointer;
-}
 
 .sub-menu-opt small{
 	font-size:20px;
@@ -81,6 +74,7 @@ h1{O
 	color:blue;
 }
 
+
 #loading {
 	position:relative;
 	top:50px;
@@ -94,26 +88,4 @@ h1{O
 	color:white;
 }
 
-#credits{
-	color:#ff0000;
-	list-style-type: none;
-	margin:0 auto;
-	display:none;
-	position:relative;
-	top:40px;
-	right:25px;
-	font-size:60px;
-
-}
-#guide{
-	color:#ff0000;
-	list-style-type: none;
-	margin:0 auto;
-	display:none;
-	position:relative;
-	top:40px;
-	right:25px;
-	font-size:60px;
-
-}
 
