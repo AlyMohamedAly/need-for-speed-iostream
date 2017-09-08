@@ -153,7 +153,7 @@ Game.ChooseScene = function () {
             tank.position.x < map1.position.x + 5 &&
             tank.position.z > map1.position.z - 5 &&
             tank.position.z < map1.position.z + 5
-            && isEPressed) {
+            && isOPressed && !isEPressed) {
             raceMusic0.stop();
             raceMusic1.play();
             Game.activeScene = 1;
@@ -163,7 +163,7 @@ Game.ChooseScene = function () {
             tank.position.x < map2.position.x + 5 &&
             tank.position.z > map2.position.z - 5 &&
             tank.position.z < map2.position.z + 5
-            && isEPressed) {
+            && isOPressed && !isEPressed) {
             raceMusic0.stop();
             raceMusic2.play();
             Game.activeScene = 2;
@@ -172,7 +172,7 @@ Game.ChooseScene = function () {
             tank.position.x < map3.position.x + 5 &&
             tank.position.z > map3.position.z - 5 &&
             tank.position.z < map3.position.z + 5
-            && isEPressed) {
+            && isOPressed && !isEPressed) {
             raceMusic0.stop();
             raceMusic3.play();
             Game.activeScene = 3;
