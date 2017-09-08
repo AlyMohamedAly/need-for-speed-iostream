@@ -153,22 +153,30 @@ Game.ChooseScene = function () {
             tank.position.x < map1.position.x + 5 &&
             tank.position.z > map1.position.z - 5 &&
             tank.position.z < map1.position.z + 5
-            && isEPressed)
+            && isEPressed) {
+            raceMusic0.stop();
+            raceMusic1.play();
             Game.activeScene = 1;
+        }
 
         if (tank.position.x > map2.position.x - 5 &&
             tank.position.x < map2.position.x + 5 &&
             tank.position.z > map2.position.z - 5 &&
             tank.position.z < map2.position.z + 5
-            && isEPressed)
+            && isEPressed) {
+            raceMusic0.stop();
+            raceMusic2.play();
             Game.activeScene = 2;
-
+        }
         if (tank.position.x > map3.position.x - 5 &&
             tank.position.x < map3.position.x + 5 &&
             tank.position.z > map3.position.z - 5 &&
             tank.position.z < map3.position.z + 5
-            && isEPressed)
+            && isEPressed) {
+            raceMusic0.stop();
+            raceMusic3.play();
             Game.activeScene = 3;
+        }
 
         if (isIPressed) {
             tank.moveWithCollisions(tank.frontVector.multiplyByFloats(tank.speed, 3, tank.speed));
@@ -232,6 +240,7 @@ Game.createFirstScene = function () {
     var speedsound = new BABYLON.Sound("can", "sounds/Item Box Sound3.mp3", scene, null, { loop: false, autoplay: false });
     var slowsound = new BABYLON.Sound("can", "sounds/Sitcom Laughter Applause2.mp3", scene, null, { loop: false, autoplay: false });
     var splat = new BABYLON.Sound("can", "sounds/Splat.mp3", scene, null, { loop: false, autoplay: false });
+
     Game.scenes[1].touchGoo = function (tank) {
         var sz = Goo.length;
         for (var i = 0; i < sz; i++) {
@@ -572,7 +581,7 @@ Game.createFirstScene = function () {
 
 
     }
-    Game.scenes[1].applyPlayer2Movement = function (tank, PowerUps, finish) {
+    Game.scenes[1].applyPlayer2Movement = function (tank, PowerUps, finish ) {
         if (tank.position.x >= -876 && tank.position.x <= -575 && tank.position.z >= -126 && tank.position.z <= -122) {
             tank.passedCheckpoint = true;
         }
@@ -2947,7 +2956,6 @@ function RandomPower(tank) {
         return "CannonBall";
     if (r === 3)
         return "GooStain";
-
 }
 
 function createModeText(portal,gameMode,scene) {
