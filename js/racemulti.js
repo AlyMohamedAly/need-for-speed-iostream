@@ -240,6 +240,7 @@ Game.createFirstScene = function () {
     var speedsound = new BABYLON.Sound("can", "sounds/Item Box Sound3.mp3", scene, null, { loop: false, autoplay: false });
     var slowsound = new BABYLON.Sound("can", "sounds/Sitcom Laughter Applause2.mp3", scene, null, { loop: false, autoplay: false });
     var splat = new BABYLON.Sound("can", "sounds/Splat.mp3", scene, null, { loop: false, autoplay: false });
+    var teleport = new BABYLON.Sound("can", "sounds/Portal.mp3", scene, null, { loop: false, autoplay: false });
 
     Game.scenes[1].touchGoo = function (tank) {
         var sz = Goo.length;
@@ -275,7 +276,7 @@ Game.createFirstScene = function () {
 
     }
 
-    Game.scenes[1].applyPlayer1Movement = function (tank, PowerUps, finish) {
+    Game.scenes[1].applyPlayer1Movement = function (tank, PowerUps, finish ,tank2) {
         if (tank.position.x >= -876 && tank.position.x <= -575 && tank.position.z >= -126 && tank.position.z <= -122) {
             tank.passedCheckpoint = true;
         }
@@ -577,11 +578,19 @@ Game.createFirstScene = function () {
                 Goo.push(goo);
                 tank.power = "none";
             }
+            else if (tank.power === "Switch") {
+                teleport.play();
+                var temp1 = tank.position;
+                var temp2 = tank2.position;
+                tank.position = temp2;
+                tank2.position = temp1;
+                tank.power = "none";
+            }
         }
 
 
     }
-    Game.scenes[1].applyPlayer2Movement = function (tank, PowerUps, finish ) {
+    Game.scenes[1].applyPlayer2Movement = function (tank, PowerUps, finish, tank2) {
         if (tank.position.x >= -876 && tank.position.x <= -575 && tank.position.z >= -126 && tank.position.z <= -122) {
             tank.passedCheckpoint = true;
         }
@@ -893,14 +902,22 @@ Game.createFirstScene = function () {
                 Goo.push(goo);
                 tank.power = "none";
             }
+            else if (tank.power === "Switch") {
+                teleport.play();
+                var temp1 = tank.position;
+                var temp2 = tank2.position;
+                tank.position = temp2;
+                tank2.position = temp1;
+                tank.power = "none";
+            }
         }
 
 
     }
 
     Game.scenes[1].renderLoop = function () {
-        this.applyPlayer1Movement(tank[0], PowerUps, finish);
-        this.applyPlayer2Movement(tank[1], PowerUps, finish);
+        this.applyPlayer1Movement(tank[0], PowerUps, finish, tank[1]);
+        this.applyPlayer2Movement(tank[1], PowerUps, finish, tank[0]);
         this.touchGoo(tank[0]);
         this.touchGoo(tank[1]);
         this.touchCannon(tank[0]);
@@ -948,6 +965,7 @@ Game.createSecondScene = function () {
     var speedsound = new BABYLON.Sound("can", "sounds/Item Box Sound3.mp3", scene, null, { loop: false, autoplay: false });
     var slowsound = new BABYLON.Sound("can", "sounds/Sitcom Laughter Applause2.mp3", scene, null, { loop: false, autoplay: false });
     var splat = new BABYLON.Sound("can", "sounds/Splat.mp3", scene, null, { loop: false, autoplay: false });
+    var teleport = new BABYLON.Sound("can", "sounds/Portal.mp3", scene, null, { loop: false, autoplay: false });
 
     Game.scenes.push(scene);
 
@@ -985,7 +1003,7 @@ Game.createSecondScene = function () {
 
     }
 
-    Game.scenes[2].applyPlayer1Movement = function (tank, PowerUps, finish) {
+    Game.scenes[2].applyPlayer1Movement = function (tank, PowerUps, finish, tank2) {
         if (tank.position.x >= -876 && tank.position.x <= -575 && tank.position.z >= -126 && tank.position.z <= -122) {
             tank.passedCheckpoint = true;
         }
@@ -1284,12 +1302,20 @@ Game.createSecondScene = function () {
                 Goo.push(goo);
                 tank.power = "none";
             }
+            else if (tank.power === "Switch") {
+                teleport.play();
+                var temp1 = tank.position;
+                var temp2 = tank2.position;
+                tank.position = temp2;
+                tank2.position = temp1;
+                tank.power = "none";
+            }
         }
 
 
     }
 
-    Game.scenes[2].applyPlayer2Movement = function (tank, PowerUps, finish) {
+    Game.scenes[2].applyPlayer2Movement = function (tank, PowerUps, finish, tank2) {
         if (tank.position.x >= -876 && tank.position.x <= -575 && tank.position.z >= -126 && tank.position.z <= -122) {
             tank.passedCheckpoint = true;
         }
@@ -1588,14 +1614,22 @@ Game.createSecondScene = function () {
                 Goo.push(goo);
                 tank.power = "none";
             }
+            else if (tank.power === "Switch") {
+                teleport.play();
+                var temp1 = tank.position;
+                var temp2 = tank2.position;
+                tank.position = temp2;
+                tank2.position = temp1;
+                tank.power = "none";
+            }
         }
 
 
     }
 
     Game.scenes[2].renderLoop = function () {
-        this.applyPlayer1Movement(tank[0], PowerUps, finish);
-        this.applyPlayer2Movement(tank[1], PowerUps, finish);
+        this.applyPlayer1Movement(tank[0], PowerUps, finish, tank[1]);
+        this.applyPlayer2Movement(tank[1], PowerUps, finish, tank[0]);
         this.touchGoo(tank[0]);
         this.touchGoo(tank[1]);
         this.touchCannon(tank[0]);
@@ -1636,6 +1670,8 @@ Game.createThirdScene = function () {
     var speedsound = new BABYLON.Sound("can", "sounds/Item Box Sound3.mp3", scene, null, { loop: false, autoplay: false });
     var slowsound = new BABYLON.Sound("can", "sounds/Sitcom Laughter Applause2.mp3", scene, null, { loop: false, autoplay: false });
     var splat = new BABYLON.Sound("can", "sounds/Splat.mp3", scene, null, { loop: false, autoplay: false });
+    var teleport = new BABYLON.Sound("can", "sounds/Portal.mp3", scene, null, { loop: false, autoplay: false });
+
     Game.scenes.push(scene);
 
     Game.scenes[3].touchGoo = function (tank) {
@@ -1672,7 +1708,7 @@ Game.createThirdScene = function () {
 
     }
 
-    Game.scenes[3].applyPlayer1Movement = function (tank, PowerUps, finish) {
+    Game.scenes[3].applyPlayer1Movement = function (tank, PowerUps, finish, tank2) {
         if (tank.position.x >= 224 && tank.position.x <= 243 && tank.position.z >= -837 && tank.position.z <= -642) {
             tank.passedCheckpoint = true;
         }
@@ -1968,11 +2004,19 @@ Game.createThirdScene = function () {
                 Goo.push(goo);
                 tank.power = "none";
             }
+            else if (tank.power === "Switch") {
+                teleport.play();
+                var temp1 = tank.position;
+                var temp2 = tank2.position;
+                tank.position = temp2;
+                tank2.position = temp1;
+                tank.power = "none";
+            }
         }
 
 
     }
-    Game.scenes[3].applyPlayer2Movement = function (tank, PowerUps, finish) {
+    Game.scenes[3].applyPlayer2Movement = function (tank, PowerUps, finish, tank2) {
         if (tank.position.x >= -876 && tank.position.x <= -575 && tank.position.z >= -126 && tank.position.z <= -122) {
             tank.passedCheckpoint = true;
         }
@@ -2271,13 +2315,21 @@ Game.createThirdScene = function () {
                 Goo.push(goo);
                 tank.power = "none";
             }
+            else if (tank.power === "Switch") {
+                teleport.play();
+                var temp1 = tank.position;
+                var temp2 = tank2.position;
+                tank.position = temp2;
+                tank2.position = temp1;
+                tank.power = "none";
+            }
         }
 
 
     }
     Game.scenes[3].renderLoop = function () {
-        this.applyPlayer1Movement(tank[0], PowerUps, finish);
-        this.applyPlayer2Movement(tank[1], PowerUps, finish);
+        this.applyPlayer1Movement(tank[0], PowerUps, finish, tank[1]);
+        this.applyPlayer2Movement(tank[1], PowerUps, finish, tank[0]);
         this.touchGoo(tank[0]);
         this.touchGoo(tank[1]);
         this.touchCannon(tank[0]);
@@ -2947,7 +2999,7 @@ function createSkybox(url, scene) {
 function RandomPower(tank) {
     if (tank.power !== "none")
         return tank.power;
-    var r = Math.floor(Math.random() * 4);
+    var r = Math.floor(Math.random() * 5);
     if (r === 0)
         return "SpeedBuff";
     if (r === 1)
@@ -2956,6 +3008,8 @@ function RandomPower(tank) {
         return "CannonBall";
     if (r === 3)
         return "GooStain";
+    if (r === 4)
+        return "Switch";
 }
 
 function createModeText(portal,gameMode,scene) {
