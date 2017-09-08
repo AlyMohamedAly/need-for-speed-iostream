@@ -60,6 +60,7 @@ Game.ChooseScene = function () {
     tank[0].speed /= 5;
     tank[1].position = new BABYLON.Vector3(-14, 1, 13);
     tank[1].speed /= 5;
+
     var followCamera2 = createFollowCamera(tank[0], scene);
     var followCamera = createFollowCamera(tank[1], scene);
     scene.activeCameras.push(followCamera);
@@ -88,9 +89,9 @@ Game.ChooseScene = function () {
     map3.material = map3mat;
     map3.position = new BABYLON.Vector3(142, 5, 12);
 
-    createModeText(map1, "race",scene);
-    createModeText(map2, "race",scene);
-    createModeText(map3, "race",scene);
+    createModeText(map1, "Easy",scene);
+    createModeText(map2, "Normal",scene);
+    createModeText(map3, "Hard",scene);
     
     var raceMusic1 = new BABYLON.Sound("racemusic", "sounds/Luigi Circuit & Mario Circuit.mp3", scene, null, { loop: true, autoplay: false });
     var raceMusic2 = new BABYLON.Sound("racemusic", "sounds/Warios Gold Mine.mp3", scene, null, { loop: true, autoplay: false });
@@ -129,11 +130,11 @@ Game.ChooseScene = function () {
         }
 
         if (isWPressed) {
-            tank.moveWithCollisions(tank.frontVector.multiplyByFloats(tank.speed, 3, tank.speed));
+            tank.moveWithCollisions(tank.frontVector.multiplyByFloats(tank.speed, 0, tank.speed));
         }
 
         if (isSPressed) {
-            tank.moveWithCollisions(tank.frontVector.multiplyByFloats(-tank.speed, 3, -tank.speed));
+            tank.moveWithCollisions(tank.frontVector.multiplyByFloats(-tank.speed, 0, -tank.speed));
         }
 
         if (isDPressed) {
@@ -179,11 +180,11 @@ Game.ChooseScene = function () {
         }
 
         if (isIPressed) {
-            tank.moveWithCollisions(tank.frontVector.multiplyByFloats(tank.speed, 3, tank.speed));
+            tank.moveWithCollisions(tank.frontVector.multiplyByFloats(tank.speed, 0, tank.speed));
         }
 
         if (isKPressed) {
-            tank.moveWithCollisions(tank.frontVector.multiplyByFloats(-tank.speed, 3, -tank.speed));
+            tank.moveWithCollisions(tank.frontVector.multiplyByFloats(-tank.speed, 0, -tank.speed));
         }
 
         if (isLPressed) {
@@ -225,13 +226,13 @@ Game.createFirstScene = function () {
     tank[1].position = new BABYLON.Vector3(632, 1, 430);
     var followCamera2 = createFollowCamera(tank[0], scene);
     var followCamera = createFollowCamera(tank[1], scene);
+
     scene.activeCameras.push(followCamera);
     scene.activeCameras.push(followCamera2);
     followCamera.attachControl(canvas);
     followCamera.viewport = new BABYLON.Viewport(0, 0, 1, 0.5);
     followCamera2.viewport = new BABYLON.Viewport(0, 0.5, 1, 0.5);
 
-    Game.scenes.push(scene);
     var slip = new BABYLON.Sound("can", "sounds/Cartoon Slip.mp3", scene, null, { loop: false, autoplay: false });
     var boom = new BABYLON.Sound("can", "sounds/Punch.mp3", scene, null, { loop: false, autoplay: false });
     var glass = new BABYLON.Sound("broken", "sounds/Glass Vase-trimmed.mp3", scene, null, { loop: false, autoplay: false });
@@ -241,6 +242,8 @@ Game.createFirstScene = function () {
     var slowsound = new BABYLON.Sound("can", "sounds/Sitcom Laughter Applause2.mp3", scene, null, { loop: false, autoplay: false });
     var splat = new BABYLON.Sound("can", "sounds/Splat.mp3", scene, null, { loop: false, autoplay: false });
     var teleport = new BABYLON.Sound("can", "sounds/Portal.mp3", scene, null, { loop: false, autoplay: false });
+
+    Game.scenes.push(scene);
 
     Game.scenes[1].touchGoo = function (tank) {
         var sz = Goo.length;
@@ -298,6 +301,7 @@ Game.createFirstScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+
             if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
                 console.log("White power: " + tank.power);
             else {
@@ -324,6 +328,7 @@ Game.createFirstScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+
             if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
                 console.log("White power: " + tank.power);
             else {
@@ -351,6 +356,7 @@ Game.createFirstScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+
             if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
                 console.log("White power: " + tank.power);
             else {
@@ -377,6 +383,7 @@ Game.createFirstScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+
             if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
                 console.log("White power: " + tank.power);
             else {
@@ -403,6 +410,7 @@ Game.createFirstScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+
             if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
                 console.log("White power: " + tank.power);
             else {
@@ -430,6 +438,7 @@ Game.createFirstScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+
             if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
                 console.log("White power: " + tank.power);
             else {
@@ -457,6 +466,7 @@ Game.createFirstScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+
             if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
                 console.log("White power: " + tank.power);
             else {
@@ -487,6 +497,7 @@ Game.createFirstScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+
             if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
                 console.log("White power: " + tank.power);
             else {
@@ -613,6 +624,7 @@ Game.createFirstScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+
             if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
                 console.log("Black power: " + tank.power);
             else {
@@ -640,6 +652,7 @@ Game.createFirstScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+
             if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
                 console.log("Black power: " + tank.power);
             else {
@@ -667,6 +680,7 @@ Game.createFirstScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+
             if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
                 console.log("Black power: " + tank.power);
             else {
@@ -694,6 +708,7 @@ Game.createFirstScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+
             if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
                 console.log("Black power: " + tank.power);
             else {
@@ -721,6 +736,7 @@ Game.createFirstScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+
             if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
                 console.log("Black power: " + tank.power);
             else {
@@ -748,6 +764,7 @@ Game.createFirstScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+
             if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
                 console.log("Black power: " + tank.power);
             else {
@@ -775,6 +792,7 @@ Game.createFirstScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+
             if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
                 console.log("Black power: " + tank.power);
             else {
@@ -805,6 +823,7 @@ Game.createFirstScene = function () {
             glass.play();
 
             tank.power = RandomPower(tank);
+
             if (tank.power !== "SpeedNerf" && tank.power !== "SpeedBuff")
                 console.log("Black power: " + tank.power);
             else {
@@ -2570,15 +2589,15 @@ function createHero(color,gameMode, scene) {
     tank.particleSystem.emitter = tank;
     if (gameMode == "race")
     {
-        var textPlaneTexture1 = new BABYLON.DynamicTexture("dynamic texture", 2048, scene, true);
+        var textPlaneTexture1 = new BABYLON.DynamicTexture("dynamic texture", 1024, scene, true);
         textPlaneTexture1.drawText(tank.laps, null, 1000, "bold 1000px verdana", "white", "transparent");
         textPlaneTexture1.hasAlpha = true;
 
-        tank.textPlane = BABYLON.Mesh.CreatePlane("textPlane", 10, scene, false);
+        tank.textPlane = BABYLON.Mesh.CreatePlane("textPlane", 5, scene, false);
         tank.textPlane.billboardMode = BABYLON.AbstractMesh.BILLBOARDMODE_ALL;
         tank.textPlane.material = new BABYLON.StandardMaterial("textPlane", scene);
         tank.textPlane.parent = tank;
-        tank.textPlane.position.y += 3;
+        tank.textPlane.position.y += 6;
 
         tank.textPlane.material.diffuseTexture = textPlaneTexture1;
         tank.textPlane.material.specularColor = new BABYLON.Color3(0, 0, 0);
@@ -2595,7 +2614,6 @@ function updateTextTexture(tank) {
     context.clearRect(0, 0, size.width, size.height);
     tank.textPlane.material.diffuseTexture.drawText(tank.laps, null, 1000, "bold 1000px verdana", "white", "transparent");
 }
-
 function createFinishLine(scene, sceneIndex) {
     var finishLine = BABYLON.Mesh.CreateBox("line", 2, scene);
     var finishSign = BABYLON.Mesh.CreateCylinder("cylinder", 50, 3, 3, 12, 1, scene);
@@ -3012,19 +3030,19 @@ function RandomPower(tank) {
         return "Switch";
 }
 
-function createModeText(portal,gameMode,scene) {
-    var textPlaneTexture = new BABYLON.DynamicTexture("dynamic texture", 2048, scene, true);
-    textPlaneTexture.drawText(gameMode, null, 1000, "bold 1000px verdana", "white", "transparent");
-    textPlaneTexture.hasAlpha = true;
+function createModeText(box, msg, scene) {
+    var textPlaneTexture1 = new BABYLON.DynamicTexture("dynamic texture", 4096, scene, true);
+    textPlaneTexture1.drawText(msg, null, 2000, "bold 1000px verdana", "white", "transparent");
+    textPlaneTexture1.hasAlpha = true;
 
-    
-    portal.Mode = BABYLON.Mesh.CreatePlane("healthText", 5  , scene, false);
-    portal.Mode.billboardMode = BABYLON.AbstractMesh.BILLBOARDMODE_ALL;
-    portal.Mode.material = new BABYLON.StandardMaterial("healthText", scene);
-    portal.Mode.parent = portal;
-    portal.Mode.position.y +=5;
-    portal.Mode.material.diffuseTexture = textPlaneTexture;
-    portal.Mode.material.specularColor = new BABYLON.Color3(0, 0, 0);
-    portal.Mode.material.emissiveColor = new BABYLON.Color3(1, 1, 1);
-    portal.Mode.material.backFaceCulling = false;
+    box.textPlane = BABYLON.Mesh.CreatePlane("textPlane", 7, scene, false);
+    box.textPlane.billboardMode = BABYLON.AbstractMesh.BILLBOARDMODE_ALL;
+    box.textPlane.material = new BABYLON.StandardMaterial("textPlane", scene);
+    box.textPlane.parent = box;
+    box.textPlane.position.y += 6;
+
+    box.textPlane.material.diffuseTexture = textPlaneTexture1;
+    box.textPlane.material.specularColor = new BABYLON.Color3(0, 0, 0);
+    box.textPlane.material.emissiveColor = new BABYLON.Color3(1, 1, 1);
+    box.textPlane.material.backFaceCulling = false;
 }
