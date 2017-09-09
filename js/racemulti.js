@@ -33,24 +33,24 @@ document.addEventListener("DOMContentLoaded", startGame, false);
 function startGame() {
     canvas = document.getElementById("renderCanvas");
     engine = new BABYLON.Engine(canvas, true);
-
+    engine.displayLoadingUI();
     Game.ChooseScene();
     Game.createFirstScene();
     Game.createSecondScene();
     Game.createThirdScene();
 
     engine.runRenderLoop(function () {
+        if (Game.scenes[0].isLoaded, Game.scenes[1].isLoaded, Game.scenes[2].isLoaded, Game.scenes[3].isLoaded) {
+            engine.hideLoadingUI();
+        }
+        else return;
         Game.scenes[Game.activeScene].renderLoop();
     });
 }
 
 Game.ChooseScene = function () {
     var scene = new BABYLON.Scene(engine);
-    var ground = new BABYLON.Mesh.CreateGroundFromHeightMap("G0", "images/height1.png", 500, 500, 50, 0, 100, scene, false);
-    var groundMaterial = new BABYLON.StandardMaterial("M0", scene);
-    groundMaterial.diffuseTexture = new BABYLON.Texture("images/OceanSequence.png", scene);
-    ground.material = groundMaterial;
-    ground.checkCollisions = true;
+    var ground = createGround("images/height1.png", "images/OceanSequence.png", scene, false)
 
     var tank = [];
     tank[0] = createHero(new BABYLON.Color3.White, "none", scene);
@@ -210,7 +210,7 @@ Game.ChooseScene = function () {
 Game.createFirstScene = function () {
     var scene = new BABYLON.Scene(engine);
     scene.enablePhysics(new BABYLON.Vector3(0, 0, 0), new BABYLON.CannonJSPlugin());
-    var ground = createGround("images/Untitled2.png", "images/Earth.jpg", scene);
+    var ground = createGround("images/Untitled2.png", "images/Earth.jpg", scene, true);
     var light1 = new BABYLON.HemisphericLight("l1", new BABYLON.Vector3(0, 5, 0), scene);
     var tank = [];
     tank[0] = createHero(new BABYLON.Color3.White, "race", scene);
@@ -951,7 +951,7 @@ Game.createFirstScene = function () {
 Game.createSecondScene = function () {
     var scene = new BABYLON.Scene(engine);
     scene.enablePhysics(new BABYLON.Vector3(0, 0, 0), new BABYLON.CannonJSPlugin());
-    var ground = createGround("images/Track1.png", "images/earth2.jpg", scene);
+    var ground = createGround("images/Track1.png", "images/earth2.jpg", scene ,true);
     var light1 = new BABYLON.HemisphericLight("l1", new BABYLON.Vector3(0, 5, 0), scene);
     var tank = [];
     var tank = [];
@@ -1665,7 +1665,7 @@ Game.createSecondScene = function () {
 Game.createThirdScene = function () {
     var scene = new BABYLON.Scene(engine);
     scene.enablePhysics(new BABYLON.Vector3(0, 0, 0), new BABYLON.CannonJSPlugin());
-    var ground = createGround("images/Track2.png", "images/earth3.jpg", scene);
+    var ground = createGround("images/Track2.png", "images/earth3.jpg", scene, true);
     var light1 = new BABYLON.HemisphericLight("l1", new BABYLON.Vector3(0, 5, 0), scene);
     var tank = [];
     tank[0] = createHero(new BABYLON.Color3.White, "race", scene);
@@ -2435,12 +2435,21 @@ document.addEventListener("keyup", function (event) {
     }
 });
 
-function createGround(ur1, ur2, scene) {
-    var ground = new BABYLON.Mesh.CreateGroundFromHeightMap("G" + Game.activeScene, ur1, 2000, 2000, 50, 0, 75, scene, false);
+function createGround(ur1, ur2, scene, big) {
+    if(big)
+        var ground = new BABYLON.Mesh.CreateGroundFromHeightMap("G" + Game.activeScene, ur1, 2000, 2000, 50, 0, 75, scene, false, onGroundCreated);
+    else
+        var ground = new BABYLON.Mesh.CreateGroundFromHeightMap("G" + Game.activeScene, ur1, 500, 500, 50, 0, 100, scene, false, onGroundCreated);
     var groundMaterial = new BABYLON.StandardMaterial("M" + Game.activeScene, scene);
     groundMaterial.diffuseTexture = new BABYLON.Texture(ur2, scene);
-    ground.material = groundMaterial;
-    ground.checkCollisions = true;
+    
+    function onGroundCreated() {
+        ground.material = groundMaterial;
+        ground.checkCollisions = true;
+        ground.isLoaded = true;
+        scene.isLoaded = true;
+    }
+
     return ground;
 }
 
