@@ -105,7 +105,7 @@ h1{O
 	font-size:60px;
 
 }
-#guide{
+#controls{
 	color:#ff0000;
 	list-style-type: none;
 	margin:0 auto;
@@ -114,6 +114,18 @@ h1{O
 	top:40px;
 	right:25px;
 	font-size:60px;
+
+}
+
+#guide{
+	color:#ff0000;
+	list-style-type: none;
+	margin:0 auto;
+	display:none;
+	position:relative;
+	top:40px;
+	right:25px;
+	font-size:40px;
 
 }
 

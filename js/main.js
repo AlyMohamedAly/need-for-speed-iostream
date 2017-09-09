@@ -24,7 +24,8 @@ $(document).ready(function(e){
 	function backMainMenu(){
 		$( ".sub-menu").hide();
 		$( "#credits").hide();	
-		$( "#guide").hide();	
+		$( "#controls").hide();
+		$( "#guide").hide();			
 		$( "#main-menu" ).fadeIn("slow");
 		return false;
 	};
@@ -80,6 +81,14 @@ $(document).ready(function(e){
 
 				}
 			},
+			controls:{
+				id:"opt-controls",
+				title: "Controls",
+				callback:function(){
+					$("#controls,#back-controls").fadeIn("slow");
+				}
+			},
+
 			guide:{
 				id:"opt-guide",
 				title: "Guide",

@@ -288,6 +288,10 @@ Game.createFirstScene = function () {
             tank.laps++;
             updateTextTexture(tank);
             tank.passedCheckpoint = false;
+            if (tank.laps == 3) {
+                isGameOver = true;
+                window.location.href = "/white.html";
+            }
         }
 
         if (tank.position.x > PowerUps[0].position.x - 11 &&
@@ -481,10 +485,7 @@ Game.createFirstScene = function () {
                 PowerUps[6].position = temp0;
             }, 2000);
         }
-        if (tank.laps == 3) {
-            isGameOver = true;
-            window.location.href = "/white.html";
-        }
+        
         if (tank.position.x > PowerUps[7].position.x - 11 &&
             tank.position.x < PowerUps[7].position.x + 11 &&
             tank.position.z > PowerUps[7].position.z - 11 &&
@@ -610,6 +611,10 @@ Game.createFirstScene = function () {
             tank.laps++;
             updateTextTexture(tank);
             tank.passedCheckpoint = false;
+            if (tank.laps == 3) {
+                isGameOver = true;
+                window.location.href = "/black.html";
+            }
         }
 
         if (tank.position.x > PowerUps[0].position.x - 11 &&
@@ -807,10 +812,7 @@ Game.createFirstScene = function () {
                 PowerUps[6].position = temp0;
             }, 2000);
         }
-        if (tank.laps == 3) {
-            isGameOver = true;
-            window.location.href = "/black.html";
-        }
+        
         if (tank.position.x > PowerUps[7].position.x - 11 &&
             tank.position.x < PowerUps[7].position.x + 11 &&
             tank.position.z > PowerUps[7].position.z - 11 &&
@@ -1031,6 +1033,10 @@ Game.createSecondScene = function () {
             tank.laps++;
             updateTextTexture(tank);
             tank.passedCheckpoint = false;
+            if (tank.laps == 3) {
+                isGameOver = true;
+                window.location.href = "/white.html";
+            }
         }
 
         if (tank.position.x > PowerUps[0].position.x - 11 &&
@@ -1058,10 +1064,7 @@ Game.createSecondScene = function () {
                 PowerUps[0].position = temp0;
             }, 2000);
         }
-        if (tank.laps == 3) {
-            isGameOver = true;
-            window.location.href = "/white.html";
-        }
+        
         if (tank.position.x > PowerUps[1].position.x - 11 &&
             tank.position.x < PowerUps[1].position.x + 11 &&
             tank.position.z > PowerUps[1].position.z - 11 &&
@@ -1343,6 +1346,10 @@ Game.createSecondScene = function () {
             tank.laps++;
             updateTextTexture(tank);
             tank.passedCheckpoint = false;
+            if (tank.laps == 3) {
+                isGameOver = true;
+                window.location.href = "/black.html";
+            }
         }
 
         if (tank.position.x > PowerUps[0].position.x - 11 &&
@@ -1396,10 +1403,7 @@ Game.createSecondScene = function () {
                 PowerUps[1].position = temp0;
             }, 2000);
         }
-        if (tank.laps == 3) {
-            isGameOver = true;
-            window.location.href = "/black.html";
-        }
+        
         if (tank.position.x > PowerUps[2].position.x - 11 &&
             tank.position.x < PowerUps[2].position.x + 11 &&
             tank.position.z > PowerUps[2].position.z - 11 &&
@@ -1736,6 +1740,10 @@ Game.createThirdScene = function () {
             tank.laps++;
             updateTextTexture(tank);
             tank.passedCheckpoint = false;
+            if (tank.laps == 3) {
+                isGameOver = true;
+                window.location.href = "/white.html";
+            }
         }
 
         if (tank.position.x > PowerUps[0].position.x - 11 &&
@@ -1841,10 +1849,7 @@ Game.createThirdScene = function () {
                 PowerUps[3].position = temp0;
             }, 2000);
         }
-        if (tank.laps == 3) {
-            isGameOver = true;
-            window.location.href = "/white.html";
-        }
+        
         if (tank.position.x > PowerUps[4].position.x - 11 &&
             tank.position.x < PowerUps[4].position.x + 11 &&
             tank.position.z > PowerUps[4].position.z - 11 &&
@@ -2044,6 +2049,10 @@ Game.createThirdScene = function () {
             tank.laps++;
             updateTextTexture(tank);
             tank.passedCheckpoint = false;
+            if (tank.laps == 3) {
+                isGameOver = true;
+                window.location.href = "/black.html";
+            }
         }
 
         if (tank.position.x > PowerUps[0].position.x - 11 &&
@@ -2201,10 +2210,7 @@ Game.createThirdScene = function () {
                 PowerUps[5].position = temp0;
             }, 2000);
         }
-        if (tank.laps == 3) {
-            isGameOver = true;
-            window.location.href = "/black.html";
-        }
+        
         if (tank.position.x > PowerUps[6].position.x - 11 &&
             tank.position.x < PowerUps[6].position.x + 11 &&
             tank.position.z > PowerUps[6].position.z - 11 &&
